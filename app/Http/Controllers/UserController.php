@@ -15,7 +15,7 @@ class UserController extends Controller
         'paterno' => 'required|min:4',
         'ci' => 'required|numeric|digits_between:4, 20|unique:users,ci',
         'ci_exp' => 'required',
-        'tipo' => 'required',
+        'correo' => 'required|email|unique:users,correo',
         'fono' => 'required',
         'dir' => 'required',
     ];
@@ -36,7 +36,6 @@ class UserController extends Controller
         'cel.required' => 'Este campo es obligatorio',
         'cel.min' => 'Debes ingresar al menos 4 carácteres',
         'tipo.required' => 'Este campo es obligatorio',
-        'correo' => 'nullable|email|unique:users,correo',
     ];
 
     public $permisos = [
@@ -63,7 +62,7 @@ class UserController extends Controller
             'notificacions.create',
             'notificacions.edit',
             'notificacions.destroy',
-            
+
             'reportes.proteccion_personal',
             'reportes.g_proteccion_personal',
         ],
@@ -83,23 +82,18 @@ class UserController extends Controller
         }
 
         $request->validate($this->validacion, $this->mensajes);
-        $cont = 0;
-        do {
-            $nombre_usuario = User::getNombreUsuario($request->nombre, $request->paterno);
-            if ($cont > 0) {
-                $nombre_usuario = $nombre_usuario . $cont;
-            }
-            $request['usuario'] = $nombre_usuario;
-            $cont++;
-        } while (User::where('usuario', $nombre_usuario)->get()->first());
         $request['password'] = 'NoNulo';
         $request['fecha_registro'] = date('Y-m-d');
-
+        $request['usuario'] = $request->correo;
+        $request['tipo'] = "ADMINISTRADOR";
+        $request['configuracion'] = 0;
         DB::beginTransaction();
         try {
             // crear el Usuario
             $nuevo_usuario = User::create(array_map('mb_strtoupper', $request->except('foto')));
             $nuevo_usuario->password = Hash::make($request->ci);
+            $nuevo_usuario->usuario = mb_strtolower($nuevo_usuario->usuario);
+            $nuevo_usuario->correo = mb_strtolower($nuevo_usuario->correo);
             $nuevo_usuario->save();
             $nuevo_usuario->foto = 'default.png';
             if ($request->hasFile('foto')) {
@@ -129,7 +123,7 @@ class UserController extends Controller
     public function update(Request $request, User $usuario)
     {
         $this->validacion['ci'] = 'required|min:4|numeric|unique:users,ci,' . $usuario->id;
-        $this->validacion['correo'] = 'nullable|email|unique:users,correo,' . $usuario->id;
+        $this->validacion['correo'] = 'required|email|unique:users,correo,' . $usuario->id;
         if ($request->hasFile('foto')) {
             $this->validacion['foto'] = 'image|mimes:jpeg,jpg,png|max:2048';
         }
@@ -137,6 +131,8 @@ class UserController extends Controller
         DB::beginTransaction();
         try {
             $usuario->update(array_map('mb_strtoupper', $request->except('foto')));
+            $usuario->usuario = mb_strtolower($usuario->correo);
+            $usuario->correo = mb_strtolower($usuario->correo);
             if ($usuario->correo == "") {
                 $usuario->correo = NULL;
             }

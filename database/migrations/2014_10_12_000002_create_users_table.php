@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->string("foto", 255)->nullable();
             $table->string('password');
             $table->integer('acceso');
+            $table->integer('configuracion');
             $table->date("fecha_registro");
             $table->timestamps();
         });

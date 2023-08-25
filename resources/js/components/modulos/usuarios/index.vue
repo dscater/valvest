@@ -84,6 +84,22 @@
                                                 empty-filtered-text="Sin resultados"
                                                 :filter="filter"
                                             >
+                                                <template #cell(acceso)="row">
+                                                    <span
+                                                        class="badge badge-success"
+                                                        v-if="
+                                                            row.item.acceso == 1
+                                                        "
+                                                    >
+                                                        HABILITADO
+                                                    </span>
+                                                    <span
+                                                        v-else
+                                                        class="badge badge-danger"
+                                                    >
+                                                        DESHABILITADO
+                                                    </span>
+                                                </template>
                                                 <template #cell(foto)="row">
                                                     <b-avatar
                                                         :src="
@@ -279,6 +295,7 @@ export default {
                 { key: "full_ci", label: "C.I.", sortable: true },
                 { key: "tipo", label: "Tipo Usuario", sortable: true },
                 { key: "foto", label: "Foto" },
+                { key: "acceso", label: "Acceso" },
                 {
                     key: "fecha_registro",
                     label: "Fecha de registro",
@@ -338,6 +355,7 @@ export default {
             this.oUsuario.correo = item.correo ? item.correo : "";
             this.oUsuario.fono = item.fono ? item.fono.split("; ") : "";
             this.oUsuario.tipo = item.tipo ? item.tipo : "";
+            this.oUsuario.acceso = item.acceso ? "" + item.acceso : "0";
             this.modal_accion = "edit";
             this.muestra_modal = true;
         },
@@ -435,8 +453,9 @@ export default {
             this.oUsuario.fono = [];
             this.oUsuario.cargo = "";
             this.oUsuario.unidad_id = "";
-            this.oUsuario.tipo = "";
+            this.oUsuario.tipo = "ADMINISTRADOR";
             this.oUsuario.foto = null;
+            this.oUsuario.acceso = 0;
         },
         formatoFecha(date) {
             return this.$moment(String(date)).format("DD/MM/YYYY");

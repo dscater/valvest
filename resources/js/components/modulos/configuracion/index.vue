@@ -84,13 +84,6 @@
                                         </el-descriptions-item>
                                         <el-descriptions-item>
                                             <template slot="label">
-                                                <i class="el-icon-document"></i>
-                                                Actividad Económica
-                                            </template>
-                                            {{ oConfiguracion.actividad }}
-                                        </el-descriptions-item>
-                                        <el-descriptions-item>
-                                            <template slot="label">
                                                 <i class="el-icon-message"></i>
                                                 Correo
                                             </template>
@@ -270,28 +263,6 @@
                                 <div class="form-group col-md-6">
                                     <label
                                         :class="{
-                                            'text-danger': errors.actividad,
-                                        }"
-                                        >Actividad*</label
-                                    >
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        :class="{
-                                            'is-invalid': errors.actividad,
-                                        }"
-                                        placeholder="Actividad"
-                                        v-model="oConfiguracion.actividad"
-                                    />
-                                    <span
-                                        class="error invalid-feedback"
-                                        v-if="errors.actividad"
-                                        v-text="errors.actividad[0]"
-                                    ></span>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label
-                                        :class="{
                                             'text-danger': errors.correo,
                                         }"
                                         >Correo</label
@@ -382,7 +353,6 @@ export default {
                 dir: "",
                 fono: "",
                 web: "",
-                actividad: "",
                 correo: "",
                 logo: "",
             },
@@ -428,7 +398,6 @@ export default {
                     "web",
                     this.oConfiguracion.web ? this.oConfiguracion.web : ""
                 );
-                formdata.append("actividad", this.oConfiguracion.actividad);
                 formdata.append(
                     "correo",
                     this.oConfiguracion.correo ? this.oConfiguracion.correo : ""
@@ -511,7 +480,6 @@ export default {
             this.oConfiguracion.dir = "";
             this.oConfiguracion.fono = "";
             this.oConfiguracion.web = "";
-            this.oConfiguracion.actividad = "";
             this.oConfiguracion.correo = "";
             this.oConfiguracion.logo = "";
         },

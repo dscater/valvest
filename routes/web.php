@@ -2,18 +2,18 @@
 
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\NotificacionController;
+use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
-// RECIBIR NOTIFICACION
-Route::post('/recibe_notificacion', [NotificacionController::class, 'recibeNotificacion']);
 
 // LOGIN
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
+// REGISTRO
+Route::get('/registro', [RegistroController::class, 'registro'])->name("registro");
+Route::post('/registro', [RegistroController::class, 'store']);
 // CONFIGURACIÓN
 Route::get('/configuracion/getConfiguracion', [ConfiguracionController::class, 'getConfiguracion']);
 

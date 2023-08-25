@@ -68,6 +68,17 @@
                                     Acceder
                                 </button>
                             </div>
+                            <div class="col-12">
+                                <a
+                                    :href="url_registro"
+                                    class="mt-2 btn btn-default btn-block btn-flat font-weight-bold"
+                                    v-loading.fullscreen.lock="
+                                        fullscreenLoading
+                                    "
+                                >
+                                    Registrarse
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -88,6 +99,10 @@ export default {
         configuracion: {
             String,
             default: "",
+        },
+        url_registro: {
+            String,
+            default: "/registro",
         },
     },
     data() {
@@ -115,8 +130,17 @@ export default {
                 .catch((error) => {
                     this.error = true;
                     this.password = "";
-                    console.log(error);
                     this.fullscreenLoading = false;
+                    console.log(error.response);
+                    if (error.response.data.message) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Error",
+                            html: error.response.data.message,
+                            showConfirmButton: false,
+                            timer: 4000,
+                        });
+                    }
                 });
         },
         obtienePermisos(user) {

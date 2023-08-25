@@ -158,7 +158,7 @@
                                     :class="{
                                         'text-danger': errors.correo,
                                     }"
-                                    >Correo</label
+                                    >Correo*</label
                                 >
                                 <el-input
                                     placeholder="Correo"
@@ -202,22 +202,15 @@
                                     }"
                                     >Tipo de Usuario*</label
                                 >
-                                <el-select
-                                    class="w-100 d-block"
+                                <el-input
                                     :class="{
                                         'is-invalid': errors.tipo,
                                     }"
                                     v-model="usuario.tipo"
                                     clearable
+                                    readonly
                                 >
-                                    <el-option
-                                        v-for="(item, index) in listTipos"
-                                        :key="index"
-                                        :value="item"
-                                        :label="item"
-                                    >
-                                    </el-option>
-                                </el-select>
+                                </el-input>
                                 <span
                                     class="error invalid-feedback"
                                     v-if="errors.tipo"
@@ -244,6 +237,33 @@
                                     class="error invalid-feedback"
                                     v-if="errors.foto"
                                     v-text="errors.foto[0]"
+                                ></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.acceso,
+                                    }"
+                                    >Acceso*</label
+                                >
+                                <el-switch
+                                    :class="{
+                                        'is-invalid': errors.acceso,
+                                    }"
+                                    style="display: block"
+                                    v-model="usuario.acceso"
+                                    active-color="#13ce66"
+                                    inactive-color="#ff4949"
+                                    active-text="HABILITADO"
+                                    inactive-text="DESHABILITADO"
+                                    active-value="1"
+                                    inactive-value="0"
+                                >
+                                </el-switch>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.acceso"
+                                    v-text="errors.acceso[0]"
                                 ></span>
                             </div>
                         </div>
@@ -296,6 +316,7 @@ export default {
                 fono: [],
                 tipo: "",
                 foto: null,
+                acceso: 0,
             },
         },
     },
@@ -414,6 +435,12 @@ export default {
                     "foto",
                     this.usuario.foto ? this.usuario.foto : ""
                 );
+
+                formdata.append(
+                    "acceso",
+                    this.usuario.acceso ? this.usuario.acceso : ""
+                );
+
                 if (this.accion == "edit") {
                     url = "/admin/usuarios/" + this.usuario.id;
                     formdata.append("_method", "PUT");
@@ -491,6 +518,7 @@ export default {
             this.usuario.fono = [];
             this.usuario.tipo = "";
             this.usuario.foto = null;
+            this.usuario.acceso = 0;
             this.$refs.input_file.value = null;
         },
     },

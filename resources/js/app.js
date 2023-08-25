@@ -72,6 +72,7 @@ Vue.mixin(globalMixin)
 // COMPONENTES
 Vue.component('App', require('./App.vue').default);
 Vue.component('Auth', require('./Auth.vue').default);
+Vue.component('Registro', require('./Registro.vue').default);
 import router from './routes';
 const app = new Vue({
     el: '#app',
