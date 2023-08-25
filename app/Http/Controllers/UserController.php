@@ -57,15 +57,8 @@ class UserController extends Controller
             'reportes.proteccion_personal',
             'reportes.g_proteccion_personal',
         ],
-        "AUXILIAR" => [
-            'notificacions.index',
-            'notificacions.create',
-            'notificacions.edit',
-            'notificacions.destroy',
-
-            'reportes.proteccion_personal',
-            'reportes.g_proteccion_personal',
-        ],
+        "EMPRESA" => [],
+        "INVERSIONISTA" => [],
     ];
 
 

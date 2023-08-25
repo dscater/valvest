@@ -231,4 +231,8 @@ export default {
 .user-panel .info a {
     font-size: 0.8em;
 }
+
+.main-sidebar .image img{
+    min-height: 30px;
+}
 </style>

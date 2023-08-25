@@ -195,15 +195,21 @@
                                     }"
                                     >Tipo de Usuario*</label
                                 >
-                                <el-input
+                                <el-select
+                                    class="w-100"
                                     :class="{
                                         'is-invalid': errors.tipo,
                                     }"
                                     v-model="form_registro.tipo"
                                     clearable
-                                    readonly
                                 >
-                                </el-input>
+                                    <el-option
+                                        v-for="item in listTipos"
+                                        :key="item"
+                                        :value="item"
+                                        :label="item"
+                                    ></el-option>
+                                </el-select>
                                 <span
                                     class="error invalid-feedback"
                                     v-if="errors.tipo"
@@ -230,6 +236,54 @@
                                     class="error invalid-feedback"
                                     v-if="errors.foto"
                                     v-text="errors.foto[0]"
+                                ></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
+                                        'text-danger': errors.password,
+                                    }"
+                                    >Contraseña*</label
+                                >
+                                <el-input
+                                    type="password"
+                                    placeholder="Contraseña"
+                                    :class="{ 'is-invalid': errors.password }"
+                                    v-model="form_registro.password"
+                                    clearable
+                                >
+                                </el-input>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.password"
+                                    v-text="errors.password[0]"
+                                ></span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label
+                                    :class="{
+                                        'text-danger':
+                                            errors.password_confirmation,
+                                    }"
+                                    >Confirmar contraseña*</label
+                                >
+                                <el-input
+                                    type="password"
+                                    placeholder="Confirmar contraseña"
+                                    :class="{
+                                        'is-invalid':
+                                            errors.password_confirmation,
+                                    }"
+                                    v-model="
+                                        form_registro.password_confirmation
+                                    "
+                                    clearable
+                                >
+                                </el-input>
+                                <span
+                                    class="error invalid-feedback"
+                                    v-if="errors.password_confirmation"
+                                    v-text="errors.password_confirmation[0]"
                                 ></span>
                             </div>
                         </div>
@@ -295,7 +349,8 @@ export default {
                 fono: [],
                 tipo: "",
                 foto: null,
-                acceso: 0,
+                password: "",
+                password_confirmation: "",
             },
             listExpedido: [
                 { value: "LP", label: "La Paz" },
@@ -309,17 +364,78 @@ export default {
                 { value: "BN", label: "Beni" },
             ],
             errors: [],
+            listTipos: ["EMPRESA", "INVERSIONISTA"],
             fullscreenLoading: false,
         };
     },
     methods: {
         registro() {
             this.fullscreenLoading = true;
+            let config = {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            };
+            let formdata = new FormData();
+            formdata.append(
+                "nombre",
+                this.form_registro.nombre ? this.form_registro.nombre : ""
+            );
+            formdata.append(
+                "paterno",
+                this.form_registro.paterno ? this.form_registro.paterno : ""
+            );
+            formdata.append(
+                "materno",
+                this.form_registro.materno ? this.form_registro.materno : ""
+            );
+            formdata.append(
+                "ci",
+                this.form_registro.ci ? this.form_registro.ci : ""
+            );
+            formdata.append(
+                "ci_exp",
+                this.form_registro.ci_exp ? this.form_registro.ci_exp : ""
+            );
+            formdata.append(
+                "dir",
+                this.form_registro.dir ? this.form_registro.dir : ""
+            );
+            formdata.append(
+                "correo",
+                this.form_registro.correo ? this.form_registro.correo : ""
+            );
+            formdata.append(
+                "fono",
+                this.form_registro.fono
+                    ? this.form_registro.fono.join("; ")
+                    : ""
+            );
+            formdata.append(
+                "cargo",
+                this.form_registro.cargo ? this.form_registro.cargo : ""
+            );
+            formdata.append(
+                "tipo",
+                this.form_registro.tipo ? this.form_registro.tipo : ""
+            );
+
+            formdata.append(
+                "foto",
+                this.form_registro.foto ? this.form_registro.foto : ""
+            );
+            formdata.append(
+                "password",
+                this.form_registro.password ? this.form_registro.password : ""
+            );
+            formdata.append(
+                "password_confirmation",
+                this.form_registro.password_confirmation
+                    ? this.form_registro.password_confirmation
+                    : ""
+            );
             axios
-                .post("/login", {
-                    usuario: this.usuario,
-                    password: this.password,
-                })
+                .post("/registro", formdata, config)
                 .then((res) => {
                     let user = res.data.user;
                     setTimeout(() => {
@@ -331,7 +447,7 @@ export default {
                     this.password = "";
                     this.fullscreenLoading = false;
                     console.log(error.response);
-                    if (error.response.data.message) {
+                    if (error.response.status === 500) {
                         Swal.fire({
                             icon: "error",
                             title: "Error",
@@ -340,10 +456,16 @@ export default {
                             timer: 4000,
                         });
                     }
+
+                    if (error.response) {
+                        if (error.response.status === 422) {
+                            this.errors = error.response.data.errors;
+                        }
+                    }
                 });
         },
         cargaImagen(e) {
-            this.usuario.foto = e.target.files[0];
+            this.form_registro.foto = e.target.files[0];
         },
         obtienePermisos(user) {
             axios.get("/admin/usuarios/getPermisos/" + user.id).then((res) => {
