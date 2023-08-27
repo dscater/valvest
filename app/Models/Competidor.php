@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Competidor extends Model
 {
     use HasFactory;
+
+    protected $table = "competidores";
+
+    protected $fillable = [
+        "empresa_id",
+        "nombre",
+        "web",
+    ];
 }

@@ -34,6 +34,27 @@ export default new Router({
                 .default,
         },
 
+        // Empresas
+        {
+            path: "/empresas",
+            name: "empresas.index",
+            component: require("./components/modulos/empresas/index.vue")
+                .default,
+        },
+        {
+            path: "/empresas/create",
+            name: "empresas.create",
+            component: require("./components/modulos/empresas/create.vue")
+                .default,
+        },
+        {
+            path: "/empresas/edit/:id",
+            name: "empresas.edit",
+            component: require("./components/modulos/empresas/edit.vue")
+                .default,
+            props: true,
+        },
+
         // Configuración
         {
             path: "/configuracion",
@@ -54,15 +75,17 @@ export default new Router({
         {
             path: "/reportes/proteccion_personal",
             name: "reportes.proteccion_personal",
-            component: require("./components/modulos/reportes/proteccion_personal.vue")
-                .default,
+            component:
+                require("./components/modulos/reportes/proteccion_personal.vue")
+                    .default,
             props: true,
         },
         {
             path: "/reportes/g_proteccion_personal",
             name: "reportes.g_proteccion_personal",
-            component: require("./components/modulos/reportes/g_proteccion_personal.vue")
-                .default,
+            component:
+                require("./components/modulos/reportes/g_proteccion_personal.vue")
+                    .default,
             props: true,
         },
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ConfiguracionController;
+use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\ReporteController;
@@ -34,8 +35,8 @@ Route::middleware(['auth'])->group(function () {
             'index', 'store', 'update', 'destroy', 'show'
         ]);
 
-        // notificacions
-        Route::resource('notificacions', NotificacionController::class)->only([
+        // empresas
+        Route::resource('empresas', EmpresaController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);
 

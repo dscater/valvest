@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 25-08-2023 a las 19:20:57
+-- Tiempo de generación: 27-08-2023 a las 00:30:27
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 7.4.19
 
@@ -36,6 +36,15 @@ CREATE TABLE `accionistas` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `accionistas`
+--
+
+INSERT INTO `accionistas` (`id`, `empresa_id`, `nombre`, `porcentaje`, `created_at`, `updated_at`) VALUES
+(3, 3, 'ACCIONISTA #1', 20.00, '2023-08-27 00:00:28', '2023-08-27 00:19:56'),
+(5, 5, 'ACCIONISTA#1', 40.00, '2023-08-27 00:09:48', '2023-08-27 00:09:48'),
+(6, 5, 'ACCIONSTA2', 40.00, '2023-08-27 00:21:13', '2023-08-27 00:21:13');
+
 -- --------------------------------------------------------
 
 --
@@ -50,6 +59,15 @@ CREATE TABLE `competidores` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `competidores`
+--
+
+INSERT INTO `competidores` (`id`, `empresa_id`, `nombre`, `web`, `created_at`, `updated_at`) VALUES
+(1, 3, 'COMPETIDOR 1', 'URL_COMP1', '2023-08-27 00:00:28', '2023-08-27 00:19:56'),
+(3, 5, 'COMPETIDOR', 'URL', '2023-08-27 00:09:48', '2023-08-27 00:09:48'),
+(4, 5, 'COMPETIDOR2', 'URL2', '2023-08-27 00:21:25', '2023-08-27 00:21:25');
 
 -- --------------------------------------------------------
 
@@ -109,6 +127,14 @@ CREATE TABLE `empresas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `empresas`
+--
+
+INSERT INTO `empresas` (`id`, `nombre`, `descripcion_actividad`, `web`, `correo`, `dir`, `fecha_registro`, `created_at`, `updated_at`) VALUES
+(3, 'EMPRESA #1', 'DESC. EMPRESA#1', '', 'EMPRESA1@GMAIL.COM', 'LOS OLIVOS', '2023-08-26', '2023-08-27 00:00:28', '2023-08-27 00:00:28'),
+(5, 'EMPRESA #2', 'ACT. EMPRESA #2', 'WEB EMPRESA 2', 'EMPRESA2@GMAIL.COM', 'LOS OLIVOS', '2023-08-26', '2023-08-27 00:09:48', '2023-08-27 00:09:48');
 
 -- --------------------------------------------------------
 
@@ -172,6 +198,40 @@ CREATE TABLE `fondos` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `historial_accions`
+--
+
+CREATE TABLE `historial_accions` (
+  `id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `accion` varchar(155) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descripcion` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `datos_original` text COLLATE utf8mb4_unicode_ci,
+  `datos_nuevo` text COLLATE utf8mb4_unicode_ci,
+  `modulo` varchar(155) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fecha` date NOT NULL,
+  `hora` time NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `historial_accions`
+--
+
+INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `datos_original`, `datos_nuevo`, `modulo`, `fecha`, `hora`, `created_at`, `updated_at`) VALUES
+(1, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com REGISTRO UNA EMPRESA', 'id: 3<br/>nombre: EMPRESA #1<br/>descripcion_actividad: DESC. EMPRESA#1<br/>web: <br/>correo: EMPRESA1@GMAIL.COM<br/>dir: LOS OLIVOS<br/>fecha_registro: 2023-08-26<br/>created_at: 2023-08-26 20:00:28<br/>updated_at: 2023-08-26 20:00:28<br/>', NULL, 'EMPRESAS', '2023-08-26', '20:00:28', '2023-08-27 00:00:28', '2023-08-27 00:00:28'),
+(2, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com REGISTRO UNA EMPRESA', 'id: 5<br/>nombre: EMPRESA #2<br/>descripcion_actividad: ACT. EMPRESA #2<br/>web: WEB EMPRESA 2<br/>correo: EMPRESA2@GMAIL.COM<br/>dir: LOS OLIVOS<br/>fecha_registro: 2023-08-26<br/>created_at: 2023-08-26 20:09:48<br/>updated_at: 2023-08-26 20:09:48<br/>', NULL, 'EMPRESAS', '2023-08-26', '20:09:48', '2023-08-27 00:09:48', '2023-08-27 00:09:48'),
+(3, 1, 'MODIFICACIÓN', 'EL USUARIO admin@gmail.com MODIFICÓ UNA EMPRESA', 'id: 3<br/>nombre: EMPRESA #1<br/>descripcion_actividad: DESC. EMPRESA#1<br/>web: <br/>correo: EMPRESA1@GMAIL.COM<br/>dir: LOS OLIVOS<br/>fecha_registro: 2023-08-26<br/>created_at: 2023-08-26 20:00:28<br/>updated_at: 2023-08-26 20:00:28<br/>', NULL, 'EMPRESAS', '2023-08-26', '20:19:56', '2023-08-27 00:19:56', '2023-08-27 00:19:56'),
+(4, 1, 'MODIFICACIÓN', 'EL USUARIO admin@gmail.com MODIFICÓ UNA EMPRESA', 'id: 3<br/>nombre: EMPRESA #1<br/>descripcion_actividad: DESC. EMPRESA#1<br/>web: <br/>correo: EMPRESA1@GMAIL.COM<br/>dir: LOS OLIVOS<br/>fecha_registro: 2023-08-26<br/>created_at: 2023-08-26 20:00:28<br/>updated_at: 2023-08-26 20:00:28<br/>', NULL, 'EMPRESAS', '2023-08-26', '20:20:08', '2023-08-27 00:20:08', '2023-08-27 00:20:08'),
+(5, 1, 'MODIFICACIÓN', 'EL USUARIO admin@gmail.com MODIFICÓ UNA EMPRESA', 'id: 3<br/>nombre: EMPRESA #1<br/>descripcion_actividad: DESC. EMPRESA#1<br/>web: <br/>correo: EMPRESA1@GMAIL.COM<br/>dir: LOS OLIVOS<br/>fecha_registro: 2023-08-26<br/>created_at: 2023-08-26 20:00:28<br/>updated_at: 2023-08-26 20:00:28<br/>', NULL, 'EMPRESAS', '2023-08-26', '20:20:46', '2023-08-27 00:20:46', '2023-08-27 00:20:46'),
+(6, 1, 'MODIFICACIÓN', 'EL USUARIO admin@gmail.com MODIFICÓ UNA EMPRESA', 'id: 3<br/>nombre: EMPRESA #1<br/>descripcion_actividad: DESC. EMPRESA#1<br/>web: <br/>correo: EMPRESA1@GMAIL.COM<br/>dir: LOS OLIVOS<br/>fecha_registro: 2023-08-26<br/>created_at: 2023-08-26 20:00:28<br/>updated_at: 2023-08-26 20:00:28<br/>', NULL, 'EMPRESAS', '2023-08-26', '20:20:51', '2023-08-27 00:20:51', '2023-08-27 00:20:51'),
+(7, 1, 'MODIFICACIÓN', 'EL USUARIO admin@gmail.com MODIFICÓ UNA EMPRESA', 'id: 5<br/>nombre: EMPRESA #2<br/>descripcion_actividad: ACT. EMPRESA #2<br/>web: WEB EMPRESA 2<br/>correo: EMPRESA2@GMAIL.COM<br/>dir: LOS OLIVOS<br/>fecha_registro: 2023-08-26<br/>created_at: 2023-08-26 20:09:48<br/>updated_at: 2023-08-26 20:09:48<br/>', NULL, 'EMPRESAS', '2023-08-26', '20:21:13', '2023-08-27 00:21:13', '2023-08-27 00:21:13'),
+(8, 1, 'MODIFICACIÓN', 'EL USUARIO admin@gmail.com MODIFICÓ UNA EMPRESA', 'id: 5<br/>nombre: EMPRESA #2<br/>descripcion_actividad: ACT. EMPRESA #2<br/>web: WEB EMPRESA 2<br/>correo: EMPRESA2@GMAIL.COM<br/>dir: LOS OLIVOS<br/>fecha_registro: 2023-08-26<br/>created_at: 2023-08-26 20:09:48<br/>updated_at: 2023-08-26 20:09:48<br/>', NULL, 'EMPRESAS', '2023-08-26', '20:21:25', '2023-08-27 00:21:25', '2023-08-27 00:21:25');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `migrations`
 --
 
@@ -196,7 +256,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (15, '2023_08_24_122015_create_fondos_table', 1),
 (16, '2023_08_24_122046_create_finanzas_table', 1),
 (17, '2023_08_24_122226_create_valoracion_table', 1),
-(18, '2023_08_24_122322_create_valoracion_users_table', 1);
+(18, '2023_08_24_122322_create_valoracion_users_table', 1),
+(19, '2023_08_26_190801_create_historial_accions_table', 2);
 
 -- --------------------------------------------------------
 
@@ -338,6 +399,12 @@ ALTER TABLE `fondos`
   ADD KEY `fondos_empresa_id_foreign` (`empresa_id`);
 
 --
+-- Indices de la tabla `historial_accions`
+--
+ALTER TABLE `historial_accions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `migrations`
 --
 ALTER TABLE `migrations`
@@ -382,13 +449,13 @@ ALTER TABLE `valoracion_users`
 -- AUTO_INCREMENT de la tabla `accionistas`
 --
 ALTER TABLE `accionistas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `competidores`
 --
 ALTER TABLE `competidores`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracions`
@@ -406,7 +473,7 @@ ALTER TABLE `cuestionarios`
 -- AUTO_INCREMENT de la tabla `empresas`
 --
 ALTER TABLE `empresas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `finanzas`
@@ -421,10 +488,16 @@ ALTER TABLE `fondos`
   MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `historial_accions`
+--
+ALTER TABLE `historial_accions`
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT de la tabla `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `personal_access_tokens`

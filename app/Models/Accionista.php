@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Accionista extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "empresa_id",
+        "nombre",
+        "porcentaje",
+    ];
 }
