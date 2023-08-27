@@ -112,7 +112,9 @@
                                                                 >
                                                                     <thead>
                                                                         <tr>
-                                                                            <th width="10px">
+                                                                            <th
+                                                                                width="10px"
+                                                                            >
                                                                                 Nro.
                                                                             </th>
                                                                             <th>
@@ -162,7 +164,9 @@
                                                                 >
                                                                     <thead>
                                                                         <tr>
-                                                                            <th width="10px">
+                                                                            <th
+                                                                                width="10px"
+                                                                            >
                                                                                 Nro.
                                                                             </th>
                                                                             <th>
@@ -232,6 +236,58 @@
                                                     <div
                                                         class="row justify-content-center flex-column"
                                                     >
+                                                        <router-link
+                                                            exact
+                                                            class="btn btn-sm btn-outline-primary btn-flat mb-1 rounded-pill"
+                                                            title="Cuestionario"
+                                                            :to="{
+                                                                name: 'empresas.cuestionario',
+                                                                params: {
+                                                                    id: row.item
+                                                                        .id,
+                                                                },
+                                                            }"
+                                                        >
+                                                            <i
+                                                                class="fa fa-question-circle"
+                                                            ></i>
+                                                        </router-link>
+                                                        <router-link
+                                                            exact
+                                                            class="btn btn-sm btn-outline-success btn-flat mb-1 rounded-pill"
+                                                            title="Fondos"
+                                                            :to="{
+                                                                name: 'empresas.cuestionario',
+                                                            }"
+                                                        >
+                                                            <i
+                                                                class="fa fa-money-bill-wave"
+                                                            ></i>
+                                                        </router-link>
+                                                        <router-link
+                                                            exact
+                                                            class="btn btn-sm btn-outline-info btn-flat mb-1 rounded-pill"
+                                                            title="Finanzas"
+                                                            :to="{
+                                                                name: 'empresas.cuestionario',
+                                                            }"
+                                                        >
+                                                            <i
+                                                                class="fa fa-table"
+                                                            ></i>
+                                                        </router-link>
+                                                        <router-link
+                                                            exact
+                                                            class="btn btn-sm btn-outline-primary btn-flat mb-1 rounded-pill"
+                                                            title="Valoración"
+                                                            :to="{
+                                                                name: 'empresas.cuestionario',
+                                                            }"
+                                                        >
+                                                            <i
+                                                                class="fa fa-chart-line"
+                                                            ></i>
+                                                        </router-link>
                                                         <b-button
                                                             size="sm"
                                                             pill

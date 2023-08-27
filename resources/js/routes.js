@@ -54,6 +54,13 @@ export default new Router({
                 .default,
             props: true,
         },
+        {
+            path: "/empresas/cuestionario/:id",
+            name: "empresas.cuestionario",
+            component: require("./components/modulos/empresas/Cuestionario.vue")
+                .default,
+            props: true,
+        },
 
         // Configuración
         {

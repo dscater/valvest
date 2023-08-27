@@ -149,7 +149,7 @@ class EmpresaController extends Controller
     {
         return response()->JSON([
             'sw' => true,
-            'empresa' => $empresa->load("accionistas", "competidores")
+            'empresa' => $empresa->load("accionistas", "competidores", "cuestionario")
         ], 200);
     }
 

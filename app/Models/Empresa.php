@@ -22,8 +22,14 @@ class Empresa extends Model
     {
         return $this->hasMany(Accionista::class, 'empresa_id');
     }
+
     public function competidores()
     {
         return $this->hasMany(Competidor::class, 'empresa_id');
+    }
+
+    public function cuestionario()
+    {
+        return $this->hasOne(Cuestionario::class, 'empresa_id');
     }
 }
