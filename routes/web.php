@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ConfiguracionController;
+use App\Http\Controllers\CuestionarioController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistroController;
@@ -37,6 +38,11 @@ Route::middleware(['auth'])->group(function () {
 
         // empresas
         Route::resource('empresas', EmpresaController::class)->only([
+            'index', 'store', 'update', 'destroy', 'show'
+        ]);
+
+        // cuestionarios
+        Route::resource('cuestionarios', CuestionarioController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);
 

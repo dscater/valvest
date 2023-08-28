@@ -16,6 +16,7 @@ class Empresa extends Model
         "correo",
         "dir",
         "fecha_registro",
+        "user_id"
     ];
 
     public function accionistas()
@@ -31,5 +32,10 @@ class Empresa extends Model
     public function cuestionario()
     {
         return $this->hasOne(Cuestionario::class, 'empresa_id');
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'user_id');
     }
 }

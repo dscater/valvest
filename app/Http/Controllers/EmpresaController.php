@@ -25,7 +25,11 @@ class EmpresaController extends Controller
 
     public function index(Request $request)
     {
-        $empresas = Empresa::with(["accionistas", "competidores"])->get();
+        if (Auth::user()->tipo == 'ADMINISTRADOR' && Auth::user()->configuracion == 1) {
+            $empresas = Empresa::with(["accionistas", "competidores"])->get();
+        } else {
+            $empresas = Empresa::with(["accionistas", "competidores"])->where("user_id", Auth::user()->id)->get();
+        }
         return response()->JSON(['empresas' => $empresas, 'total' => count($empresas)], 200);
     }
 
@@ -37,6 +41,7 @@ class EmpresaController extends Controller
         try {
             // crear Empresa
             $request["fecha_registro"] = date("Y-m-d");
+            $request["user_id"] = Auth::user()->id;
             $nueva_empresa = Empresa::create(array_map('mb_strtoupper', $request->except("accionistas", "competidores")));
             $accionistas = $request->accionistas;
             $competidores = $request->competidores;

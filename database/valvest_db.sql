@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 27-08-2023 a las 00:30:27
+-- Tiempo de generación: 28-08-2023 a las 19:21:49
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 7.4.19
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `accionistas` (
   `id` bigint UNSIGNED NOT NULL,
   `empresa_id` bigint UNSIGNED NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `porcentaje` double(8,2) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -54,8 +54,8 @@ INSERT INTO `accionistas` (`id`, `empresa_id`, `nombre`, `porcentaje`, `created_
 CREATE TABLE `competidores` (
   `id` bigint UNSIGNED NOT NULL,
   `empresa_id` bigint UNSIGNED NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `web` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `web` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -77,14 +77,14 @@ INSERT INTO `competidores` (`id`, `empresa_id`, `nombre`, `web`, `created_at`, `
 
 CREATE TABLE `configuracions` (
   `id` bigint UNSIGNED NOT NULL,
-  `nombre_sistema` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alias` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ciudad` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `dir` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fono` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `web` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `correo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nombre_sistema` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alias` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ciudad` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dir` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fono` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `web` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `correo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `logo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -105,7 +105,7 @@ INSERT INTO `configuracions` (`id`, `nombre_sistema`, `alias`, `ciudad`, `dir`, 
 CREATE TABLE `cuestionarios` (
   `id` bigint UNSIGNED NOT NULL,
   `empresa_id` bigint UNSIGNED NOT NULL,
-  `cuestionario` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cuestionario` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -118,12 +118,13 @@ CREATE TABLE `cuestionarios` (
 
 CREATE TABLE `empresas` (
   `id` bigint UNSIGNED NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `descripcion_actividad` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `web` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `correo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `dir` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descripcion_actividad` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `web` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `correo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dir` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `fecha_registro` date NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -132,9 +133,9 @@ CREATE TABLE `empresas` (
 -- Volcado de datos para la tabla `empresas`
 --
 
-INSERT INTO `empresas` (`id`, `nombre`, `descripcion_actividad`, `web`, `correo`, `dir`, `fecha_registro`, `created_at`, `updated_at`) VALUES
-(3, 'EMPRESA #1', 'DESC. EMPRESA#1', '', 'EMPRESA1@GMAIL.COM', 'LOS OLIVOS', '2023-08-26', '2023-08-27 00:00:28', '2023-08-27 00:00:28'),
-(5, 'EMPRESA #2', 'ACT. EMPRESA #2', 'WEB EMPRESA 2', 'EMPRESA2@GMAIL.COM', 'LOS OLIVOS', '2023-08-26', '2023-08-27 00:09:48', '2023-08-27 00:09:48');
+INSERT INTO `empresas` (`id`, `nombre`, `descripcion_actividad`, `web`, `correo`, `dir`, `fecha_registro`, `user_id`, `created_at`, `updated_at`) VALUES
+(3, 'EMPRESA #1', 'DESC. EMPRESA#1', '', 'EMPRESA1@GMAIL.COM', 'LOS OLIVOS', '2023-08-26', 1, '2023-08-27 00:00:28', '2023-08-27 00:00:28'),
+(5, 'EMPRESA #2', 'ACT. EMPRESA #2', 'WEB EMPRESA 2', 'EMPRESA2@GMAIL.COM', 'LOS OLIVOS', '2023-08-26', 1, '2023-08-27 00:09:48', '2023-08-27 00:09:48');
 
 -- --------------------------------------------------------
 
@@ -204,11 +205,11 @@ CREATE TABLE `fondos` (
 CREATE TABLE `historial_accions` (
   `id` bigint UNSIGNED NOT NULL,
   `user_id` bigint UNSIGNED NOT NULL,
-  `accion` varchar(155) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `descripcion` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `datos_original` text COLLATE utf8mb4_unicode_ci,
-  `datos_nuevo` text COLLATE utf8mb4_unicode_ci,
-  `modulo` varchar(155) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `accion` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `datos_original` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `datos_nuevo` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `modulo` varchar(155) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `fecha` date NOT NULL,
   `hora` time NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -237,7 +238,7 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 
 CREATE TABLE `migrations` (
   `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -267,11 +268,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `tokenable_id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -285,18 +286,18 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
-  `usuario` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nombre` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `paterno` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `materno` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ci` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ci_exp` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `dir` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `correo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fono` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tipo` enum('ADMINISTRADOR','EMPRESA','INVERSIONISTA') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `usuario` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nombre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `paterno` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `materno` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `ci` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ci_exp` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dir` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `correo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fono` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tipo` enum('ADMINISTRADOR','EMPRESA','INVERSIONISTA') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `acceso` int NOT NULL,
   `configuracion` int NOT NULL,
   `fecha_registro` date NOT NULL,

@@ -21,6 +21,7 @@ class CreateEmpresasTable extends Migration
             $table->string("correo", 255);
             $table->string("dir", 255);
             $table->date("fecha_registro");
+            $table->unsignedBigInteger("user_id");
             $table->timestamps();
         });
     }

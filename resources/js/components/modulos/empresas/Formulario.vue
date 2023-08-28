@@ -406,8 +406,10 @@ export default {
                 if (this.accion == "edit") {
                     url = "/admin/empresas/" + this.oEmpresa.id;
                     this.oEmpresa["_method"] = "PUT";
-                    this.oEmpresa.accionistas_eliminados = this.accionistas_eliminados;
-                    this.oEmpresa.competidores_eliminados = this.competidores_eliminados;
+                    this.oEmpresa.accionistas_eliminados =
+                        this.accionistas_eliminados;
+                    this.oEmpresa.competidores_eliminados =
+                        this.competidores_eliminados;
                 }
                 axios
                     .post(url, this.oEmpresa)
@@ -420,7 +422,7 @@ export default {
                                 showConfirmButton: false,
                                 timer: 2000,
                             });
-                            this.$emit("envioFormulario", res.data.id);
+                            this.$emit("envioFormulario", res.data.empresa.id);
                             this.errors = [];
                             if (this.accion == "edit") {
                                 this.textoBtn = "Actualizar empresa";

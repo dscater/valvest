@@ -62,6 +62,7 @@ class ConfiguracionController extends Controller
         if ($configuracion) {
             DB::beginTransaction();
             try {
+                $datos_original = HistorialAccion::getDetalleRegistro($configuracion, "configuracions");
                 $configuracion->update(array_map('mb_strtoupper', $request->except('logo')));
                 if ($request->hasFile('logo')) {
                     $antiguo = $configuracion->logo;
@@ -72,6 +73,17 @@ class ConfiguracionController extends Controller
                     $configuracion->logo = $nombre;
                     $configuracion->save();
                 }
+                $datos_nuevo = HistorialAccion::getDetalleRegistro($configuracion, "configuracions");
+                HistorialAccion::create([
+                    'user_id' => Auth::user()->id,
+                    'accion' => 'MODIFICACIÓN',
+                    'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' MODIFICÓ LA CONFIGURACIÓN',
+                    'datos_original' => $datos_original,
+                    'datos_nuevo' => $datos_nuevo,
+                    'modulo' => 'CONFIGURACIÓN',
+                    'fecha' => date('Y-m-d'),
+                    'hora' => date('H:i:s')
+                ]);
 
                 DB::commit();
                 return response()->JSON([

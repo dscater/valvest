@@ -16,7 +16,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <Formulario
-                                    @envioFormulario="listaEmpresas"
+                                    @envioFormulario="editarCuestionario"
                                 ></Formulario>
                             </div>
                         </div>
@@ -40,6 +40,14 @@ export default {
         listaEmpresas() {
             this.$router.push({
                 name: "empresas.index",
+            });
+        },
+        editarCuestionario(id) {
+            this.$router.push({
+                name: "empresas.cuestionario",
+                params: {
+                    id: id,
+                },
             });
         },
     },
