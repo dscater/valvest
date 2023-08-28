@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Empresa;
 use App\Models\HistorialAccion;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -273,7 +274,7 @@ class UserController extends Controller
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s')
             ]);
-            
+
             DB::commit();
             return response()->JSON([
                 'sw' => true,
@@ -302,8 +303,16 @@ class UserController extends Controller
             $array_infos[] = [
                 'label' => 'Usuarios',
                 'cantidad' => count(User::where('id', '!=', 1)->get()),
-                'color' => 'bg-info',
+                'color' => 'bg-primary',
                 'icon' => 'fas fa-users',
+            ];
+        }
+        if (in_array('empresas.index', $this->permisos[$tipo])) {
+            $array_infos[] = [
+                'label' => 'Empresas',
+                'cantidad' => count(Empresa::all()),
+                'color' => 'bg-success',
+                'icon' => 'fas fa-list',
             ];
         }
         return response()->JSON($array_infos);

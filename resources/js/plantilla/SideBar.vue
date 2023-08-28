@@ -107,7 +107,6 @@
                         v-if="permisos.includes('empresas.index')"
                     >
                         <router-link
-                            exact
                             :to="{ name: 'empresas.index' }"
                             class="nav-link"
                             v-loading.fullscreen.lock="fullscreenLoading"
@@ -139,6 +138,18 @@
                     </li>
                     <li
                         class="nav-item"
+                        v-if="permisos.includes('reportes.usuarios')"
+                    >
+                        <router-link
+                            :to="{ name: 'reportes.usuarios' }"
+                            class="nav-link"
+                        >
+                            <i class="fas fa-file-pdf nav-icon"></i>
+                            <p>Valoración</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
                         v-if="permisos.includes('reportes.g_proteccion_personal')"
                     >
                         <router-link
@@ -146,7 +157,19 @@
                             class="nav-link"
                         >
                             <i class="fas fa-chart-bar nav-icon"></i>
-                            <p>Gráfico de Notificaciones de Protección Personal</p>
+                            <p>Gráfico de Valoración</p>
+                        </router-link>
+                    </li>
+                    <li
+                        class="nav-item"
+                        v-if="permisos.includes('reportes.usuarios')"
+                    >
+                        <router-link
+                            :to="{ name: 'reportes.usuarios' }"
+                            class="nav-link"
+                        >
+                            <i class="fas fa-file-pdf nav-icon"></i>
+                            <p>Generación de Valoraciones por Usuario</p>
                         </router-link>
                     </li>
                     <li class="nav-header bg-navy">OTRAS OPCIONES</li>

@@ -1162,6 +1162,598 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- 21 -->
+                                    <div class="col-md-12 form-group">
+                                        <label for=""
+                                            >21. ¿Cómo definiría la etapa de
+                                            despliegue del
+                                            producto/servicio?</label
+                                        >
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[20]"
+                                                name="r21"
+                                                value="0"
+                                                id="r21_1"
+                                            />
+                                            <label
+                                                for="r21_1"
+                                                class="custom-control-label"
+                                                >Planificación: el proceso de
+                                                despliegue aún no ha
+                                                comenzado</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[20]"
+                                                name="r21"
+                                                value="1"
+                                                id="r21_2"
+                                            />
+                                            <label
+                                                for="r21_2"
+                                                class="custom-control-label"
+                                                >Prototipo: tenemos la primera
+                                                versión del producto (alfa o
+                                                beta) para fines de
+                                                prueba/exhibición, pero no está
+                                                lista para el mercado</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[20]"
+                                                name="r21"
+                                                value="2"
+                                                id="r21_3"
+                                            />
+                                            <label
+                                                for="r21_3"
+                                                class="custom-control-label"
+                                                >MVP: tenemos un producto mínimo
+                                                viable (con las características
+                                                suficientes para satisfacer a
+                                                los primeros clientes) lanzado
+                                                al mercado</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[20]"
+                                                name="r21"
+                                                value="3"
+                                                id="r21_4"
+                                            />
+                                            <label
+                                                for="r21_4"
+                                                class="custom-control-label"
+                                                >Mercado: se ofrece al mercado
+                                                la versión completa del
+                                                producto</label
+                                            >
+                                        </div>
+                                    </div>
+                                    <!-- 22 -->
+                                    <div class="col-md-12 form-group">
+                                        <label for=""
+                                            >22. ¿Se ha probado la demanda del
+                                            producto/servicio propuesto?
+                                        </label>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[21]"
+                                                name="r22"
+                                                value="0"
+                                                id="r22_1"
+                                            />
+                                            <label
+                                                for="r22_1"
+                                                class="custom-control-label"
+                                                >No, todavía estamos en etapa de
+                                                prueba</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[21]"
+                                                name="r22"
+                                                value="1"
+                                                id="r22_2"
+                                            />
+                                            <label
+                                                for="r22_2"
+                                                class="custom-control-label"
+                                                >Sí, la demanda ha sido validada
+                                                por nuestros principales
+                                                competidores</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[21]"
+                                                name="r22"
+                                                value="2"
+                                                id="r22_3"
+                                            />
+                                            <label
+                                                for="r22_3"
+                                                class="custom-control-label"
+                                                >Sí, la demanda ha sido
+                                                ampliamente probada y
+                                                validada</label
+                                            >
+                                        </div>
+                                    </div>
+                                    <!-- 23 -->
+                                    <div class="col-md-12 form-group">
+                                        <label for=""
+                                            >23. ¿Cuál es el tamaño actual de su
+                                            mercado total direccionable (TAM) ,
+                                            en términos monetarios?</label
+                                        >
+                                        <input
+                                            class="form-control"
+                                            type="number"
+                                            v-model="listRespuestas[22]"
+                                        />
+                                    </div>
+                                    <!-- 24 -->
+                                    <div class="col-md-12 form-group">
+                                        <label for=""
+                                            >24. ¿Cuál es la tasa de crecimiento
+                                            anual de este mercado?</label
+                                        >
+                                        <input
+                                            class="form-control"
+                                            type="number"
+                                            v-model="listRespuestas[23]"
+                                        />
+                                    </div>
+                                    <!-- 25 -->
+                                    <div class="col-md-12 form-group">
+                                        <label for=""
+                                            >25. ¿Qué tan altas son las barreras
+                                            de entrada del mercado al que se
+                                            dirige la empresa para los
+                                            competidores potenciales?
+                                        </label>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[24]"
+                                                name="r25"
+                                                value="0"
+                                                id="r25_1"
+                                            />
+                                            <label
+                                                for="r25_1"
+                                                class="custom-control-label"
+                                                >Muy bajo</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[24]"
+                                                name="r25"
+                                                value="1"
+                                                id="r25_2"
+                                            />
+                                            <label
+                                                for="r25_2"
+                                                class="custom-control-label"
+                                                >Bajo</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[24]"
+                                                name="r25"
+                                                value="2"
+                                                id="r25_3"
+                                            />
+                                            <label
+                                                for="r25_3"
+                                                class="custom-control-label"
+                                                >Modesto</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[24]"
+                                                name="r25"
+                                                value="3"
+                                                id="r25_4"
+                                            />
+                                            <label
+                                                for="r25_4"
+                                                class="custom-control-label"
+                                                >Alto</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[24]"
+                                                name="r25"
+                                                value="4"
+                                                id="r25_5"
+                                            />
+                                            <label
+                                                for="r25_5"
+                                                class="custom-control-label"
+                                                >Muy alto</label
+                                            >
+                                        </div>
+                                    </div>
+                                    <!-- 26 -->
+                                    <div class="col-md-12 form-group">
+                                        <label for=""
+                                            >26. ¿Cómo definiría el nivel de
+                                            competencia en su mercado objetivo?
+                                        </label>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[25]"
+                                                name="r26"
+                                                value="0"
+                                                id="r26_1"
+                                            />
+                                            <label
+                                                for="r26_1"
+                                                class="custom-control-label"
+                                                >Dominado por un solo
+                                                jugador</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[25]"
+                                                name="r26"
+                                                value="1"
+                                                id="r26_2"
+                                            />
+                                            <label
+                                                for="r26_2"
+                                                class="custom-control-label"
+                                                >Dominado por varios
+                                                jugadores</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[25]"
+                                                name="r26"
+                                                value="2"
+                                                id="r26_3"
+                                            />
+                                            <label
+                                                for="r26_3"
+                                                class="custom-control-label"
+                                                >Muchos jugadores
+                                                pequeños</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[25]"
+                                                name="r26"
+                                                value="3"
+                                                id="r26_4"
+                                            />
+                                            <label
+                                                for="r26_4"
+                                                class="custom-control-label"
+                                                >Algunos jugadores
+                                                pequeños</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[25]"
+                                                name="r26"
+                                                value="4"
+                                                id="r26_5"
+                                            />
+                                            <label
+                                                for="r26_5"
+                                                class="custom-control-label"
+                                                >Océano azul (competencia
+                                                insignificante)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <!-- 27 -->
+                                    <div class="col-md-12 form-group">
+                                        <label for=""
+                                            >27. Los productos/servicios
+                                            competitivos existentes son:
+                                        </label>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[26]"
+                                                name="r27"
+                                                value="0"
+                                                id="r27_1"
+                                            />
+                                            <label
+                                                for="r27_1"
+                                                class="custom-control-label"
+                                                >Excelente</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[26]"
+                                                name="r27"
+                                                value="1"
+                                                id="r27_2"
+                                            />
+                                            <label
+                                                for="r27_2"
+                                                class="custom-control-label"
+                                                >Bien</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[26]"
+                                                name="r27"
+                                                value="2"
+                                                id="r27_3"
+                                            />
+                                            <label
+                                                for="r27_3"
+                                                class="custom-control-label"
+                                                >Débil</label
+                                            >
+                                        </div>
+                                    </div>
+                                    <!-- 28 -->
+                                    <div class="col-md-12 form-group">
+                                        <label for=""
+                                            >28. ¿Cómo definiría su producto en
+                                            comparación con los de los
+                                            competidores existentes?
+                                        </label>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[27]"
+                                                name="r28"
+                                                value="0"
+                                                id="r28_1"
+                                            />
+                                            <label
+                                                for="r28_1"
+                                                class="custom-control-label"
+                                                >Comparable</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[27]"
+                                                name="r28"
+                                                value="1"
+                                                id="r28_2"
+                                            />
+                                            <label
+                                                for="r28_2"
+                                                class="custom-control-label"
+                                                >Comparable, pero innovamos en
+                                                términos de propuesta de
+                                                marketing/PVU</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[27]"
+                                                name="r28"
+                                                value="2"
+                                                id="r28_3"
+                                            />
+                                            <label
+                                                for="r28_3"
+                                                class="custom-control-label"
+                                                >Comparable, pero radicalmente
+                                                innovador en términos de
+                                                ejecución (por ejemplo, costos,
+                                                fabricación, etc.)</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[27]"
+                                                name="r28"
+                                                value="3"
+                                                id="r28_4"
+                                            />
+                                            <label
+                                                for="r27_4"
+                                                class="custom-control-label"
+                                                >Los productos actuales
+                                                resuelven las mismas necesidades
+                                                con una solución no
+                                                comparable</label
+                                            >
+                                        </div>
+                                    </div>
+                                    <!-- 29 -->
+                                    <div class="col-md-12 form-group">
+                                        <label for=""
+                                            >29. ¿Cómo te relacionas con la
+                                            competencia internacional?
+                                        </label>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[28]"
+                                                name="r29"
+                                                value="0"
+                                                id="r29_1"
+                                            />
+                                            <label
+                                                for="r29_1"
+                                                class="custom-control-label"
+                                                >La competencia en el exterior
+                                                ya está establecida</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[28]"
+                                                name="r29"
+                                                value="1"
+                                                id="r29_2"
+                                            />
+                                            <label
+                                                for="r29_2"
+                                                class="custom-control-label"
+                                                >La competencia en el exterior
+                                                es cada vez mayor pero los
+                                                mercados exteriores son aún más
+                                                pequeños que el de nuestro
+                                                país</label
+                                            >
+                                        </div>
+                                        <div
+                                            class="custom-control custom-radio"
+                                        >
+                                            <input
+                                                class="custom-control-input"
+                                                type="radio"
+                                                v-model="listRespuestas[28]"
+                                                name="r29"
+                                                value="2"
+                                                id="r29_3"
+                                            />
+                                            <label
+                                                for="r29_3"
+                                                class="custom-control-label"
+                                                >La competencia en el extranjero
+                                                aún no está desarrollada</label
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <el-button
+                                            type="primary"
+                                            class="btn-primary bg-primary btn-block"
+                                            :loading="enviando"
+                                            @click="enviarFormulario()"
+                                        >
+                                            <i class="fa fa-save"></i> Registrar
+                                            cuestionario
+                                        </el-button>
+                                        <router-link
+                                            :to="{ name: 'empresas.index' }"
+                                            class="btn btn-default btn-lg btn-block"
+                                            ><i class="fa fa-list"></i> Volver a
+                                            empresas</router-link
+                                        >
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1198,6 +1790,7 @@ export default {
             listado20_1: [],
             listado20_2: [],
             esperando: 0,
+            enviando: false,
         };
     },
     mounted() {
@@ -1235,6 +1828,7 @@ export default {
                 this.oEmpresa = response.data.empresa;
             });
         },
+        enviarFormulario() {},
         parseStringToArray(input) {
             const parts = input.split("|");
             const result = [];
