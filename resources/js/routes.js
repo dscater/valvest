@@ -61,6 +61,13 @@ export default new Router({
                 .default,
             props: true,
         },
+        {
+            path: "/empresas/fondos/:id",
+            name: "empresas.fondos",
+            component: require("./components/modulos/empresas/Fondos.vue")
+                .default,
+            props: true,
+        },
 
         // Configuración
         {
@@ -80,18 +87,26 @@ export default new Router({
             props: true,
         },
         {
-            path: "/reportes/proteccion_personal",
-            name: "reportes.proteccion_personal",
+            path: "/reportes/valoracion",
+            name: "reportes.valoracion",
             component:
-                require("./components/modulos/reportes/proteccion_personal.vue")
+                require("./components/modulos/reportes/valoracion.vue")
                     .default,
             props: true,
         },
         {
-            path: "/reportes/g_proteccion_personal",
-            name: "reportes.g_proteccion_personal",
+            path: "/reportes/g_valoracion",
+            name: "reportes.g_valoracion",
             component:
-                require("./components/modulos/reportes/g_proteccion_personal.vue")
+                require("./components/modulos/reportes/g_valoracion.vue")
+                    .default,
+            props: true,
+        },
+        {
+            path: "/reportes/valoracion_users",
+            name: "reportes.valoracion_users",
+            component:
+                require("./components/modulos/reportes/valoracion_users.vue")
                     .default,
             props: true,
         },

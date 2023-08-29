@@ -2757,7 +2757,6 @@
 </template>
 <script>
 import { lista_20_1, lista_20_2 } from "./Listas.js";
-import respuestas from "./Respuestas";
 export default {
     props: ["id"],
     data() {
@@ -2778,7 +2777,50 @@ export default {
                 cuestionario: null,
             },
             listPaises: [],
-            listRespuestas: [],
+            listRespuestas: [
+                "",
+                "",
+                0,
+                0,
+                0,
+                "",
+                0,
+                "",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                "",
+                0,
+                0,
+                "",
+                [0, 0],
+                0,
+                0,
+                "",
+                "",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                "",
+                0,
+                "",
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+            ],
             listado20_1: [],
             listado20_2: [],
             esperando: 0,
@@ -2811,7 +2853,6 @@ export default {
     mounted() {
         this.getEmpresa();
         this.loadingWindow.close();
-        this.listRespuestas = respuestas;
         this.listado20_1 = lista_20_1;
         this.listado20_2 = lista_20_2;
         this.getPaises();
@@ -2851,7 +2892,7 @@ export default {
                 if (this.accion == "edit") {
                     url =
                         "/admin/cuestionarios/" + this.oEmpresa.cuestionario.id;
-                        data["_method"] = "PUT";
+                    data["_method"] = "PUT";
                 }
                 axios
                     .post(url, data)

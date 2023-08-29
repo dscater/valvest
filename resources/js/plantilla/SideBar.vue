@@ -119,7 +119,9 @@
                         class="nav-header bg-navy"
                         v-if="
                             permisos.includes('reportes.usuarios') ||
-                            permisos.includes('reportes.g_proteccion_personal')
+                            permisos.includes('reportes.valoracion') ||
+                            permisos.includes('reportes.g_valoracion')||
+                            permisos.includes('reportes.valoracion_users')
                         "
                     >
                         REPORTES
@@ -138,10 +140,10 @@
                     </li>
                     <li
                         class="nav-item"
-                        v-if="permisos.includes('reportes.usuarios')"
+                        v-if="permisos.includes('reportes.valoracion')"
                     >
                         <router-link
-                            :to="{ name: 'reportes.usuarios' }"
+                            :to="{ name: 'reportes.valoracion' }"
                             class="nav-link"
                         >
                             <i class="fas fa-file-pdf nav-icon"></i>
@@ -150,10 +152,10 @@
                     </li>
                     <li
                         class="nav-item"
-                        v-if="permisos.includes('reportes.g_proteccion_personal')"
+                        v-if="permisos.includes('reportes.g_valoracion')"
                     >
                         <router-link
-                            :to="{ name: 'reportes.g_proteccion_personal' }"
+                            :to="{ name: 'reportes.g_valoracion' }"
                             class="nav-link"
                         >
                             <i class="fas fa-chart-bar nav-icon"></i>
@@ -162,10 +164,10 @@
                     </li>
                     <li
                         class="nav-item"
-                        v-if="permisos.includes('reportes.usuarios')"
+                        v-if="permisos.includes('reportes.valoracion_users')"
                     >
                         <router-link
-                            :to="{ name: 'reportes.usuarios' }"
+                            :to="{ name: 'reportes.valoracion_users' }"
                             class="nav-link"
                         >
                             <i class="fas fa-file-pdf nav-icon"></i>

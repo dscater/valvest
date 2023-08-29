@@ -13,5 +13,9 @@ class Cuestionario extends Model
         "cuestionario",
     ];
 
-    
+
+    public function empresa()
+    {
+        return $this->belongsTo(Empresa::class, 'empresa_id');
+    }
 }

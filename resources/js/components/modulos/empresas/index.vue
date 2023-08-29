@@ -257,7 +257,11 @@
                                                             class="btn btn-sm btn-outline-success btn-flat mb-1 rounded-pill"
                                                             title="Fondos"
                                                             :to="{
-                                                                name: 'empresas.cuestionario',
+                                                                name: 'empresas.fondos',
+                                                                params: {
+                                                                    id: row.item
+                                                                        .id,
+                                                                },
                                                             }"
                                                         >
                                                             <i

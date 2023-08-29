@@ -34,6 +34,11 @@ class Empresa extends Model
         return $this->hasOne(Cuestionario::class, 'empresa_id');
     }
 
+    public function fondo()
+    {
+        return $this->hasOne(Fondo::class, 'empresa_id');
+    }
+
     public function user()
     {
         return $this->hasOne(User::class, 'user_id');

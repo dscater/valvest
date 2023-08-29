@@ -56,8 +56,9 @@ class UserController extends Controller
             'configuracion.edit',
 
             'reportes.usuarios',
-            'reportes.proteccion_personal',
-            'reportes.g_proteccion_personal',
+            'reportes.valoracion',
+            'reportes.g_valoracion',
+            'reportes.valoracion_users',
         ],
         "EMPRESA" => [],
         "INVERSIONISTA" => [],

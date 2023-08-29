@@ -72,9 +72,9 @@ class CuestionarioController extends Controller
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'CREACIÓN',
-                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' REGISTRO UN USUARIO',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' REGISTRO EL CUESTIONARIO DE LA EMPRESA ' . $nuevo_cuestionario->empresa->nombre,
                 'datos_original' => $datos_original,
-                'modulo' => 'USUARIOS',
+                'modulo' => 'CUESTIONARIOS',
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s')
             ]);
@@ -117,9 +117,9 @@ class CuestionarioController extends Controller
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,
                 'accion' => 'CREACIÓN',
-                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' REGISTRO UN USUARIO',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' ACTUALIZÓ EL CUESTIONARIO DE LA EMPRESA ' . $cuestionario->empresa->nombre,
                 'datos_original' => $datos_original,
-                'modulo' => 'USUARIOS',
+                'modulo' => 'CUESTIONARIOS',
                 'fecha' => date('Y-m-d'),
                 'hora' => date('H:i:s')
             ]);

@@ -10,9 +10,9 @@
         }
 
         @page {
-            margin-top: 2cm;
+            margin-top: 1.5cm;
             margin-bottom: 1cm;
-            margin-left: 1.5cm;
+            margin-left: 1cm;
             margin-right: 1cm;
         }
 
@@ -49,13 +49,13 @@
             width: 200px;
             height: 90px;
             top: -20px;
-            left: -20px;
+            left: 0px;
         }
 
         h2.titulo {
             width: 450px;
             margin: auto;
-            margin-top: 15px;
+            margin-top: 0PX;
             margin-bottom: 15px;
             text-align: center;
             font-size: 14pt;
@@ -180,6 +180,7 @@
                 <th>CORREO</th>
                 <th>TELEFÓNO(S)</th>
                 <th>TIPO DE USUARIO</th>
+                <th>ACCESO</th>
                 <th width="9%">FECHA DE REGISTRO</th>
             </tr>
         </thead>
@@ -200,6 +201,7 @@
                     <td class="centreado">{{ $user->correo }}</td>
                     <td class="centreado">{{ $user->fono }}</td>
                     <td class="centreado">{{ $user->tipo }}</td>
+                    <td class="centreado">{{ $user->acceso == 1 ? 'HABILITADO' : 'DESHABILITADO' }}</td>
                     <td class="centreado">{{ $user->fecha_registro }}</td>
                 </tr>
             @endforeach

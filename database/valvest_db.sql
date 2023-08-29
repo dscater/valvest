@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 28-08-2023 a las 19:21:49
+-- Tiempo de generación: 29-08-2023 a las 14:07:18
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 7.4.19
 
@@ -43,7 +43,10 @@ CREATE TABLE `accionistas` (
 INSERT INTO `accionistas` (`id`, `empresa_id`, `nombre`, `porcentaje`, `created_at`, `updated_at`) VALUES
 (3, 3, 'ACCIONISTA #1', 20.00, '2023-08-27 00:00:28', '2023-08-27 00:19:56'),
 (5, 5, 'ACCIONISTA#1', 40.00, '2023-08-27 00:09:48', '2023-08-27 00:09:48'),
-(6, 5, 'ACCIONSTA2', 40.00, '2023-08-27 00:21:13', '2023-08-27 00:21:13');
+(6, 5, 'ACCIONSTA2', 40.00, '2023-08-27 00:21:13', '2023-08-27 00:21:13'),
+(7, 6, 'ACCIONISTA 1 EMP.3', 100.00, '2023-08-28 20:35:11', '2023-08-28 20:35:11'),
+(8, 7, 'ACCIONISTA 1', 50.00, '2023-08-28 20:35:44', '2023-08-28 20:35:44'),
+(9, 7, 'ACCIONISTA 2', 50.00, '2023-08-28 20:35:44', '2023-08-28 20:35:44');
 
 -- --------------------------------------------------------
 
@@ -67,7 +70,9 @@ CREATE TABLE `competidores` (
 INSERT INTO `competidores` (`id`, `empresa_id`, `nombre`, `web`, `created_at`, `updated_at`) VALUES
 (1, 3, 'COMPETIDOR 1', 'URL_COMP1', '2023-08-27 00:00:28', '2023-08-27 00:19:56'),
 (3, 5, 'COMPETIDOR', 'URL', '2023-08-27 00:09:48', '2023-08-27 00:09:48'),
-(4, 5, 'COMPETIDOR2', 'URL2', '2023-08-27 00:21:25', '2023-08-27 00:21:25');
+(4, 5, 'COMPETIDOR2', 'URL2', '2023-08-27 00:21:25', '2023-08-27 00:21:25'),
+(5, 6, 'COMPEDITOR 1', 'URL', '2023-08-28 20:35:11', '2023-08-28 20:35:11'),
+(6, 7, 'COMPETIDOR1', 'URL1', '2023-08-28 20:35:44', '2023-08-28 20:35:44');
 
 -- --------------------------------------------------------
 
@@ -110,6 +115,13 @@ CREATE TABLE `cuestionarios` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `cuestionarios`
+--
+
+INSERT INTO `cuestionarios` (`id`, `empresa_id`, `cuestionario`, `created_at`, `updated_at`) VALUES
+(2, 3, '3|30000|1|1|1|7|1|2|1|1|1|1|1|1|1|2|1|1|Bhutan|2;0|1|1|30000|20000|1|1|0|1|1|1|1|1|1|2013|1||0|1|1|1|1|1', '2023-08-28 20:16:24', '2023-08-29 13:50:11');
+
 -- --------------------------------------------------------
 
 --
@@ -135,7 +147,9 @@ CREATE TABLE `empresas` (
 
 INSERT INTO `empresas` (`id`, `nombre`, `descripcion_actividad`, `web`, `correo`, `dir`, `fecha_registro`, `user_id`, `created_at`, `updated_at`) VALUES
 (3, 'EMPRESA #1', 'DESC. EMPRESA#1', '', 'EMPRESA1@GMAIL.COM', 'LOS OLIVOS', '2023-08-26', 1, '2023-08-27 00:00:28', '2023-08-27 00:00:28'),
-(5, 'EMPRESA #2', 'ACT. EMPRESA #2', 'WEB EMPRESA 2', 'EMPRESA2@GMAIL.COM', 'LOS OLIVOS', '2023-08-26', 1, '2023-08-27 00:09:48', '2023-08-27 00:09:48');
+(5, 'EMPRESA #2', 'ACT. EMPRESA #2', 'WEB EMPRESA 2', 'EMPRESA2@GMAIL.COM', 'LOS OLIVOS', '2023-08-26', 1, '2023-08-27 00:09:48', '2023-08-27 00:09:48'),
+(6, 'EMPRESA #3', 'ACTIVIDAD EMP. 3', '', 'EMPRESA3@GMAIL.COM', 'LOS OLIVOS', '2023-08-28', 1, '2023-08-28 20:35:11', '2023-08-28 20:35:11'),
+(7, 'EMPRESA #4', 'DESC. ACT. #4', '', 'EMPRESA4@GMAIL.COM', 'LOS OLIVOS', '2023-08-28', 1, '2023-08-28 20:35:44', '2023-08-28 20:35:44');
 
 -- --------------------------------------------------------
 
@@ -228,7 +242,16 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (5, 1, 'MODIFICACIÓN', 'EL USUARIO admin@gmail.com MODIFICÓ UNA EMPRESA', 'id: 3<br/>nombre: EMPRESA #1<br/>descripcion_actividad: DESC. EMPRESA#1<br/>web: <br/>correo: EMPRESA1@GMAIL.COM<br/>dir: LOS OLIVOS<br/>fecha_registro: 2023-08-26<br/>created_at: 2023-08-26 20:00:28<br/>updated_at: 2023-08-26 20:00:28<br/>', NULL, 'EMPRESAS', '2023-08-26', '20:20:46', '2023-08-27 00:20:46', '2023-08-27 00:20:46'),
 (6, 1, 'MODIFICACIÓN', 'EL USUARIO admin@gmail.com MODIFICÓ UNA EMPRESA', 'id: 3<br/>nombre: EMPRESA #1<br/>descripcion_actividad: DESC. EMPRESA#1<br/>web: <br/>correo: EMPRESA1@GMAIL.COM<br/>dir: LOS OLIVOS<br/>fecha_registro: 2023-08-26<br/>created_at: 2023-08-26 20:00:28<br/>updated_at: 2023-08-26 20:00:28<br/>', NULL, 'EMPRESAS', '2023-08-26', '20:20:51', '2023-08-27 00:20:51', '2023-08-27 00:20:51'),
 (7, 1, 'MODIFICACIÓN', 'EL USUARIO admin@gmail.com MODIFICÓ UNA EMPRESA', 'id: 5<br/>nombre: EMPRESA #2<br/>descripcion_actividad: ACT. EMPRESA #2<br/>web: WEB EMPRESA 2<br/>correo: EMPRESA2@GMAIL.COM<br/>dir: LOS OLIVOS<br/>fecha_registro: 2023-08-26<br/>created_at: 2023-08-26 20:09:48<br/>updated_at: 2023-08-26 20:09:48<br/>', NULL, 'EMPRESAS', '2023-08-26', '20:21:13', '2023-08-27 00:21:13', '2023-08-27 00:21:13'),
-(8, 1, 'MODIFICACIÓN', 'EL USUARIO admin@gmail.com MODIFICÓ UNA EMPRESA', 'id: 5<br/>nombre: EMPRESA #2<br/>descripcion_actividad: ACT. EMPRESA #2<br/>web: WEB EMPRESA 2<br/>correo: EMPRESA2@GMAIL.COM<br/>dir: LOS OLIVOS<br/>fecha_registro: 2023-08-26<br/>created_at: 2023-08-26 20:09:48<br/>updated_at: 2023-08-26 20:09:48<br/>', NULL, 'EMPRESAS', '2023-08-26', '20:21:25', '2023-08-27 00:21:25', '2023-08-27 00:21:25');
+(8, 1, 'MODIFICACIÓN', 'EL USUARIO admin@gmail.com MODIFICÓ UNA EMPRESA', 'id: 5<br/>nombre: EMPRESA #2<br/>descripcion_actividad: ACT. EMPRESA #2<br/>web: WEB EMPRESA 2<br/>correo: EMPRESA2@GMAIL.COM<br/>dir: LOS OLIVOS<br/>fecha_registro: 2023-08-26<br/>created_at: 2023-08-26 20:09:48<br/>updated_at: 2023-08-26 20:09:48<br/>', NULL, 'EMPRESAS', '2023-08-26', '20:21:25', '2023-08-27 00:21:25', '2023-08-27 00:21:25'),
+(9, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com REGISTRO UN USUARIO', 'id: 2<br/>empresa_id: 3<br/>cuestionario: 2|20000|0|0|0|6|0|1|0|0|0|0|0|0|0|2|0|0|Bolivia|1;1|0|0|20000|10000|0|0|0|0|0|0|0|0|0|2012|0|2013|0|0|0|0|0|0<br/>created_at: 2023-08-28 16:16:24<br/>updated_at: 2023-08-28 16:16:24<br/>', NULL, 'USUARIOS', '2023-08-28', '16:16:24', '2023-08-28 20:16:24', '2023-08-28 20:16:24'),
+(10, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com REGISTRO UN USUARIO', 'id: 2<br/>empresa_id: 3<br/>cuestionario: 2|20000|0|0|0|6|0|1|0|0|0|0|0|0|0|2|0|0|Bolivia|1;1|0|0|20000|10000|0|0|0|0|0|0|0|0|0|2012|0|2013|0|0|0|0|0|0<br/>created_at: 2023-08-28 16:16:24<br/>updated_at: 2023-08-28 16:28:49<br/>', NULL, 'USUARIOS', '2023-08-28', '16:28:49', '2023-08-28 20:28:49', '2023-08-28 20:28:49'),
+(11, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com REGISTRO UN USUARIO', 'id: 2<br/>empresa_id: 3<br/>cuestionario: 3|30000|1|1|1|7|1|2|1|1|1|1|1|1|1|2|1|1|Bhutan|2;0|1|1|30000|20000|1|1|1|1|1|1|1|1|1|2013|1|2014|0|1|1|1|1|0<br/>created_at: 2023-08-28 16:16:24<br/>updated_at: 2023-08-28 16:30:07<br/>', NULL, 'USUARIOS', '2023-08-28', '16:30:07', '2023-08-28 20:30:07', '2023-08-28 20:30:07'),
+(12, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com REGISTRO UN USUARIO', 'id: 2<br/>empresa_id: 3<br/>cuestionario: 3|30000|1|1|1|7|1|2|1|1|1|1|1|1|1|2|1|1|Bhutan|2;0|1|1|30000|20000|1|1|1|1|1|1|1|1|1|2013|1||1|1|1|1|1|0<br/>created_at: 2023-08-28 16:16:24<br/>updated_at: 2023-08-28 16:31:06<br/>', NULL, 'USUARIOS', '2023-08-28', '16:31:06', '2023-08-28 20:31:06', '2023-08-28 20:31:06'),
+(13, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com REGISTRO UN USUARIO', 'id: 2<br/>empresa_id: 3<br/>cuestionario: 3|30000|1|1|1|7|1|2|1|1|1|1|1|1|1|2|1|1|Bhutan|2;0|1|1|30000|20000|1|1|1|1|1|1|1|1|1|2013|1||0|1|1|1|1|0<br/>created_at: 2023-08-28 16:16:24<br/>updated_at: 2023-08-28 16:31:14<br/>', NULL, 'USUARIOS', '2023-08-28', '16:31:14', '2023-08-28 20:31:14', '2023-08-28 20:31:14'),
+(14, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com REGISTRO UN USUARIO', 'id: 2<br/>empresa_id: 3<br/>cuestionario: 3|30000|1|1|1|7|1|2|1|1|1|1|1|1|1|2|1|1|Bhutan|2;0|1|1|30000|20000|1|1|1|1|1|1|1|1|1|2013|1||0|1|1|1|1|1<br/>created_at: 2023-08-28 16:16:24<br/>updated_at: 2023-08-28 16:32:59<br/>', NULL, 'USUARIOS', '2023-08-28', '16:32:59', '2023-08-28 20:32:59', '2023-08-28 20:32:59'),
+(15, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com REGISTRO UNA EMPRESA', 'id: 6<br/>nombre: EMPRESA #3<br/>descripcion_actividad: ACTIVIDAD EMP. 3<br/>web: <br/>correo: EMPRESA3@GMAIL.COM<br/>dir: LOS OLIVOS<br/>fecha_registro: 2023-08-28<br/>user_id: 1<br/>created_at: 2023-08-28 16:35:11<br/>updated_at: 2023-08-28 16:35:11<br/>', NULL, 'EMPRESAS', '2023-08-28', '16:35:11', '2023-08-28 20:35:11', '2023-08-28 20:35:11'),
+(16, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com REGISTRO UNA EMPRESA', 'id: 7<br/>nombre: EMPRESA #4<br/>descripcion_actividad: DESC. ACT. #4<br/>web: <br/>correo: EMPRESA4@GMAIL.COM<br/>dir: LOS OLIVOS<br/>fecha_registro: 2023-08-28<br/>user_id: 1<br/>created_at: 2023-08-28 16:35:44<br/>updated_at: 2023-08-28 16:35:44<br/>', NULL, 'EMPRESAS', '2023-08-28', '16:35:44', '2023-08-28 20:35:44', '2023-08-28 20:35:44'),
+(17, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com REGISTRO UN USUARIO', 'id: 2<br/>empresa_id: 3<br/>cuestionario: 3|30000|1|1|1|7|1|2|1|1|1|1|1|1|1|2|1|1|Bhutan|2;0|1|1|30000|20000|1|1|0|1|1|1|1|1|1|2013|1||0|1|1|1|1|1<br/>created_at: 2023-08-28 16:16:24<br/>updated_at: 2023-08-29 09:50:11<br/>', NULL, 'USUARIOS', '2023-08-29', '09:50:11', '2023-08-29 13:50:11', '2023-08-29 13:50:11');
 
 -- --------------------------------------------------------
 
@@ -450,13 +473,13 @@ ALTER TABLE `valoracion_users`
 -- AUTO_INCREMENT de la tabla `accionistas`
 --
 ALTER TABLE `accionistas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `competidores`
 --
 ALTER TABLE `competidores`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `configuracions`
@@ -468,13 +491,13 @@ ALTER TABLE `configuracions`
 -- AUTO_INCREMENT de la tabla `cuestionarios`
 --
 ALTER TABLE `cuestionarios`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `empresas`
 --
 ALTER TABLE `empresas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `finanzas`
@@ -492,7 +515,7 @@ ALTER TABLE `fondos`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`

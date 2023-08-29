@@ -3,6 +3,7 @@
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\CuestionarioController;
 use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\FondoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\ReporteController;
@@ -43,6 +44,11 @@ Route::middleware(['auth'])->group(function () {
 
         // cuestionarios
         Route::resource('cuestionarios', CuestionarioController::class)->only([
+            'index', 'store', 'update', 'destroy', 'show'
+        ]);
+
+        // fondos
+        Route::resource('fondos', FondoController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);
 
