@@ -190,6 +190,33 @@
                                                         class="row justify-content-between"
                                                     >
                                                         <b-button
+                                                            v-if="
+                                                                user.configuracion ==
+                                                                    1 &&
+                                                                row.item.tipo ==
+                                                                    'ADMINISTRADOR'
+                                                            "
+                                                            size="sm"
+                                                            pill
+                                                            variant="outline-primary"
+                                                            class="btn-flat btn-block"
+                                                            title="Asignar configuración"
+                                                            @click="
+                                                                asignarConfiguracion(
+                                                                    row.item.id,
+                                                                    `Usuario asignado: ${row.item.full_name}`
+                                                                )
+                                                            "
+                                                        >
+                                                            <i
+                                                                class="fa fa-user-cog"
+                                                            ></i>
+                                                        </b-button>
+                                                        <b-button
+                                                            v-if="
+                                                                user.configuracion ==
+                                                                1
+                                                            "
                                                             size="sm"
                                                             pill
                                                             variant="outline-warning"
@@ -206,6 +233,10 @@
                                                             ></i>
                                                         </b-button>
                                                         <b-button
+                                                            v-if="
+                                                                user.configuracion ==
+                                                                1
+                                                            "
                                                             size="sm"
                                                             pill
                                                             variant="outline-danger"
@@ -281,6 +312,7 @@ export default {
     },
     data() {
         return {
+            user: JSON.parse(localStorage.getItem("user")),
             permisos: localStorage.getItem("permisos"),
             search: "",
             listRegistros: [],
@@ -403,6 +435,57 @@ export default {
                                 showConfirmButton: false,
                                 timer: 1500,
                             });
+                        })
+                        .catch((error) => {
+                            if (error.response) {
+                                if (error.response.status === 422) {
+                                    this.errors = error.response.data.errors;
+                                }
+                                if (
+                                    error.response.status === 420 ||
+                                    error.response.status === 419 ||
+                                    error.response.status === 401
+                                ) {
+                                    window.location = "/";
+                                }
+                                if (error.response.status === 500) {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Error",
+                                        html: error.response.data.message,
+                                        showConfirmButton: false,
+                                        timer: 2000,
+                                    });
+                                }
+                            }
+                        });
+                }
+            });
+        },
+        asignarConfiguracion(id, descripcion) {
+            Swal.fire({
+                title: "¿Estás seguro(a) de asignar la configuración del sistema a este usuario?",
+                html: `<strong>${descripcion}</strong>`,
+                showCancelButton: true,
+                confirmButtonColor: "#149FDA",
+                confirmButtonText: "Si, asignar",
+                cancelButtonText: "No, cancelar",
+                denyButtonText: `No, cancelar`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    axios
+                        .post("/admin/usuarios/asignarConfiguracion/" + id, {
+                            _method: "PATCH",
+                        })
+                        .then((res) => {
+                            Swal.fire({
+                                icon: "success",
+                                title: res.data.msj,
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                            this.$router.push({ name: "inicio" });
                         })
                         .catch((error) => {
                             if (error.response) {

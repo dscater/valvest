@@ -27,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
         // Usuarios
         Route::get('usuarios/getUsuarioTipo', [UserController::class, 'getUsuarioTipo']);
         Route::get('usuarios/getUsuario/{usuario}', [UserController::class, 'getUsuario']);
+        Route::patch('usuarios/asignarConfiguracion/{usuario}', [UserController::class, 'asignarConfiguracion']);
         Route::get('usuarios/userActual', [UserController::class, 'userActual']);
         Route::get('usuarios/getInfoBox', [UserController::class, 'getInfoBox']);
         Route::get('usuarios/getPermisos/{usuario}', [UserController::class, 'getPermisos']);

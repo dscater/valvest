@@ -185,6 +185,41 @@ class UserController extends Controller
         }
     }
 
+    public function asignarConfiguracion(User $usuario)
+    {
+        DB::beginTransaction();
+        try {
+            $datos_original = HistorialAccion::getDetalleRegistro($usuario, "users");
+            DB::update("UPDATE users SET configuracion=0;");
+            $usuario->configuracion = 1;
+            $usuario->save();
+            $datos_nuevo = HistorialAccion::getDetalleRegistro($usuario, "users");
+            HistorialAccion::create([
+                'user_id' => Auth::user()->id,
+                'accion' => 'MODIFICACIÓN',
+                'descripcion' => 'EL USUARIO ' . Auth::user()->usuario . ' LE ASIGNÓ LA CONFIGURACIÓN DEL SISTEMA AL USUARIO ' . $usuario->usuario,
+                'datos_original' => $datos_original,
+                'datos_nuevo' => $datos_nuevo,
+                'modulo' => 'USUARIOS',
+                'fecha' => date('Y-m-d'),
+                'hora' => date('H:i:s')
+            ]);
+
+            DB::commit();
+            return response()->JSON([
+                'sw' => true,
+                'usuario' => $usuario,
+                'msj' => 'El registro se actualizó de forma correcta'
+            ], 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->JSON([
+                'sw' => false,
+                'message' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
     public function show(User $usuario)
     {
         return response()->JSON([
@@ -300,7 +335,7 @@ class UserController extends Controller
     {
         $tipo = Auth::user()->tipo;
         $array_infos = [];
-        if (in_array('usuarios.index', $this->permisos[$tipo])) {
+        if (in_array('usuarios.index', $this->permisos[$tipo]) && Auth::user()->configuracion == 1) {
             $array_infos[] = [
                 'label' => 'Usuarios',
                 'cantidad' => count(User::where('id', '!=', 1)->get()),

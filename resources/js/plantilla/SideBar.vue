@@ -82,7 +82,8 @@
                     <li
                         class="nav-header bg-navy"
                         v-if="
-                            permisos.includes('usuarios.index')||
+                            (permisos.includes('usuarios.index') &&
+                                user_sidebar.configuracion == 1) ||
                             permisos.includes('empresas.index')
                         "
                     >
@@ -90,7 +91,10 @@
                     </li>
                     <li
                         class="nav-item"
-                        v-if="permisos.includes('usuarios.index')"
+                        v-if="
+                            permisos.includes('usuarios.index') &&
+                            user_sidebar.configuracion == 1
+                        "
                     >
                         <router-link
                             exact
@@ -118,9 +122,10 @@
                     <li
                         class="nav-header bg-navy"
                         v-if="
-                            permisos.includes('reportes.usuarios') ||
+                            (permisos.includes('reportes.usuarios') &&
+                                user_sidebar.configuracion == 1) ||
                             permisos.includes('reportes.valoracion') ||
-                            permisos.includes('reportes.g_valoracion')||
+                            permisos.includes('reportes.g_valoracion') ||
                             permisos.includes('reportes.valoracion_users')
                         "
                     >
@@ -128,7 +133,10 @@
                     </li>
                     <li
                         class="nav-item"
-                        v-if="permisos.includes('reportes.usuarios')"
+                        v-if="
+                            permisos.includes('reportes.usuarios') &&
+                            user_sidebar.configuracion == 1
+                        "
                     >
                         <router-link
                             :to="{ name: 'reportes.usuarios' }"
@@ -272,7 +280,7 @@ export default {
     font-size: 0.8em;
 }
 
-.main-sidebar .image img{
+.main-sidebar .image img {
     min-height: 30px;
 }
 </style>
