@@ -16,6 +16,7 @@ class CreateFinanzasTable extends Migration
         Schema::create('finanzas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("empresa_id");
+            $table->integer("gestion");
             $table->decimal("ganancia", 24, 2);
             $table->decimal("costo_bienes_vendidos", 24, 2);
             $table->decimal("salarios", 24, 2);

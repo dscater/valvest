@@ -3,6 +3,7 @@
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\CuestionarioController;
 use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\FinanzaController;
 use App\Http\Controllers\FondoController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistroController;
@@ -50,6 +51,11 @@ Route::middleware(['auth'])->group(function () {
 
         // fondos
         Route::resource('fondos', FondoController::class)->only([
+            'index', 'store', 'update', 'destroy', 'show'
+        ]);
+
+        // finanzas
+        Route::resource('finanzas', FinanzaController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);
 

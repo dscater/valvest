@@ -22,10 +22,44 @@
                                         >
                                             <thead>
                                                 <tr>
-                                                    <th></th>
+                                                    <th width="240px"></th>
+                                                    <th
+                                                        v-for="item in oEmpresa.finanzas"
+                                                        class="text-center"
+                                                    >
+                                                        <span
+                                                            v-if="
+                                                                item.gestion <
+                                                                getAnioActual()
+                                                            "
+                                                            >AÑO PASADO</span
+                                                        ><br />
+                                                        1/{{ item.gestion }} -
+                                                        12/{{ item.gestion }}
+                                                    </th>
                                                     <th width="35px">
                                                         <button
+                                                            v-if="
+                                                                oEmpresa
+                                                                    .finanzas
+                                                                    .length == 0
+                                                            "
                                                             class="btn btn-outline-primary btn-sm btn-block btn-flat"
+                                                            @click="
+                                                                inicializarFinanza
+                                                            "
+                                                        >
+                                                            <i
+                                                                class="fa fa-plus"
+                                                            ></i>
+                                                            AÑADIR NUEVO
+                                                        </button>
+                                                        <button
+                                                            v-else
+                                                            class="btn btn-outline-primary btn-sm btn-block btn-flat"
+                                                            @click="
+                                                                agregarColumna
+                                                            "
                                                         >
                                                             <i
                                                                 class="fa fa-plus"
@@ -40,12 +74,59 @@
                                                     <td class="text-xs">
                                                         GANANCIA*
                                                     </td>
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.ganancia
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'ganancia',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'ganancia',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
+                                                    </td>
                                                     <td rowspan="21"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-xs">
                                                         COSTO DE LOS BIENES
                                                         VENDIDOS*
+                                                    </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.costo_bienes_vendidos
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'costo_bienes_vendidos',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'costo_bienes_vendidos',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -55,6 +136,30 @@
                                                             salarios de los
                                                             contratistas</small
                                                         >
+                                                    </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.salarios
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'salarios',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'salarios',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -66,53 +171,313 @@
                                                             Administrativos</small
                                                         >
                                                     </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.otros_gastos_operativos
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'otros_gastos_operativos',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'otros_gastos_operativos',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-xs">
                                                         EBITDA
                                                     </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.ebitda
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'ebitda',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'ebitda',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-xs">D&A</td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="item.da"
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'da',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'da',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-xs">
                                                         EBIT
+                                                    </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="item.ebit"
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'ebit',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'ebit',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-xs">
                                                         INTERÉS
                                                     </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.interes
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'interes',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'interes',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-xs">
                                                         IMPUESTOS
+                                                    </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.impuestos
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'impuestos',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'impuestos',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-xs">
                                                         BENEFICIO NETO
                                                     </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.beneficio_neto
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'beneficio_neto',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'beneficio_neto',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-xs">
                                                         CUENTAS POR COBRAR
+                                                    </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.cuentas_cobrar
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'cuentas_cobrar',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'cuentas_cobrar',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-xs">
                                                         INVENTARIO
                                                     </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.inventario
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'inventario',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'inventario',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-xs">
                                                         CUENTAS POR PAGAR
                                                     </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.cuentas_pagar
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'cuentas_pagar',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'cuentas_pagar',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-xs">
                                                         CAPITAL DE TRABAJO
+                                                    </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.capital_trabajo
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'capital_trabajo',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'capital_trabajo',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -120,15 +485,87 @@
                                                         CAMBIO EN EL CAPITAL DE
                                                         TRABAJO
                                                     </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.cambio_capital_trabajo
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'cambio_capital_trabajo',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'cambio_capital_trabajo',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-xs">
                                                         LOS GASTOS DE CAPITAL
                                                     </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.gastos_capital
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'gastos_capital',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'gastos_capital',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-xs">
                                                         DEUDA AL FINAL DEL AÑO
+                                                    </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.deuda_final_anio
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'deuda_final_anio',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'deuda_final_anio',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -136,11 +573,59 @@
                                                         CAMBIO EN LA DEUDA
                                                         PENDIENTE
                                                     </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.cambio_deuda_pendiente
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'cambio_deuda_pendiente',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'cambio_deuda_pendiente',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-xs">
                                                         FLUJO DE CAJA LIBRE A
                                                         CAPITAL
+                                                    </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.flujo_caja_libre_capital
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'flujo_caja_libre_capital',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'flujo_caja_libre_capital',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -152,29 +637,64 @@
                                                             actual</small
                                                         >
                                                     </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.recaudacion_fondos_futura
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'recaudacion_fondos_futura',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'recaudacion_fondos_futura',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-xs">
                                                         FLUJO DE CAJA LIBRE
+                                                    </td>
+
+                                                    <td
+                                                        v-for="item in oEmpresa.finanzas"
+                                                    >
+                                                        <input
+                                                            type="number"
+                                                            class="form-control"
+                                                            v-model="
+                                                                item.flujo_caja_libre
+                                                            "
+                                                            @keyup="
+                                                                actualizaColumna(
+                                                                    'flujo_caja_libre',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                            @change="
+                                                                actualizaColumna(
+                                                                    'flujo_caja_libre',
+                                                                    item.id
+                                                                )
+                                                            "
+                                                        />
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                     <div class="col-md-12">
-                                        <el-button
-                                            type="primary"
-                                            class="btn-primary bg-primary btn-block"
-                                            :loading="enviando"
-                                            @click="enviarFormulario()"
-                                            v-html="textoBoton"
-                                            :disabled="
-                                                total_porcentaje == 100
-                                                    ? false
-                                                    : true
-                                            "
-                                        >
-                                        </el-button>
                                         <router-link
                                             :to="{ name: 'empresas.index' }"
                                             class="btn btn-default btn-lg btn-block"
@@ -270,18 +790,87 @@ export default {
                 this.oEmpresa = response.data.empresa;
             });
         },
-        enviarFormulario() {
-            this.enviando = true;
+        sumaPorcentaje() {
+            this.total_porcentaje =
+                parseFloat(
+                    this.oFinanza.p_producto ? this.oFinanza.p_producto : 0
+                ) +
+                parseFloat(
+                    this.oFinanza.p_venta_marketing
+                        ? this.oFinanza.p_venta_marketing
+                        : 0
+                ) +
+                parseFloat(
+                    this.oFinanza.p_inventario ? this.oFinanza.p_inventario : 0
+                ) +
+                parseFloat(
+                    this.oFinanza.p_operacion ? this.oFinanza.p_operacion : 0
+                ) +
+                parseFloat(
+                    this.oFinanza.p_gastos ? this.oFinanza.p_gastos : 0
+                ) +
+                parseFloat(this.oFinanza.p_otros ? this.oFinanza.p_otros : 0);
+        },
+        async inicializarFinanza() {
+            const { value: inputValue, isConfirmed } = await Swal.fire({
+                title: "Ingresa una gestión",
+                input: "number",
+                inputAttributes: {
+                    min: 0,
+                    step: 1,
+                },
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: "#28315c",
+                confirmButtonText: "Aceptar",
+                preConfirm: (value) => {
+                    if (!value) {
+                        Swal.showValidationMessage("Debes ingresar un valor");
+                    }
+                },
+            });
+
+            if (isConfirmed && inputValue !== undefined) {
+                let data = {
+                    empresa_id: this.oEmpresa.id,
+                    gestion: inputValue,
+                };
+                this.enviarDatos(data);
+            }
+        },
+
+        agregarColumna() {
+            let nueva_gestion =
+                parseInt(
+                    this.oEmpresa.finanzas[this.oEmpresa.finanzas.length - 1]
+                        .gestion
+                ) + 1;
+            let data = {
+                empresa_id: this.oEmpresa.id,
+                gestion: nueva_gestion,
+            };
+            Swal.fire({
+                title: "Se agregará el registro con gestión:",
+                html: `<strong class="text-xl">${nueva_gestion}</strong>`,
+                showCancelButton: true,
+                confirmButtonColor: "#28315c",
+                confirmButtonText: "Aceptar",
+                cancelButtonText: "Cancelar",
+                denyButtonText: `No, cancelar`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.enviarDatos(data);
+                }
+            });
+        },
+
+        enviarDatos(data) {
             try {
                 this.textoBtn = "Enviando...";
                 let url = "/admin/finanzas";
-                this.oFinanza.empresa_id = this.oEmpresa.id;
-                if (this.accion == "edit") {
-                    url = "/admin/finanzas/" + this.oEmpresa.finanza.id;
-                    this.oFinanza["_method"] = "PUT";
-                }
+
                 axios
-                    .post(url, this.oFinanza)
+                    .post(url, data)
                     .then((res) => {
                         this.enviando = false;
                         if (res.data.sw) {
@@ -291,8 +880,8 @@ export default {
                                 showConfirmButton: false,
                                 timer: 2000,
                             });
+                            this.oEmpresa.finanzas.push(res.data.nueva_finanza);
                             this.errors = [];
-                            this.recargaFormulario();
                         } else {
                             Swal.fire({
                                 icon: "info",
@@ -355,27 +944,7 @@ export default {
                 console.log(e);
             }
         },
-        sumaPorcentaje() {
-            this.total_porcentaje =
-                parseFloat(
-                    this.oFinanza.p_producto ? this.oFinanza.p_producto : 0
-                ) +
-                parseFloat(
-                    this.oFinanza.p_venta_marketing
-                        ? this.oFinanza.p_venta_marketing
-                        : 0
-                ) +
-                parseFloat(
-                    this.oFinanza.p_inventario ? this.oFinanza.p_inventario : 0
-                ) +
-                parseFloat(
-                    this.oFinanza.p_operacion ? this.oFinanza.p_operacion : 0
-                ) +
-                parseFloat(
-                    this.oFinanza.p_gastos ? this.oFinanza.p_gastos : 0
-                ) +
-                parseFloat(this.oFinanza.p_otros ? this.oFinanza.p_otros : 0);
-        },
+        actualizaColumna(col, id) {},
     },
 };
 </script>

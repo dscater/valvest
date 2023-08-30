@@ -11,6 +11,7 @@ class Finanza extends Model
 
     protected $fillable = [
         "empresa_id",
+        "gestion",
         "ganancia",
         "costo_bienes_vendidos",
         "salarios",
@@ -33,4 +34,9 @@ class Finanza extends Model
         "recaudacion_fondos_futura",
         "flujo_caja_libre",
     ];
+
+    public function empresa()
+    {
+        return $this->belongsTo(Empresa::class, 'empresa_id');
+    }
 }

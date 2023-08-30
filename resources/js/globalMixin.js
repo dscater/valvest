@@ -8,7 +8,10 @@ export default {
             }
             return "";
         },
-        getFeachaActual() {
+        getAnioActual() {
+            return this.$moment().format("YYYY");
+        },
+        getFechaActual() {
             return this.$moment().format("YYYY-MM-DD");
         },
         getHoraActual() {
