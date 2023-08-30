@@ -39,6 +39,11 @@ class Empresa extends Model
         return $this->hasOne(Fondo::class, 'empresa_id');
     }
 
+    public function finanzas()
+    {
+        return $this->hasMany(Finanza::class, 'empresa_id');
+    }
+
     public function user()
     {
         return $this->hasOne(User::class, 'user_id');

@@ -273,7 +273,11 @@
                                                             class="btn btn-sm btn-outline-info btn-flat mb-1 rounded-pill"
                                                             title="Finanzas"
                                                             :to="{
-                                                                name: 'empresas.cuestionario',
+                                                                name: 'empresas.finanzas',
+                                                                params: {
+                                                                    id: row.item
+                                                                        .id,
+                                                                },
                                                             }"
                                                         >
                                                             <i

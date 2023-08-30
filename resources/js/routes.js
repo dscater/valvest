@@ -68,6 +68,13 @@ export default new Router({
                 .default,
             props: true,
         },
+        {
+            path: "/empresas/finanzas/:id",
+            name: "empresas.finanzas",
+            component: require("./components/modulos/empresas/Finanzas.vue")
+                .default,
+            props: true,
+        },
 
         // Configuración
         {

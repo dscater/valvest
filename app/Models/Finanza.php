@@ -8,4 +8,29 @@ use Illuminate\Database\Eloquent\Model;
 class Finanza extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "empresa_id",
+        "ganancia",
+        "costo_bienes_vendidos",
+        "salarios",
+        "otros_gastos_operativos",
+        "ebitda",
+        "da",
+        "ebit",
+        "interes",
+        "impuestos",
+        "beneficio_neto",
+        "cuentas_cobrar",
+        "inventario",
+        "cuentas_pagar",
+        "capital_trabajo",
+        "cambio_capital_trabajo",
+        "gastos_capital",
+        "deuda_final_anio",
+        "cambio_deuda_pendiente",
+        "flujo_caja_libre_capital",
+        "recaudacion_fondos_futura",
+        "flujo_caja_libre",
+    ];
 }
