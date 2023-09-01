@@ -17,6 +17,17 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
+                                        <button
+                                            class="btn btn-outline-primary btn-sm btn-block btn-flat"
+                                            @click="
+                                                abreModal('nuevo');
+                                            "
+                                        >
+                                            <i class="fa fa-plus"></i>
+                                            AÑADIR NUEVO
+                                        </button>
+                                    </div>
+                                    <div class="col-md-12">
                                         <table
                                             class="table table-bordered table-striped"
                                         >
@@ -36,36 +47,6 @@
                                                         ><br />
                                                         1/{{ item.gestion }} -
                                                         12/{{ item.gestion }}
-                                                    </th>
-                                                    <th width="35px">
-                                                        <button
-                                                            v-if="
-                                                                oEmpresa
-                                                                    .finanzas
-                                                                    .length == 0
-                                                            "
-                                                            class="btn btn-outline-primary btn-sm btn-block btn-flat"
-                                                            @click="
-                                                                inicializarFinanza
-                                                            "
-                                                        >
-                                                            <i
-                                                                class="fa fa-plus"
-                                                            ></i>
-                                                            AÑADIR NUEVO
-                                                        </button>
-                                                        <button
-                                                            v-else
-                                                            class="btn btn-outline-primary btn-sm btn-block btn-flat"
-                                                            @click="
-                                                                agregarColumna
-                                                            "
-                                                        >
-                                                            <i
-                                                                class="fa fa-plus"
-                                                            ></i>
-                                                            AÑADIR NUEVO
-                                                        </button>
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -97,7 +78,6 @@
                                                             "
                                                         />
                                                     </td>
-                                                    <td rowspan="21"></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="text-xs">
@@ -709,10 +689,22 @@
                 </div>
             </div>
         </section>
+        <AddFinanza
+            :muestra_modal="muestra_modal"
+            :accion="modal_accion"
+            :finanza="oFinanza"
+            :empresa="oEmpresa"
+            @close="muestra_modal = false"
+            @envioModal="getEmpresa"
+        ></AddFinanza>
     </div>
 </template>
 <script>
+import AddFinanza from "./AddFinanza.vue";
 export default {
+    components: {
+        AddFinanza,
+    },
     props: ["id"],
     data() {
         return {
@@ -730,7 +722,9 @@ export default {
                 finanzas: [],
             },
             oFinanza: {
+                id: 0,
                 empresa_id: 0,
+                gestion: 0,
                 ganancia: 0,
                 costo_bienes_vendidos: 0,
                 salarios: 0,
@@ -757,6 +751,8 @@ export default {
             esperando: 0,
             enviando: false,
             accion: "nuevo",
+            muestra_modal: false,
+            modal_accion: "nuevo",
         };
     },
     watch: {
@@ -786,162 +782,16 @@ export default {
             location.reload();
         },
         getEmpresa() {
+            this.muestra_modal = false;
             axios.get("/admin/empresas/" + this.id).then((response) => {
                 this.oEmpresa = response.data.empresa;
             });
         },
-        sumaPorcentaje() {
-            this.total_porcentaje =
-                parseFloat(
-                    this.oFinanza.p_producto ? this.oFinanza.p_producto : 0
-                ) +
-                parseFloat(
-                    this.oFinanza.p_venta_marketing
-                        ? this.oFinanza.p_venta_marketing
-                        : 0
-                ) +
-                parseFloat(
-                    this.oFinanza.p_inventario ? this.oFinanza.p_inventario : 0
-                ) +
-                parseFloat(
-                    this.oFinanza.p_operacion ? this.oFinanza.p_operacion : 0
-                ) +
-                parseFloat(
-                    this.oFinanza.p_gastos ? this.oFinanza.p_gastos : 0
-                ) +
-                parseFloat(this.oFinanza.p_otros ? this.oFinanza.p_otros : 0);
-        },
-        async inicializarFinanza() {
-            const { value: inputValue, isConfirmed } = await Swal.fire({
-                title: "Ingresa una gestión",
-                input: "number",
-                inputAttributes: {
-                    min: 0,
-                    step: 1,
-                },
-                showCancelButton: true,
-                cancelButtonText: "Cancelar",
-                confirmButtonColor: "#28315c",
-                confirmButtonText: "Aceptar",
-                preConfirm: (value) => {
-                    if (!value) {
-                        Swal.showValidationMessage("Debes ingresar un valor");
-                    }
-                },
-            });
-
-            if (isConfirmed && inputValue !== undefined) {
-                let data = {
-                    empresa_id: this.oEmpresa.id,
-                    gestion: inputValue,
-                };
-                this.enviarDatos(data);
-            }
-        },
-
-        agregarColumna() {
-            let nueva_gestion =
-                parseInt(
-                    this.oEmpresa.finanzas[this.oEmpresa.finanzas.length - 1]
-                        .gestion
-                ) + 1;
-            let data = {
-                empresa_id: this.oEmpresa.id,
-                gestion: nueva_gestion,
-            };
-            Swal.fire({
-                title: "Se agregará el registro con gestión:",
-                html: `<strong class="text-xl">${nueva_gestion}</strong>`,
-                showCancelButton: true,
-                confirmButtonColor: "#28315c",
-                confirmButtonText: "Aceptar",
-                cancelButtonText: "Cancelar",
-                denyButtonText: `No, cancelar`,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.enviarDatos(data);
-                }
-            });
-        },
-
-        enviarDatos(data) {
-            try {
-                this.textoBtn = "Enviando...";
-                let url = "/admin/finanzas";
-
-                axios
-                    .post(url, data)
-                    .then((res) => {
-                        this.enviando = false;
-                        if (res.data.sw) {
-                            Swal.fire({
-                                icon: "success",
-                                title: res.data.msj,
-                                showConfirmButton: false,
-                                timer: 2000,
-                            });
-                            this.oEmpresa.finanzas.push(res.data.nueva_finanza);
-                            this.errors = [];
-                        } else {
-                            Swal.fire({
-                                icon: "info",
-                                title: "Atención",
-                                html: res.data.msj,
-                                showConfirmButton: false,
-                                timer: 2000,
-                            });
-                        }
-                    })
-                    .catch((error) => {
-                        this.enviando = false;
-                        if (this.accion == "edit") {
-                            this.textoBtn = "Actualizar empresa";
-                        } else {
-                            this.textoBtn = "Registrar empresa";
-                        }
-                        if (error.response) {
-                            if (error.response.status === 422) {
-                                let mensaje = `<ul class="text-left">`;
-                                this.errors = error.response.data.errors;
-                                for (const field in this.errors) {
-                                    if (this.errors.hasOwnProperty(field)) {
-                                        const index = field.split(".")[1]; // Obtenemos el índice del campo del nombre
-                                        const errorMessage =
-                                            this.errors[field][0]; // Tomamos el primer mensaje de error
-                                        mensaje += `<li>${errorMessage}</li>`;
-                                    }
-                                }
-                                mensaje += `</ul>`;
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Error",
-                                    html: mensaje,
-                                    showConfirmButton: true,
-                                    confirmButtonColor: "#28315c",
-                                    confirmButtonText: "Aceptar",
-                                });
-                            }
-                            if (
-                                error.response.status === 420 ||
-                                error.response.status === 419 ||
-                                error.response.status === 401
-                            ) {
-                                window.location = "/";
-                            }
-                            if (error.response.status === 500) {
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Error",
-                                    html: error.response.data.message,
-                                    showConfirmButton: false,
-                                    timer: 2000,
-                                });
-                            }
-                        }
-                    });
-            } catch (e) {
-                this.enviando = false;
-                console.log(e);
+        abreModal(tipo_accion = "nuevo", finanza = null) {
+            this.muestra_modal = true;
+            this.modal_accion = tipo_accion;
+            if (finanza) {
+                this.oFinanza = finanza;
             }
         },
         actualizaColumna(col, id) {},

@@ -13,6 +13,9 @@ class FinanzaController extends Controller
     public $validacion = [
         "empresa_id" => "required",
         "gestion" => "required|numeric|min:1",
+        "ganancia" => "required|numeric|min:1",
+        "costo_bienes_vendidos" => "required|numeric|min:1",
+        "ebitda" => "required|numeric",
     ];
 
     public $mensajes = [
