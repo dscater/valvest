@@ -55,6 +55,9 @@ Route::middleware(['auth'])->group(function () {
         ]);
 
         // finanzas
+        Route::put("finanzas/actualizaColumna/{finanza}", [FinanzaController::class, 'actualizaColumna'])->name("finanzas.actualizaColumna");
+        Route::get("finanzas/getMedias/{empresa}", [FinanzaController::class, 'getMedias'])->name("finanzas.getMedias");
+        Route::get("finanzas/getAnioAnterior/{empresa}", [FinanzaController::class, 'getAnioAnterior'])->name("finanzas.getAnioAnterior");
         Route::resource('finanzas', FinanzaController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);

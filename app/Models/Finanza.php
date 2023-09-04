@@ -35,6 +35,18 @@ class Finanza extends Model
         "flujo_caja_libre",
     ];
 
+    protected $appends = ["enviando", "enviado"];
+
+    public function getEnviandoAttribute()
+    {
+        return false;
+    }
+
+    public function getEnviadoAttribute()
+    {
+        return false;
+    }
+
     public function empresa()
     {
         return $this->belongsTo(Empresa::class, 'empresa_id');

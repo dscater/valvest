@@ -1,6 +1,6 @@
 <template>
     <div
-        class="modal fade"
+        class="modal fade content_add_finanza"
         :class="{ show: bModal }"
         id="modal-default"
         aria-modal="true"
@@ -33,7 +33,7 @@
                             <div
                                 class="col-md-12 alert alert-primary font-weight-bold text-center"
                             >
-                                NUEVA PREDICCIÓN
+                                NUEVA VALORACIÓN/PREDICCIÓN
                             </div>
                         </div>
                         <div class="row">
@@ -71,6 +71,9 @@
                                     class="form-control"
                                     :class="{ 'is-invalid': errors.ganancia }"
                                     v-model="finanza.ganancia"
+                                    :readonly="empresa.finanzas.length > 0"
+                                    @change="calculaEBITDA"
+                                    @keyup="calculaEBITDA"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -95,6 +98,9 @@
                                             errors.costo_bienes_vendidos,
                                     }"
                                     v-model="finanza.costo_bienes_vendidos"
+                                    :readonly="empresa.finanzas.length > 0"
+                                    @change="calculaEBITDA"
+                                    @keyup="calculaEBITDA"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -120,6 +126,9 @@
                                         'is-invalid': errors.salarios,
                                     }"
                                     v-model="finanza.salarios"
+                                    :readonly="empresa.finanzas.length > 0"
+                                    @change="calculaEBITDA"
+                                    @keyup="calculaEBITDA"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -148,6 +157,9 @@
                                             errors.otros_gastos_operativos,
                                     }"
                                     v-model="finanza.otros_gastos_operativos"
+                                    :readonly="empresa.finanzas.length > 0"
+                                    @change="calculaEBITDA"
+                                    @keyup="calculaEBITDA"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -165,11 +177,14 @@
                                 <input
                                     placeholder="EBITDA"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control automatico"
                                     :class="{
                                         'is-invalid': errors.ebitda,
                                     }"
                                     v-model="finanza.ebitda"
+                                    readonly
+                                    @change="calculaEBIT()"
+                                    @keyup="calculaEBIT()"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -192,6 +207,15 @@
                                         'is-invalid': errors.da,
                                     }"
                                     v-model="finanza.da"
+                                    :readonly="empresa.finanzas.length > 0"
+                                    @change="
+                                        calculaEBIT();
+                                        calculaFlujoCajaLibre();
+                                    "
+                                    @keyup="
+                                        calculaEBIT();
+                                        calculaFlujoCajaLibre();
+                                    "
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -209,11 +233,14 @@
                                 <input
                                     placeholder="EBIT"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control automatico"
                                     :class="{
                                         'is-invalid': errors.ebit,
                                     }"
                                     v-model="finanza.ebit"
+                                    readonly
+                                    @change="calculaBeneficioNeto"
+                                    @keyup="calculaBeneficioNeto"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -236,6 +263,9 @@
                                         'is-invalid': errors.interes,
                                     }"
                                     v-model="finanza.interes"
+                                    :readonly="empresa.finanzas.length > 0"
+                                    @change="calculaBeneficioNeto"
+                                    @keyup="calculaBeneficioNeto"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -258,6 +288,9 @@
                                         'is-invalid': errors.impuestos,
                                     }"
                                     v-model="finanza.impuestos"
+                                    :readonly="empresa.finanzas.length > 0"
+                                    @change="calculaBeneficioNeto"
+                                    @keyup="calculaBeneficioNeto"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -275,11 +308,14 @@
                                 <input
                                     placeholder="BENEFICIO NETO"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control automatico"
                                     :class="{
                                         'is-invalid': errors.beneficio_neto,
                                     }"
                                     v-model="finanza.beneficio_neto"
+                                    readonly
+                                    @change="calculaFlujoCajaLibre()"
+                                    @keyup="calculaFlujoCajaLibre()"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -302,6 +338,9 @@
                                         'is-invalid': errors.cuentas_cobrar,
                                     }"
                                     v-model="finanza.cuentas_cobrar"
+                                    :readonly="empresa.finanzas.length > 0"
+                                    @change="calculaCapitalTrabajo"
+                                    @keyup="calculaCapitalTrabajo"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -324,6 +363,9 @@
                                         'is-invalid': errors.inventario,
                                     }"
                                     v-model="finanza.inventario"
+                                    :readonly="empresa.finanzas.length > 0"
+                                    @change="calculaCapitalTrabajo"
+                                    @keyup="calculaCapitalTrabajo"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -346,6 +388,9 @@
                                         'is-invalid': errors.cuentas_pagar,
                                     }"
                                     v-model="finanza.cuentas_pagar"
+                                    :readonly="empresa.finanzas.length > 0"
+                                    @change="calculaCapitalTrabajo"
+                                    @keyup="calculaCapitalTrabajo"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -368,6 +413,9 @@
                                         'is-invalid': errors.capital_trabajo,
                                     }"
                                     v-model="finanza.capital_trabajo"
+                                    :readonly="empresa.finanzas.length > 0"
+                                    @change="calculaCambioCapitalTrabajo"
+                                    @keyup="calculaCambioCapitalTrabajo"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -386,12 +434,15 @@
                                 <input
                                     placeholder="CAMBIO EN EL CAPITAL DE TRABAJO"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control automatico"
                                     :class="{
                                         'is-invalid':
                                             errors.cambio_capital_trabajo,
                                     }"
                                     v-model="finanza.cambio_capital_trabajo"
+                                    readonly
+                                    @change="calculaFlujoCajaLibre()"
+                                    @keyup="calculaFlujoCajaLibre()"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -414,6 +465,9 @@
                                         'is-invalid': errors.gastos_capital,
                                     }"
                                     v-model="finanza.gastos_capital"
+                                    :readonly="empresa.finanzas.length > 0"
+                                    @change="calculaFlujoCajaLibre()"
+                                    @keyup="calculaFlujoCajaLibre()"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -436,6 +490,9 @@
                                         'is-invalid': errors.deuda_final_anio,
                                     }"
                                     v-model="finanza.deuda_final_anio"
+                                    :readonly="empresa.finanzas.length > 0"
+                                    @change="calculaCambioDeudaPendiente"
+                                    @keyup="calculaCambioDeudaPendiente"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -454,12 +511,15 @@
                                 <input
                                     placeholder="CAMBIO EN LA DEUDA PENDIENTE"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control automatico"
                                     :class="{
                                         'is-invalid':
                                             errors.cambio_deuda_pendiente,
                                     }"
                                     v-model="finanza.cambio_deuda_pendiente"
+                                    readonly
+                                    @change="calculaFlujoCajaLibre()"
+                                    @keyup="calculaFlujoCajaLibre()"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -478,12 +538,15 @@
                                 <input
                                     placeholder="FLUJO DE CAJA LIBRE A CAPITAL"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control automatico"
                                     :class="{
                                         'is-invalid':
                                             errors.flujo_caja_libre_capital,
                                     }"
                                     v-model="finanza.flujo_caja_libre_capital"
+                                    readonly
+                                    @change="calculaFlujoCajaLibre()"
+                                    @keyup="calculaFlujoCajaLibre()"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -511,6 +574,9 @@
                                             errors.recaudacion_fondos_futura,
                                     }"
                                     v-model="finanza.recaudacion_fondos_futura"
+                                    :readonly="empresa.finanzas.length > 0"
+                                    @change="calculaFlujoCajaLibre()"
+                                    @keyup="calculaFlujoCajaLibre()"
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -528,11 +594,12 @@
                                 <input
                                     placeholder="FLUJO DE CAJA LIBRE"
                                     type="number"
-                                    class="form-control"
+                                    class="form-control automatico"
                                     :class="{
                                         'is-invalid': errors.flujo_caja_libre,
                                     }"
                                     v-model="finanza.flujo_caja_libre"
+                                    readonly
                                 />
                                 <span
                                     class="error invalid-feedback"
@@ -622,17 +689,17 @@ export default {
         empresa(newVal, oldVal) {
             if (newVal.id != 0) {
                 this.finanza.empresa_id = newVal.id;
+                this.getAnioAnterior();
             }
             if (newVal.finanzas.length == 0) {
-                console.log("asdasd");
                 this.finanza.gestion = this.getAnioActual();
-                console.log(this.finanza);
-                console.log("BB");
             } else {
                 this.finanza.gestion =
                     parseInt(
                         newVal.finanzas[newVal.finanzas.length - 1].gestion
                     ) + 1;
+
+                this.getMedias();
             }
         },
         finanza(newVal) {
@@ -644,6 +711,10 @@ export default {
             this.errors = [];
             if (newVal) {
                 this.bModal = true;
+                if (this.empresa.id != 0) {
+                    this.getAnioAnterior();
+                    this.getMedias();
+                }
             } else {
                 this.bModal = false;
             }
@@ -672,6 +743,32 @@ export default {
             enviando: false,
             listCajas: [],
             errors: [],
+            oFinanzaAnterior: {
+                id: 0,
+                gestion: 0,
+                empresa_id: 0,
+                ganancia: 0,
+                costo_bienes_vendidos: 0,
+                salarios: 0,
+                otros_gastos_operativos: 0,
+                ebitda: 0,
+                da: 0,
+                ebit: 0,
+                interes: 0,
+                impuestos: 0,
+                beneficio_neto: 0,
+                cuentas_cobrar: 0,
+                inventario: 0,
+                cuentas_pagar: 0,
+                capital_trabajo: 0,
+                cambio_capital_trabajo: 0,
+                gastos_capital: 0,
+                deuda_final_anio: 0,
+                cambio_deuda_pendiente: 0,
+                flujo_caja_libre_capital: 0,
+                recaudacion_fondos_futura: 0,
+                flujo_caja_libre: 0,
+            },
         };
     },
     mounted() {
@@ -700,7 +797,6 @@ export default {
                                 showConfirmButton: false,
                                 timer: 2000,
                             });
-                            this.oEmpresa.finanzas.push(res.data.nueva_finanza);
                             this.$emit("envioModal");
                             this.errors = [];
                         } else {
@@ -716,9 +812,9 @@ export default {
                     .catch((error) => {
                         this.enviando = false;
                         if (this.accion == "edit") {
-                            this.textoBtn = "Actualizar empresa";
+                            this.textoBtn = "Actualizar registro";
                         } else {
-                            this.textoBtn = "Registrar empresa";
+                            this.textoBtn = "Registrar registro";
                         }
                         if (error.response) {
                             if (error.response.status === 422) {
@@ -765,9 +861,6 @@ export default {
                 console.log(e);
             }
         },
-        cargaImagen(e) {
-            this.finanza.foto = e.target.files[0];
-        },
         // Dialog/modal
         cierraModal() {
             this.bModal = false;
@@ -801,9 +894,179 @@ export default {
                 flujo_caja_libre: 0,
             };
         },
-        getMedias() {},
+        calculaEBITDA() {
+            this.finanza.ebitda =
+                parseFloat(this.finanza.ganancia ? this.finanza.ganancia : 0) -
+                parseFloat(
+                    this.finanza.costo_bienes_vendidos
+                        ? this.finanza.costo_bienes_vendidos
+                        : 0
+                ) -
+                parseFloat(this.finanza.salarios ? this.finanza.salarios : 0) -
+                parseFloat(
+                    this.finanza.otros_gastos_operativos
+                        ? this.finanza.otros_gastos_operativos
+                        : 0
+                );
+            this.calculaEBIT();
+        },
+        calculaEBIT() {
+            this.finanza.ebit =
+                parseFloat(this.finanza.ebitda ? this.finanza.ebitda : 0) -
+                parseFloat(this.finanza.da ? this.finanza.da : 0);
+            this.calculaBeneficioNeto();
+        },
+        calculaBeneficioNeto() {
+            this.finanza.beneficio_neto =
+                parseFloat(this.finanza.ebit ? this.finanza.ebit : 0) -
+                parseFloat(this.finanza.interes ? this.finanza.interes : 0) -
+                parseFloat(this.finanza.impuestos ? this.finanza.impuestos : 0);
+            this.calculaFlujoCajaLibreCapital();
+        },
+        calculaCapitalTrabajo() {
+            this.finanza.capital_trabajo =
+                parseFloat(
+                    this.finanza.cuentas_cobrar
+                        ? this.finanza.cuentas_cobrar
+                        : 0
+                ) +
+                parseFloat(
+                    this.finanza.inventario ? this.finanza.inventario : 0
+                ) -
+                parseFloat(
+                    this.finanza.cuentas_pagar ? this.finanza.cuentas_pagar : 0
+                );
+        },
+        calculaCambioCapitalTrabajo() {
+            if (this.oFinanzaAnterior.id != 0) {
+                this.finanza.cambio_capital_trabajo =
+                    parseFloat(
+                        this.finanza.capital_trabajo
+                            ? this.finanza.capital_trabajo
+                            : 0
+                    ) -
+                    parseFloat(
+                        this.oFinanzaAnterior.capital_trabajo
+                            ? this.oFinanzaAnterior.capital_trabajo
+                            : 0
+                    );
+            }
+        },
+        calculaCambioDeudaPendiente() {
+            if (this.oFinanzaAnterior.id != 0) {
+                this.finanza.cambio_deuda_pendiente =
+                    parseFloat(
+                        this.finanza.deuda_final_anio
+                            ? this.finanza.deuda_final_anio
+                            : 0
+                    ) -
+                    parseFloat(
+                        this.oFinanzaAnterior.deuda_final_anio
+                            ? this.oFinanzaAnterior.deuda_final_anio
+                            : 0
+                    );
+            }
+            this.calculaFlujoCajaLibreCapital();
+        },
+        calculaFlujoCajaLibreCapital() {
+            this.finanza.flujo_caja_libre_capital =
+                parseFloat(
+                    this.finanza.beneficio_neto
+                        ? this.finanza.beneficio_neto
+                        : 0
+                ) +
+                parseFloat(this.finanza.da ? this.finanza.da : 0) -
+                parseFloat(
+                    this.finanza.cambio_capital_trabajo
+                        ? this.finanza.cambio_capital_trabajo
+                        : 0
+                ) -
+                parseFloat(
+                    this.finanza.gastos_capital
+                        ? this.finanza.gastos_capital
+                        : 0
+                ) +
+                parseFloat(
+                    this.finanza.cambio_deuda_pendiente
+                        ? this.finanza.cambio_deuda_pendiente
+                        : 0
+                );
+            this.calculaFlujoCajaLibre();
+        },
+        calculaFlujoCajaLibre() {
+            this.finanza.flujo_caja_libre =
+                parseFloat(
+                    this.finanza.flujo_caja_libre_capital
+                        ? this.finanza.flujo_caja_libre_capital
+                        : 0
+                ) +
+                parseFloat(
+                    this.finanza.recaudacion_fondos_futura
+                        ? this.finanza.recaudacion_fondos_futura
+                        : 0
+                );
+        },
+        // FUNCIONES PARA NUEVAS COLUMNAS
+        getAnioAnterior() {
+            axios
+                .get("/admin/finanzas/getAnioAnterior/" + this.empresa.id)
+                .then((response) => {
+                    this.oFinanzaAnterior = response.data;
+                    this.calculaCambioCapitalTrabajo();
+                    this.calculaCambioDeudaPendiente();
+                });
+        },
+        getMedias() {
+            axios
+                .get("/admin/finanzas/getMedias/" + this.empresa.id)
+                .then((response) => {
+                    this.finanza.ganancia = response.data.ganancia;
+                    this.finanza.costo_bienes_vendidos =
+                        response.data.costo_bienes_vendidos;
+                    this.finanza.salarios = response.data.salarios;
+                    this.finanza.otros_gastos_operativos =
+                        response.data.otros_gastos_operativos;
+                    this.finanza.ebitda = response.data.ebitda;
+                    this.finanza.da = response.data.da;
+                    this.finanza.ebit = response.data.ebit;
+                    this.finanza.interes = response.data.interes;
+                    this.finanza.impuestos = response.data.impuestos;
+                    this.finanza.beneficio_neto = response.data.beneficio_neto;
+                    this.finanza.cuentas_cobrar = response.data.cuentas_cobrar;
+                    this.finanza.inventario = response.data.inventario;
+                    this.finanza.cuentas_pagar = response.data.cuentas_pagar;
+                    this.finanza.capital_trabajo =
+                        response.data.capital_trabajo;
+                    this.finanza.cambio_capital_trabajo =
+                        response.data.cambio_capital_trabajo;
+                    this.finanza.gastos_capital = response.data.gastos_capital;
+                    this.finanza.deuda_final_anio =
+                        response.data.deuda_final_anio;
+                    this.finanza.cambio_deuda_pendiente =
+                        response.data.cambio_deuda_pendiente;
+                    this.finanza.flujo_caja_libre_capital =
+                        response.data.flujo_caja_libre_capital;
+                    this.finanza.recaudacion_fondos_futura =
+                        response.data.recaudacion_fondos_futura;
+                    this.finanza.flujo_caja_libre =
+                        response.data.flujo_caja_libre;
+
+                    this.calculaEBITDA();
+                    this.calculaEBIT();
+                    this.calculaBeneficioNeto();
+                    this.calculaCapitalTrabajo();
+                    this.calculaCambioCapitalTrabajo();
+                    this.calculaCambioDeudaPendiente();
+                    this.calculaFlujoCajaLibreCapital();
+                    this.calculaFlujoCajaLibre();
+                });
+        },
     },
 };
 </script>
 
-<style></style>
+<style>
+.content_add_finanza .form-control.automatico {
+    background: rgb(153, 255, 216);
+}
+</style>
