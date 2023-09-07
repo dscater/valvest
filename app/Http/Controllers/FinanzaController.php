@@ -61,7 +61,12 @@ class FinanzaController extends Controller
     {
         $finanza[$request->col] = $request->valor;
         $finanza->save();
-        return response()->JSON(true);
+
+        $res = Finanza::actualizaSumasFinanza($finanza);
+
+        return response()->JSON([
+            "finanza" => $res
+        ]);
     }
 
     public function getAnioAnterior(Empresa $empresa)

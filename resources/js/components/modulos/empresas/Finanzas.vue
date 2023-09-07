@@ -382,6 +382,9 @@
                                                                         item.id
                                                                     )
                                                                 "
+                                                                :readonly="
+                                                                    index > 0
+                                                                "
                                                             />
                                                             <div
                                                                 class="input-group-append oculto"
@@ -517,6 +520,9 @@
                                                                         index,
                                                                         item.id
                                                                     )
+                                                                "
+                                                                :readonly="
+                                                                    index > 0
                                                                 "
                                                             />
                                                             <div
@@ -724,6 +730,9 @@
                                                                         index,
                                                                         item.id
                                                                     )
+                                                                "
+                                                                :readonly="
+                                                                    index > 0
                                                                 "
                                                             />
                                                             <div
@@ -1001,6 +1010,9 @@
                                                                         item.id
                                                                     )
                                                                 "
+                                                                :readonly="
+                                                                    index > 0
+                                                                "
                                                             />
                                                             <div
                                                                 class="input-group-append oculto"
@@ -1037,7 +1049,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <tr class="fila_automatica">
                                                     <td class="text-xs">
                                                         CAMBIO EN EL CAPITAL DE
                                                         TRABAJO
@@ -1070,6 +1082,9 @@
                                                                         index,
                                                                         item.id
                                                                     )
+                                                                "
+                                                                :readonly="
+                                                                    index > 0
                                                                 "
                                                             />
                                                             <div
@@ -1279,6 +1294,9 @@
                                                                         item.id
                                                                     )
                                                                 "
+                                                                :readonly="
+                                                                    index > 0
+                                                                "
                                                             />
                                                             <div
                                                                 class="input-group-append oculto"
@@ -1348,6 +1366,9 @@
                                                                         index,
                                                                         item.id
                                                                     )
+                                                                "
+                                                                :readonly="
+                                                                    index > 0
                                                                 "
                                                             />
                                                             <div
@@ -1491,6 +1512,9 @@
                                                                         index,
                                                                         item.id
                                                                     )
+                                                                "
+                                                                :readonly="
+                                                                    index > 0
                                                                 "
                                                             />
                                                             <div
@@ -1673,6 +1697,27 @@ export default {
                         valor: valor,
                     })
                     .then((response) => {
+                        // actualizar valores
+                        this.oEmpresa.finanzas[index]["ebitda"] =
+                            response.data.finanza.ebitda;
+                        this.oEmpresa.finanzas[index]["ebit"] =
+                            response.data.finanza.ebit;
+                        this.oEmpresa.finanzas[index]["beneficio_neto"] =
+                            response.data.finanza.beneficio_neto;
+                        this.oEmpresa.finanzas[index]["capital_trabajo"] =
+                            response.data.finanza.capital_trabajo;
+                        this.oEmpresa.finanzas[index][
+                            "cambio_capital_trabajo"
+                        ] = response.data.finanza.cambio_capital_trabajo;
+                        this.oEmpresa.finanzas[index][
+                            "cambio_deuda_pendiente"
+                        ] = response.data.finanza.cambio_deuda_pendiente;
+                        this.oEmpresa.finanzas[index][
+                            "flujo_caja_libre_capital"
+                        ] = response.data.finanza.flujo_caja_libre_capital;
+                        this.oEmpresa.finanzas[index]["flujo_caja_libre"] =
+                            response.data.finanza.flujo_caja_libre;
+
                         // MOSTRAR ENVIO CORRECTO
                         this.$refs[nom_enviado_ref][0].classList.remove(
                             "oculto"
@@ -1711,7 +1756,7 @@ export default {
                             }
                         }
                     });
-            }, 1500);
+            }, 800);
         },
     },
 };
@@ -1739,7 +1784,7 @@ export default {
     display: none;
 }
 
-.content_finanzas .contenedor_tabla{
-    overflow: auto!important;
+.content_finanzas .contenedor_tabla {
+    overflow: auto !important;
 }
 </style>
