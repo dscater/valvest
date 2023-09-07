@@ -19,6 +19,14 @@ class Empresa extends Model
         "user_id"
     ];
 
+    protected $appends = ["primera_finanza"];
+
+    public function getPrimeraFinanzaAttribute()
+    {
+        $finanza = Finanza::where("empresa_id", $this->id)->orderBy("id", "asc")->get()->first();
+        return $finanza;
+    }
+
     public function accionistas()
     {
         return $this->hasMany(Accionista::class, 'empresa_id');
@@ -42,6 +50,11 @@ class Empresa extends Model
     public function finanzas()
     {
         return $this->hasMany(Finanza::class, 'empresa_id');
+    }
+
+    public function valoracion()
+    {
+        return $this->hasOne(Valoracion::class, 'empresa_id');
     }
 
     public function user()

@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistroController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ValoracionController;
 use Illuminate\Support\Facades\Route;
 
 // LOGIN
@@ -59,6 +60,13 @@ Route::middleware(['auth'])->group(function () {
         Route::get("finanzas/getMedias/{empresa}", [FinanzaController::class, 'getMedias'])->name("finanzas.getMedias");
         Route::get("finanzas/getAnioAnterior/{empresa}", [FinanzaController::class, 'getAnioAnterior'])->name("finanzas.getAnioAnterior");
         Route::resource('finanzas', FinanzaController::class)->only([
+            'index', 'store', 'update', 'destroy', 'show'
+        ]);
+
+        // valoracion
+        Route::post("valoracions/valoracion_user/{empresa}", [ValoracionController::class, 'valoracion_user'])->name("valoracions.valoracion_user");
+        Route::post("valoracions/empresa/{empresa}", [ValoracionController::class, 'empresa'])->name("valoracions.empresa");
+        Route::resource('valoracions', ValoracionController::class)->only([
             'index', 'store', 'update', 'destroy', 'show'
         ]);
 

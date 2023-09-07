@@ -75,6 +75,14 @@ export default new Router({
                 .default,
             props: true,
         },
+        {
+            path: "/empresas/valoracion/:id",
+            name: "empresas.valoracion",
+            component: require("./components/modulos/empresas/Valoracion.vue")
+                .default,
+            props: true,
+        },
+
 
         // Configuración
         {

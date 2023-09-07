@@ -13,9 +13,42 @@ class Cuestionario extends Model
         "cuestionario",
     ];
 
+    protected $appends = ["array_cuestionario"];
+
+    public function getArrayCuestionarioAttribute()
+    {
+        $array = self::stringToArray($this->cuestionario);
+        return $array;
+    }
 
     public function empresa()
     {
         return $this->belongsTo(Empresa::class, 'empresa_id');
+    }
+
+    public static function stringToArray($inputString)
+    {
+        $parts = explode('|', $inputString);
+        $result = [];
+
+        foreach ($parts as $part) {
+            $innerParts = explode(';', $part);
+            if (count($innerParts) > 1) {
+                $result[] = $innerParts;
+            } else {
+                $result[] = $part;
+            }
+        }
+
+        return $result;
+    }
+
+    public static function infoRespuestas()
+    {
+        return [
+            [
+
+            ]
+        ];
     }
 }

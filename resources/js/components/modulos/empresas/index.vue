@@ -289,7 +289,11 @@
                                                             class="btn btn-sm btn-outline-primary btn-flat mb-1 rounded-pill"
                                                             title="Valoración"
                                                             :to="{
-                                                                name: 'empresas.cuestionario',
+                                                                name: 'empresas.valoracion',
+                                                                params: {
+                                                                    id: row.item
+                                                                        .id,
+                                                                },
                                                             }"
                                                         >
                                                             <i
