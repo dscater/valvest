@@ -17,6 +17,8 @@ class Valoracion extends Model
         "valoracion_previa",
         "limite_bajo",
         "limite_alto",
+        "valuacion",
+        "ultimo_ebitda"
     ];
 
     public function empresa()
@@ -239,5 +241,21 @@ class Valoracion extends Model
         $res = $sumatoria / 4;
         $res = $res / 10;
         return (int)$res;
+    }
+
+    public static function getValuacion(Empresa $empresa)
+    {
+        $finanzas = Finanza::where("empresa_id", $empresa->id)
+            ->where("flujo_caja_libre", ">", 0)
+            ->where("flujo_caja_libre", "!=", null)
+            ->orderBy("id", "asc")
+            ->get();
+
+        $valuacion = 0;
+        foreach ($finanzas as $f) {
+            $valuacion += (float)$f->flujo_caja_libre;
+        }
+
+        return $valuacion;
     }
 }

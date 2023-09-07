@@ -158,6 +158,58 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <h4
+                                        class="col-md-12 text-primary text-center"
+                                    >
+                                        DCF
+                                    </h4>
+                                    <div
+                                        class="col-md-8"
+                                        id="container"
+                                        style="height: 400px"
+                                    ></div>
+                                    <div class="col-md-4 text-lg">
+                                        <div
+                                            class="valuacion w-100 text-center bg-primary p-3"
+                                        >
+                                            <strong>Valuación:</strong>
+                                            <p class="mb-0">
+                                                <strong
+                                                    v-text="
+                                                        'Bs. ' +
+                                                        parseFloat(
+                                                            oEmpresa.valoracion
+                                                                ?.valuacion
+                                                        ).toFixed(2)
+                                                    "
+                                                ></strong>
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="ebitda w-100 text-center bg-cyan text-white p-3"
+                                        >
+                                            <p class="text-white mb-0">
+                                                Último EBITDA:
+                                                <strong
+                                                    v-text="
+                                                        'Bs. ' +
+                                                        parseFloat(
+                                                            oEmpresa.valoracion
+                                                                ?.ultimo_ebitda
+                                                        ).toFixed(2)
+                                                    "
+                                                ></strong>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -244,8 +296,43 @@ export default {
                     fondos: this.oEmpresa.valor_fondo,
                 })
                 .then((response) => {
-                    this.oEmpresa.valoracion = response.data;
+                    this.oEmpresa.valoracion = response.data.valoracion;
                     this.setValoracionUser();
+                    Highcharts.chart("container", {
+                        chart: {
+                            type: "column",
+                        },
+                        title: {
+                            text: "DCF",
+                        },
+                        subtitle: {
+                            text: "(Flujo de Fondos Descontados)",
+                        },
+                        xAxis: {
+                            categories: response.data.categories,
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: "%",
+                            },
+                        },
+                        tooltip: {
+                            pointFormat:
+                                '<span style="color:{series.color}">{series.name}</span>: <b>{point.y:.2f}%</b><br/>',
+                            shared: true,
+                        },
+                        plotOptions: {
+                            column: {
+                                stacking: "percent",
+                                dataLabels: {
+                                    enabled: true,
+                                    format: "{y:.2f}%",
+                                },
+                            },
+                        },
+                        series: response.data.data,
+                    });
                 });
         },
         setValoracionUser() {

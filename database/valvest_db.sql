@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 01-09-2023 a las 16:37:16
+-- Tiempo de generación: 07-09-2023 a las 18:42:32
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 7.4.19
 
@@ -125,7 +125,7 @@ CREATE TABLE `cuestionarios` (
 --
 
 INSERT INTO `cuestionarios` (`id`, `empresa_id`, `cuestionario`, `created_at`, `updated_at`) VALUES
-(2, 3, '3|30000|1|1|1|7|1|2|1|1|1|1|1|1|1|2|1|1|Bhutan|2;0|1|1|30000|20000|1|1|0|1|1|1|1|1|1|2013|1||0|1|1|1|1|1', '2023-08-28 20:16:24', '2023-08-29 13:50:11'),
+(2, 3, '3|1700000|1|1|1|7|1|2|1|1|1|1|3|1|1|2|1|1|Belarus|9;0|1|1|30000|50|1|1|0|1|1|1|1|1|1|2013|1||0|1|1|1|1|1', '2023-08-28 20:16:24', '2023-09-07 15:51:21'),
 (3, 8, '2|300000|1|2|1|30|1|4|1|1|1|0|5|0|1|6|1|0|Bolivia|9;1|2|2|450000|10000|2|2|0|0|0|0|0|0|0|2010|0|2014|0|0|0|0|0|0', '2023-08-29 14:11:28', '2023-08-29 14:11:28');
 
 -- --------------------------------------------------------
@@ -192,6 +192,15 @@ CREATE TABLE `finanzas` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `finanzas`
+--
+
+INSERT INTO `finanzas` (`id`, `empresa_id`, `gestion`, `ganancia`, `costo_bienes_vendidos`, `salarios`, `otros_gastos_operativos`, `ebitda`, `da`, `ebit`, `interes`, `impuestos`, `beneficio_neto`, `cuentas_cobrar`, `inventario`, `cuentas_pagar`, `capital_trabajo`, `cambio_capital_trabajo`, `gastos_capital`, `deuda_final_anio`, `cambio_deuda_pendiente`, `flujo_caja_libre_capital`, `recaudacion_fondos_futura`, `flujo_caja_libre`, `created_at`, `updated_at`) VALUES
+(1, 3, 2022, 91710.00, 83485.00, NULL, 7782.00, 443.00, NULL, 443.00, NULL, 109.00, 334.00, 63826.00, 7184.00, 61627.00, 9383.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-09-04 15:57:43', '2023-09-07 16:50:39'),
+(2, 3, 2023, 6296429.00, 5963773.00, 173138.00, 259203.00, -99685.00, NULL, -99685.00, NULL, NULL, -99685.00, 4381991.00, 7184.00, 4395219.00, -6044.00, -15427.00, 66310.00, NULL, 0.00, -150568.00, 200000.00, 49432.00, '2023-09-04 16:19:44', '2023-09-07 16:42:26'),
+(3, 3, 2024, 20702058.00, 19645603.00, 202866.00, 782060.00, 71529.00, NULL, 71529.00, NULL, NULL, 71529.00, 14407569.00, 7184.00, 14478540.00, -63787.00, -57743.00, 13000.00, NULL, 0.00, 116272.00, NULL, 116272.00, '2023-09-04 17:29:14', '2023-09-07 15:45:12');
 
 -- --------------------------------------------------------
 
@@ -273,7 +282,14 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (21, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com REGISTRO LOS FONDOS DE LA EMPRESA EMPRESA #1', 'id: 1<br/>empresa_id: 3<br/>producto: 0<br/>p_producto: 0<br/>venta_marketing: 0<br/>p_venta_marketing: 0<br/>inventario: 0<br/>p_inventario: 0<br/>operacion: 0<br/>p_operacion: 0<br/>gastos: 0<br/>p_gastos: 0<br/>otros: 0<br/>p_otros: 100<br/>created_at: 2023-08-30 11:42:12<br/>updated_at: 2023-08-30 11:42:12<br/>', NULL, 'FONDOS', '2023-08-30', '11:42:12', '2023-08-30 15:42:12', '2023-08-30 15:42:12'),
 (22, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com REGISTRO LOS FONDOS DE LA EMPRESA EMPRESA #1', 'id: 2<br/>empresa_id: 3<br/>producto: 10000<br/>p_producto: 40<br/>venta_marketing: 5000<br/>p_venta_marketing: 40<br/>inventario: 2500<br/>p_inventario: 20<br/>operacion: 0.00<br/>p_operacion: 0<br/>gastos: 0.00<br/>p_gastos: 0<br/>otros: 0.00<br/>p_otros: 0<br/>created_at: 2023-08-30 11:45:39<br/>updated_at: 2023-08-30 11:45:39<br/>', NULL, 'FONDOS', '2023-08-30', '11:45:39', '2023-08-30 15:45:39', '2023-08-30 15:45:39'),
 (23, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com ACTUALIZÓ LOS FONDOS DE LA EMPRESA EMPRESA #1', 'id: 2<br/>empresa_id: 3<br/>producto: 10000.00<br/>p_producto: 40<br/>venta_marketing: 5000.00<br/>p_venta_marketing: 30<br/>inventario: 2500.00<br/>p_inventario: 20<br/>operacion: 0.00<br/>p_operacion: 0<br/>gastos: 0.00<br/>p_gastos: 0<br/>otros: 1500<br/>p_otros: 10<br/>created_at: 2023-08-30 11:45:39<br/>updated_at: 2023-08-30 11:47:29<br/>', NULL, 'FONDOS', '2023-08-30', '11:47:29', '2023-08-30 15:47:29', '2023-08-30 15:47:29'),
-(24, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com ACTUALIZÓ LOS FONDOS DE LA EMPRESA EMPRESA #1', 'id: 2<br/>empresa_id: 3<br/>producto: 10000.00<br/>p_producto: 40<br/>venta_marketing: 5000.00<br/>p_venta_marketing: 30<br/>inventario: 2500.00<br/>p_inventario: 20<br/>operacion: 0.00<br/>p_operacion: 0<br/>gastos: 0.00<br/>p_gastos: 0<br/>otros: 1500.00<br/>p_otros: 10<br/>created_at: 2023-08-30 11:45:39<br/>updated_at: 2023-08-30 11:47:29<br/>', NULL, 'FONDOS', '2023-08-30', '11:51:22', '2023-08-30 15:51:22', '2023-08-30 15:51:22');
+(24, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com ACTUALIZÓ LOS FONDOS DE LA EMPRESA EMPRESA #1', 'id: 2<br/>empresa_id: 3<br/>producto: 10000.00<br/>p_producto: 40<br/>venta_marketing: 5000.00<br/>p_venta_marketing: 30<br/>inventario: 2500.00<br/>p_inventario: 20<br/>operacion: 0.00<br/>p_operacion: 0<br/>gastos: 0.00<br/>p_gastos: 0<br/>otros: 1500.00<br/>p_otros: 10<br/>created_at: 2023-08-30 11:45:39<br/>updated_at: 2023-08-30 11:47:29<br/>', NULL, 'FONDOS', '2023-08-30', '11:51:22', '2023-08-30 15:51:22', '2023-08-30 15:51:22'),
+(25, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com AGREGÓ UN REGISTRO DE FINANZAS EN LA EMPRESA EMPRESA #1', 'id: 1<br/>empresa_id: 3<br/>gestion: 2023<br/>ganancia: 100000<br/>costo_bienes_vendidos: 1000<br/>salarios: 5000<br/>otros_gastos_operativos: 1500<br/>ebitda: 92500<br/>da: 1300<br/>ebit: 91200<br/>interes: 1200<br/>impuestos: 1500<br/>beneficio_neto: 88500<br/>cuentas_cobrar: 1000<br/>inventario: 1000<br/>cuentas_pagar: 1000<br/>capital_trabajo: 1000<br/>cambio_capital_trabajo: 0<br/>gastos_capital: 1000<br/>deuda_final_anio: 1000<br/>cambio_deuda_pendiente: 0<br/>flujo_caja_libre_capital: 88800<br/>recaudacion_fondos_futura: 100000<br/>flujo_caja_libre: 188800<br/>created_at: 2023-09-04 11:57:43<br/>updated_at: 2023-09-04 11:57:43<br/>', NULL, 'FINANZAS', '2023-09-04', '11:57:43', '2023-09-04 15:57:43', '2023-09-04 15:57:43'),
+(26, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com AGREGÓ UN REGISTRO DE FINANZAS EN LA EMPRESA EMPRESA #1', 'id: 2<br/>empresa_id: 3<br/>gestion: 2023<br/>ganancia: 100000<br/>costo_bienes_vendidos: 1000<br/>salarios: 5000<br/>otros_gastos_operativos: 1500<br/>ebitda: 92500<br/>da: 1300<br/>ebit: 91200<br/>interes: 1200<br/>impuestos: 1500<br/>beneficio_neto: 88500<br/>cuentas_cobrar: 1000<br/>inventario: 1000<br/>cuentas_pagar: 1000<br/>capital_trabajo: 1000<br/>cambio_capital_trabajo: 0<br/>gastos_capital: 1000<br/>deuda_final_anio: 1000<br/>cambio_deuda_pendiente: 0<br/>flujo_caja_libre_capital: 88800<br/>recaudacion_fondos_futura: 100000<br/>flujo_caja_libre: 188800<br/>created_at: 2023-09-04 12:19:44<br/>updated_at: 2023-09-04 12:19:44<br/>', NULL, 'FINANZAS', '2023-09-04', '12:19:44', '2023-09-04 16:19:44', '2023-09-04 16:19:44'),
+(27, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com AGREGÓ UN REGISTRO DE FINANZAS EN LA EMPRESA EMPRESA #1', 'id: 3<br/>empresa_id: 3<br/>gestion: 2024<br/>ganancia: 100253.5<br/>costo_bienes_vendidos: 1000<br/>salarios: 5000<br/>otros_gastos_operativos: 1500<br/>ebitda: 92500<br/>da: 1300<br/>ebit: 91200<br/>interes: 1200<br/>impuestos: 1500<br/>beneficio_neto: 88500<br/>cuentas_cobrar: 1000<br/>inventario: 1000<br/>cuentas_pagar: 1000<br/>capital_trabajo: 1000<br/>cambio_capital_trabajo: 0<br/>gastos_capital: 1000<br/>deuda_final_anio: 1000<br/>cambio_deuda_pendiente: 0<br/>flujo_caja_libre_capital: 88800<br/>recaudacion_fondos_futura: 100000<br/>flujo_caja_libre: 188800<br/>created_at: 2023-09-04 13:29:14<br/>updated_at: 2023-09-04 13:29:14<br/>', NULL, 'FINANZAS', '2023-09-04', '13:29:14', '2023-09-04 17:29:14', '2023-09-04 17:29:14'),
+(28, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com ACTUALIZÓ EL CUESTIONARIO DE LA EMPRESA EMPRESA #1', 'id: 2<br/>empresa_id: 3<br/>cuestionario: 3|30000|1|1|1|7|1|2|1|1|1|1|1|1|1|2|1|1|Belarus|9;0|1|1|30000|20000|1|1|0|1|1|1|1|1|1|2013|1||0|1|1|1|1|1<br/>created_at: 2023-08-28 16:16:24<br/>updated_at: 2023-09-06 20:01:21<br/>', NULL, 'CUESTIONARIOS', '2023-09-06', '20:01:22', '2023-09-07 00:01:22', '2023-09-07 00:01:22'),
+(29, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com ACTUALIZÓ EL CUESTIONARIO DE LA EMPRESA EMPRESA #1', 'id: 2<br/>empresa_id: 3<br/>cuestionario: 3|30000|1|1|1|7|1|2|1|1|1|1|3|1|1|2|1|1|Belarus|9;0|1|1|30000|50|1|1|0|1|1|1|1|1|1|2013|1||0|1|1|1|1|1<br/>created_at: 2023-08-28 16:16:24<br/>updated_at: 2023-09-06 22:53:08<br/>', NULL, 'CUESTIONARIOS', '2023-09-06', '22:53:08', '2023-09-07 02:53:08', '2023-09-07 02:53:08'),
+(30, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com ACTUALIZÓ EL CUESTIONARIO DE LA EMPRESA EMPRESA #1', 'created_at: 2023-08-28 16:16:24<br/>cuestionario: 3|2000000|1|1|1|7|1|2|1|1|1|1|3|1|1|2|1|1|Belarus|9;0|1|1|30000|50|1|1|0|1|1|1|1|1|1|2013|1||0|1|1|1|1|1<br/>empresa_id: 3<br/>id: 2<br/>updated_at: 2023-09-07 11:51:00<br/>', NULL, 'CUESTIONARIOS', '2023-09-07', '11:51:00', '2023-09-07 15:51:00', '2023-09-07 15:51:00'),
+(31, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com ACTUALIZÓ EL CUESTIONARIO DE LA EMPRESA EMPRESA #1', 'created_at: 2023-08-28 16:16:24<br/>cuestionario: 3|1700000|1|1|1|7|1|2|1|1|1|1|3|1|1|2|1|1|Belarus|9;0|1|1|30000|50|1|1|0|1|1|1|1|1|1|2013|1||0|1|1|1|1|1<br/>empresa_id: 3<br/>id: 2<br/>updated_at: 2023-09-07 11:51:21<br/>', NULL, 'CUESTIONARIOS', '2023-09-07', '11:51:21', '2023-09-07 15:51:21', '2023-09-07 15:51:21');
 
 -- --------------------------------------------------------
 
@@ -375,9 +391,18 @@ CREATE TABLE `valoracion` (
   `valoracion_previa` decimal(24,2) NOT NULL,
   `limite_bajo` decimal(24,2) NOT NULL,
   `limite_alto` decimal(24,2) NOT NULL,
+  `valuacion` decimal(24,2) DEFAULT NULL,
+  `ultimo_ebitda` decimal(24,2) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `valoracion`
+--
+
+INSERT INTO `valoracion` (`id`, `empresa_id`, `fondos`, `valoracion_previa`, `limite_bajo`, `limite_alto`, `valuacion`, `ultimo_ebitda`, `created_at`, `updated_at`) VALUES
+(1, 3, 200000.00, 2500000.00, 1875000.00, 3125000.00, 165704.00, 71529.00, '2023-09-06 23:29:30', '2023-09-07 18:42:15');
 
 -- --------------------------------------------------------
 
@@ -526,7 +551,7 @@ ALTER TABLE `empresas`
 -- AUTO_INCREMENT de la tabla `finanzas`
 --
 ALTER TABLE `finanzas`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `fondos`
@@ -538,7 +563,7 @@ ALTER TABLE `fondos`
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -562,7 +587,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `valoracion`
 --
 ALTER TABLE `valoracion`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `valoracion_users`
