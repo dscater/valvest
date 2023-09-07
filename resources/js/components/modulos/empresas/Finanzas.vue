@@ -968,7 +968,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <tr class="fila_automatica">
                                                     <td class="text-xs">
                                                         CAPITAL DE TRABAJO
                                                     </td>
@@ -1037,7 +1037,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <tr class="fila_automatica">
+                                                <tr>
                                                     <td class="text-xs">
                                                         CAMBIO EN EL CAPITAL DE
                                                         TRABAJO

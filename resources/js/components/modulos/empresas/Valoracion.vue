@@ -16,7 +16,10 @@
                         <div class="card">
                             <div class="card-body text-primary">
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div
+                                        class="col-md-12"
+                                        v-if="oEmpresa.cuestionario"
+                                    >
                                         <h4 class="text-primary">
                                             {{ oEmpresa.nombre }}
                                         </h4>
@@ -78,22 +81,79 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <h4 class="col-md-12 text-primary">
+                                    <h4
+                                        class="col-md-12 text-primary text-center"
+                                    >
                                         Valoración previa al dinero
                                     </h4>
-                                    <div class="col-md-6">
+                                    <div
+                                        class="col-md-12 text-center principal_1"
+                                    >
                                         <div
-                                            class="contenedor_fondos ml-auto mr-auto"
+                                            class="contenedor_fondos contenedor_1"
                                         >
                                             <div>Fondos:</div>
                                             <div
-                                                class="font-weight-bold text-md"
+                                                class="font-weight-bold text-lg"
                                             >
-                                                Bs. <span>{{}}</span>
+                                                Bs.
+                                                <span>{{
+                                                    oEmpresa.valor_fondo_k
+                                                }}</span>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="contenedor_montos contenedor_1"
+                                        >
+                                            <div>
+                                                <span
+                                                    class="font-weight-bold text-lg"
+                                                    >Bs.
+                                                    {{
+                                                        oEmpresa.valoracion
+                                                            ? oEmpresa
+                                                                  .valoracion
+                                                                  .valoracion_previa
+                                                            : 0
+                                                    }}</span
+                                                >
+                                            </div>
+                                            <div>
+                                                <img
+                                                    src="/imgs/inferior.png"
+                                                    alt="inferior"
+                                                    height="40px"
+                                                /><br />
+                                                <span class="font-weight-bold"
+                                                    >Límite bajo</span
+                                                ><br />
+                                                Bs.
+                                                <span>{{
+                                                    oEmpresa.valoracion
+                                                        ? oEmpresa.valoracion
+                                                              .limite_bajo
+                                                        : 0
+                                                }}</span>
+                                            </div>
+                                            <div>
+                                                <img
+                                                    src="/imgs/superior.png"
+                                                    alt="inferior"
+                                                    height="40px"
+                                                /><br />
+                                                <span class="font-weight-bold"
+                                                    >Límite alto</span
+                                                ><br />
+                                                Bs.
+                                                <span>{{
+                                                    oEmpresa.valoracion
+                                                        ? oEmpresa.valoracion
+                                                              .limite_alto
+                                                        : 0
+                                                }}</span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6"></div>
                                 </div>
                             </div>
                         </div>
@@ -180,7 +240,9 @@ export default {
         },
         valoracionEmpresa() {
             axios
-                .post("/admin/valoracions/empresa/" + this.oEmpresa.id)
+                .post("/admin/valoracions/empresa/" + this.oEmpresa.id, {
+                    fondos: this.oEmpresa.valor_fondo,
+                })
                 .then((response) => {
                     this.oEmpresa.valoracion = response.data;
                     this.setValoracionUser();
@@ -279,4 +341,40 @@ export default {
     },
 };
 </script>
-<style></style>
+<style>
+.principal_1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor_1 {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0px 40px;
+}
+
+.contenedor_fondos {
+    border: solid 2px var(--primary);
+    border-radius: 50%;
+    height: 180px;
+    width: 180px;
+    font-size: 1.2em;
+}
+
+@media (max-width: 800px) {
+    .principal_1 {
+        flex-direction: column;
+    }
+    .contenedor_1 {
+        display: flex;
+        margin: 0px 10px;
+    }
+    .contenedor_1:last-child {
+        margin-top: 20px;
+    }
+}
+</style>

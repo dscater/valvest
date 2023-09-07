@@ -166,6 +166,28 @@ class FinanzaController extends Controller
         $array_medias["recaudacion_fondos_futura"] = $array_sumas["recaudacion_fondos_futura"] / count($finanzas);
         $array_medias["flujo_caja_libre"] = $array_sumas["flujo_caja_libre"] / count($finanzas);
 
+        $array_medias["ganancia"] = number_format($array_medias["ganancia"], 2, ".", "");
+        $array_medias["costo_bienes_vendidos"] = number_format($array_medias["costo_bienes_vendidos"], 2, ".", "");
+        $array_medias["salarios"] = number_format($array_medias["salarios"], 2, ".", "");
+        $array_medias["otros_gastos_operativos"] = number_format($array_medias["otros_gastos_operativos"], 2, ".", "");
+        $array_medias["ebitda"] = number_format($array_medias["ebitda"], 2, ".", "");
+        $array_medias["da"] = number_format($array_medias["da"], 2, ".", "");
+        $array_medias["ebit"] = number_format($array_medias["ebit"], 2, ".", "");
+        $array_medias["interes"] = number_format($array_medias["interes"], 2, ".", "");
+        $array_medias["impuestos"] = number_format($array_medias["impuestos"], 2, ".", "");
+        $array_medias["beneficio_neto"] = number_format($array_medias["beneficio_neto"], 2, ".", "");
+        $array_medias["cuentas_cobrar"] = number_format($array_medias["cuentas_cobrar"], 2, ".", "");
+        $array_medias["inventario"] = number_format($array_medias["inventario"], 2, ".", "");
+        $array_medias["cuentas_pagar"] = number_format($array_medias["cuentas_pagar"], 2, ".", "");
+        $array_medias["capital_trabajo"] = number_format($array_medias["capital_trabajo"], 2, ".", "");
+        $array_medias["cambio_capital_trabajo"] = number_format($array_medias["cambio_capital_trabajo"], 2, ".", "");
+        $array_medias["gastos_capital"] = number_format($array_medias["gastos_capital"], 2, ".", "");
+        $array_medias["deuda_final_anio"] = number_format($array_medias["deuda_final_anio"], 2, ".", "");
+        $array_medias["cambio_deuda_pendiente"] = number_format($array_medias["cambio_deuda_pendiente"], 2, ".", "");
+        $array_medias["flujo_caja_libre_capital"] = number_format($array_medias["flujo_caja_libre_capital"], 2, ".", "");
+        $array_medias["recaudacion_fondos_futura"] = number_format($array_medias["recaudacion_fondos_futura"], 2, ".", "");
+        $array_medias["flujo_caja_libre"] = number_format($array_medias["flujo_caja_libre"], 2, ".", "");
+
         return response()->JSON($array_medias);
     }
 }

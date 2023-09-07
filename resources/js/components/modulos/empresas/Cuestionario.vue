@@ -1345,7 +1345,8 @@
                                     <div class="col-md-12 form-group">
                                         <label for=""
                                             >24. ¿Cuál es la tasa de crecimiento
-                                            anual de este mercado?</label
+                                            anual de este mercado?
+                                            (Porcentaje)</label
                                         >
                                         <input
                                             class="form-control"

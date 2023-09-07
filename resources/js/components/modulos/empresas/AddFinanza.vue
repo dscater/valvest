@@ -908,12 +908,14 @@ export default {
                         ? this.finanza.otros_gastos_operativos
                         : 0
                 );
+            this.finanza.ebitda = parseFloat(this.finanza.ebitda).toFixed(2);
             this.calculaEBIT();
         },
         calculaEBIT() {
             this.finanza.ebit =
                 parseFloat(this.finanza.ebitda ? this.finanza.ebitda : 0) -
                 parseFloat(this.finanza.da ? this.finanza.da : 0);
+            this.finanza.ebit = parseFloat(this.finanza.ebit).toFixed(2);
             this.calculaBeneficioNeto();
         },
         calculaBeneficioNeto() {
@@ -921,6 +923,9 @@ export default {
                 parseFloat(this.finanza.ebit ? this.finanza.ebit : 0) -
                 parseFloat(this.finanza.interes ? this.finanza.interes : 0) -
                 parseFloat(this.finanza.impuestos ? this.finanza.impuestos : 0);
+            this.finanza.beneficio_neto = parseFloat(
+                this.finanza.beneficio_neto
+            ).toFixed(2);
             this.calculaFlujoCajaLibreCapital();
         },
         calculaCapitalTrabajo() {
@@ -936,6 +941,9 @@ export default {
                 parseFloat(
                     this.finanza.cuentas_pagar ? this.finanza.cuentas_pagar : 0
                 );
+            this.finanza.capital_trabajo = parseFloat(
+                this.finanza.capital_trabajo
+            ).toFixed(2);
         },
         calculaCambioCapitalTrabajo() {
             if (this.oFinanzaAnterior.id != 0) {
@@ -950,6 +958,9 @@ export default {
                             ? this.oFinanzaAnterior.capital_trabajo
                             : 0
                     );
+                this.finanza.cambio_capital_trabajo = parseFloat(
+                    this.finanza.cambio_capital_trabajo
+                ).toFixed(2);
             }
         },
         calculaCambioDeudaPendiente() {
@@ -965,6 +976,9 @@ export default {
                             ? this.oFinanzaAnterior.deuda_final_anio
                             : 0
                     );
+                this.finanza.cambio_deuda_pendiente = parseFloat(
+                    this.finanza.cambio_deuda_pendiente
+                ).toFixed(2);
             }
             this.calculaFlujoCajaLibreCapital();
         },
@@ -991,6 +1005,9 @@ export default {
                         ? this.finanza.cambio_deuda_pendiente
                         : 0
                 );
+            this.finanza.flujo_caja_libre_capital = parseFloat(
+                this.finanza.flujo_caja_libre_capital
+            ).toFixed(2);
             this.calculaFlujoCajaLibre();
         },
         calculaFlujoCajaLibre() {
@@ -1005,6 +1022,9 @@ export default {
                         ? this.finanza.recaudacion_fondos_futura
                         : 0
                 );
+            this.finanza.flujo_caja_libre = parseFloat(
+                this.finanza.flujo_caja_libre
+            ).toFixed(2);
         },
         // FUNCIONES PARA NUEVAS COLUMNAS
         getAnioAnterior() {
