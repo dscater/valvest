@@ -77,23 +77,28 @@ class Finanza extends Model
             $finanza->cambio_capital_trabajo = ((float)$finanza->capital_trabajo  ? $finanza->capital_trabajo  : 0) - ((float)$anterior->capital_trabajo ? $anterior->capital_trabajo : 0);
         }
 
-        // CAMBIO DEUDA PENDIENTE
-        $anterior = Finanza::where("empresa_id", $finanza->empresa_id)
-            ->where("id", "<", $finanza->id)
+        $es_primera = Finanza::where("empresa_id", $finanza->empresa_id)
             ->orderBy("id", "asc")
-            ->get()->last();
-        $finanza->cambio_deuda_pendiente = null;
-        if ($anterior) {
-            $finanza->cambio_deuda_pendiente = ((float)$finanza->deuda_final_anio  ? $finanza->deuda_final_anio  : 0) - ((float)$anterior->deuda_final_anio ? $anterior->deuda_final_anio : 0);
+            ->get()->first();
+        if ($es_primera->id != $finanza->id) {
+            // CAMBIO DEUDA PENDIENTE
+            $anterior = Finanza::where("empresa_id", $finanza->empresa_id)
+                ->where("id", "<", $finanza->id)
+                ->orderBy("id", "asc")
+                ->get()->last();
+            $finanza->cambio_deuda_pendiente = null;
+            if ($anterior) {
+                $finanza->cambio_deuda_pendiente = ((float)$finanza->deuda_final_anio  ? $finanza->deuda_final_anio  : 0) - ((float)$anterior->deuda_final_anio ? $anterior->deuda_final_anio : 0);
+            }
+
+            // FLUJO CAJA LIBRE CAPITAL
+            $finanza->flujo_caja_libre_capital = ((float)$finanza->beneficio_neto ? $finanza->beneficio_neto : 0) + ((float)$finanza->da ? $finanza->da : 0) - ((float)$finanza->cambio_capital_trabajo ? $finanza->cambio_capital_trabajo : 0) - ((float)$finanza->gastos_capital ? $finanza->gastos_capital : 0) + ((float)$finanza->cambio_deuda_pendiente ? $finanza->cambio_deuda_pendiente : 0);
+
+            // FLUJO CAJA LIBRE
+            $finanza->flujo_caja_libre = ((float)$finanza->flujo_caja_libre_capital ? $finanza->flujo_caja_libre_capital : 0) + ((float)$finanza->recaudacion_fondos_futura ? $finanza->recaudacion_fondos_futura : 0);
         }
-
-        // FLUJO CAJA LIBRE CAPITAL
-        $finanza->flujo_caja_libre_capital = ((float)$finanza->beneficio_neto ? $finanza->beneficio_neto : 0) + ((float)$finanza->da ? $finanza->da : 0) - ((float)$finanza->cambio_capital_trabajo ? $finanza->cambio_capital_trabajo : 0) - ((float)$finanza->gastos_capital ? $finanza->gastos_capital : 0) + ((float)$finanza->cambio_deuda_pendiente ? $finanza->cambio_deuda_pendiente : 0);
-
-        // FLUJO CAJA LIBRE
-        $finanza->flujo_caja_libre = ((float)$finanza->flujo_caja_libre_capital ? $finanza->flujo_caja_libre_capital : 0) + ((float)$finanza->recaudacion_fondos_futura ? $finanza->recaudacion_fondos_futura : 0);
-
         $finanza->save();
+
         return $finanza;
     }
 }
