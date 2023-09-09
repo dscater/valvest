@@ -221,145 +221,149 @@ class ReporteController extends Controller
         $sheet->mergeCells("A" . $fila . ":F" . $fila);  //COMBINAR CELDAS
         $sheet->getStyle('A' . $fila . ':F' . $fila)->applyFromArray($styleTexto2);
         $fila++;
+        if ($empresa->cuestionario && $empresa->valoracion) {
+            // comenzo en industria
+            $sheet->setCellValue('A' . $fila, "Comenzó en Industria:");
+            $sheet->getStyle('A' . $fila)->applyFromArray($styleTexto3);
+            $sheet->getStyle('A' . $fila)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
 
-        // comenzo en industria
-        $sheet->setCellValue('A' . $fila, "Comenzó en Industria:");
-        $sheet->getStyle('A' . $fila)->applyFromArray($styleTexto3);
-        $sheet->getStyle('A' . $fila)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
-
-        $sheet->setCellValue('B' . $fila, $empresa->cuestionario->array_cuestionario[33]);
-        $sheet->mergeCells("B" . $fila . ":F" . $fila);  //COMBINAR CELDAS
-        $sheet->getStyle('B' . $fila . ':F' . $fila)->applyFromArray($styleTexto4);
-        $fila++;
-
-        // industria
-        $sheet->setCellValue('A' . $fila, "Industria:");
-        $sheet->getStyle('A' . $fila)->applyFromArray($styleTexto3);
-        $sheet->getStyle('A' . $fila)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
-
-        $sheet->setCellValue('B' . $fila, $info_cuestionario[19][1][$empresa->cuestionario->array_cuestionario[19][0]][$empresa->cuestionario->array_cuestionario[19][1]]);
-        $sheet->mergeCells("B" . $fila . ":F" . $fila);  //COMBINAR CELDAS
-        $sheet->getStyle('B' . $fila . ':F' . $fila)->applyFromArray($styleTexto4);
-        $fila++;
-
-        // actividad de negocios
-        $sheet->setCellValue('A' . $fila, "Actividad de Negocios:");
-        $sheet->getStyle('A' . $fila)->applyFromArray($styleTexto3);
-        $sheet->getStyle('A' . $fila)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
-
-        $sheet->setCellValue('B' . $fila, $empresa->descripcion_actividad);
-        $sheet->mergeCells("B" . $fila . ":F" . $fila);  //COMBINAR CELDAS
-        $sheet->getStyle('B' . $fila . ':F' . $fila)->applyFromArray($styleTexto4);
-        $fila++;
-
-        // empleados
-        $sheet->setCellValue('A' . $fila, "Empleados:");
-        $sheet->getStyle('A' . $fila)->applyFromArray($styleTexto3);
-        $sheet->getStyle('A' . $fila)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
-
-        $sheet->setCellValue('B' . $fila, $empresa->cuestionario->array_cuestionario[5]);
-        $sheet->mergeCells("B" . $fila . ":F" . $fila);  //COMBINAR CELDAS
-        $sheet->getStyle('B' . $fila . ':F' . $fila)->applyFromArray($styleTexto4);
-        $fila++;
-
-        // etapa
-        $sheet->setCellValue('A' . $fila, "Etapa:");
-        $sheet->getStyle('A' . $fila)->applyFromArray($styleTexto3);
-        $sheet->getStyle('A' . $fila)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
-
-        $sheet->setCellValue('B' . $fila, $info_cuestionario[12][$empresa->cuestionario->array_cuestionario[12]]);
-        $sheet->mergeCells("B" . $fila . ":F" . $fila);  //COMBINAR CELDAS
-        $sheet->getStyle('B' . $fila . ':F' . $fila)->applyFromArray($styleTexto4);
-        $fila++;
-
-        // gasto inicial
-        $sheet->setCellValue('A' . $fila, "Ganancia inicial:");
-        $sheet->getStyle('A' . $fila)->applyFromArray($styleTexto3);
-        $sheet->getStyle('A' . $fila)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
-
-        $sheet->setCellValue('B' . $fila, $empresa->primera_finanza->ganancia);
-        $sheet->mergeCells("B" . $fila . ":F" . $fila);  //COMBINAR CELDAS
-        $sheet->getStyle('B' . $fila . ':F' . $fila)->applyFromArray($styleTexto4);
-        $sheet->getStyle('A' . $fila . ':F' . $fila)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THICK);
-        $sheet->getStyle('A' . $fila . ':F' . $fila)->getBorders()->getBottom()->getColor()->setRGB('203764');
-        $fila++;
-        $fila++;
-
-        $sheet->setCellValue('A' . $fila, "VALORACIÓN PREVIA AL DINERO");
-        $sheet->mergeCells("A" . $fila . ":F" . $fila);  //COMBINAR CELDAS
-        $sheet->getStyle('A' . $fila . ':F' . $fila)->getAlignment()->setHorizontal('center');
-        $sheet->getStyle('A' . $fila . ':F' . $fila)->applyFromArray($styleTexto5);
-        $fila++;
-        $sheet->setCellValue('B' . $fila, "Fondos");
-        $sheet->setCellValue('C' . $fila, "Valoración");
-        $sheet->setCellValue('D' . $fila, "Límite bajo");
-        $sheet->setCellValue('E' . $fila, "Límite alto");
-        $sheet->getStyle('B' . $fila . ':E' . $fila)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THICK);
-        $sheet->getStyle('B' . $fila . ':E' . $fila)->getBorders()->getBottom()->getColor()->setRGB('203764');
-        $sheet->getStyle('B' . $fila . ':E' . $fila)->applyFromArray($styleTexto5);
-        $fila++;
-        $sheet->setCellValue('B' . $fila, $empresa->valoracion->fondos);
-        $sheet->setCellValue('C' . $fila, $empresa->valoracion->valoracion_previa);
-        $sheet->setCellValue('D' . $fila, $empresa->valoracion->limite_bajo);
-        $sheet->setCellValue('E' . $fila, $empresa->valoracion->limite_alto);
-        $sheet->getStyle('B' . $fila . ':E' . $fila)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THICK);
-        $sheet->getStyle('B' . $fila . ':E' . $fila)->getBorders()->getBottom()->getColor()->setRGB('203764');
-        $sheet->getStyle('B' . $fila . ':E' . $fila)->applyFromArray($styleTexto6);
-        $fila++;
-        $fila++;
-
-        $sheet->setCellValue('A' . $fila, "DFC(Flujo de Fondos Descontados");
-        $sheet->mergeCells("A" . $fila . ":F" . $fila);  //COMBINAR CELDAS
-        $sheet->getStyle('A' . $fila . ':F' . $fila)->getAlignment()->setHorizontal('center');
-        $sheet->getStyle('A' . $fila . ':F' . $fila)->applyFromArray($styleTexto5);
-        $fila++;
-        $sheet->setCellValue('B' . $fila, "Gestión");
-        $sheet->setCellValue('C' . $fila, "Tasa de supervivencia");
-        $sheet->setCellValue('D' . $fila, "Tasa de fracaso");
-        $sheet->getStyle('B' . $fila . ':D' . $fila)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THICK);
-        $sheet->getStyle('B' . $fila . ':D' . $fila)->getBorders()->getBottom()->getColor()->setRGB('203764');
-        $sheet->getStyle('B' . $fila . ':D' . $fila)->applyFromArray($styleTexto5);
-        $fila++;
-        $valuacion = $empresa->valoracion->valuacion;
-        foreach ($empresa->finanzas()->where('flujo_caja_libre', '>', 0)->where('flujo_caja_libre', '!=', null)->orderBy('id', 'asc')->get() as $f) {
-            $gestion = $f->gestion;
-            $gestion = substr($gestion, 2, 2);
-            $txt_gestion = '01/' . $gestion . ' - 12/' . $gestion;
-            $tasa_sup = 0;
-            if ($valuacion > 0) {
-                $tasa_sup = number_format(((float) $f->flujo_caja_libre / $valuacion) * 100, 2, '.', '');
-            }
-            $tasa_frac = number_format(100 - $tasa_sup, 2, '.', '');
-            $sheet->setCellValue('B' . $fila, $txt_gestion);
-            $sheet->setCellValue('C' . $fila, $tasa_sup);
-            $sheet->setCellValue('D' . $fila, $tasa_frac);
-            $sheet->getStyle('B' . $fila . ':D' . $fila)->applyFromArray($styleTexto7);
+            $sheet->setCellValue('B' . $fila, $empresa->cuestionario->array_cuestionario[33]);
+            $sheet->mergeCells("B" . $fila . ":F" . $fila);  //COMBINAR CELDAS
+            $sheet->getStyle('B' . $fila . ':F' . $fila)->applyFromArray($styleTexto4);
             $fila++;
+
+            // industria
+            $sheet->setCellValue('A' . $fila, "Industria:");
+            $sheet->getStyle('A' . $fila)->applyFromArray($styleTexto3);
+            $sheet->getStyle('A' . $fila)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+
+            $sheet->setCellValue('B' . $fila, $info_cuestionario[19][1][$empresa->cuestionario->array_cuestionario[19][0]][$empresa->cuestionario->array_cuestionario[19][1]]);
+            $sheet->mergeCells("B" . $fila . ":F" . $fila);  //COMBINAR CELDAS
+            $sheet->getStyle('B' . $fila . ':F' . $fila)->applyFromArray($styleTexto4);
+            $fila++;
+
+            // actividad de negocios
+            $sheet->setCellValue('A' . $fila, "Actividad de Negocios:");
+            $sheet->getStyle('A' . $fila)->applyFromArray($styleTexto3);
+            $sheet->getStyle('A' . $fila)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+
+            $sheet->setCellValue('B' . $fila, $empresa->descripcion_actividad);
+            $sheet->mergeCells("B" . $fila . ":F" . $fila);  //COMBINAR CELDAS
+            $sheet->getStyle('B' . $fila . ':F' . $fila)->applyFromArray($styleTexto4);
+            $fila++;
+
+            // empleados
+            $sheet->setCellValue('A' . $fila, "Empleados:");
+            $sheet->getStyle('A' . $fila)->applyFromArray($styleTexto3);
+            $sheet->getStyle('A' . $fila)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+
+            $sheet->setCellValue('B' . $fila, $empresa->cuestionario->array_cuestionario[5]);
+            $sheet->mergeCells("B" . $fila . ":F" . $fila);  //COMBINAR CELDAS
+            $sheet->getStyle('B' . $fila . ':F' . $fila)->applyFromArray($styleTexto4);
+            $fila++;
+
+            // etapa
+            $sheet->setCellValue('A' . $fila, "Etapa:");
+            $sheet->getStyle('A' . $fila)->applyFromArray($styleTexto3);
+            $sheet->getStyle('A' . $fila)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+
+            $sheet->setCellValue('B' . $fila, $info_cuestionario[12][$empresa->cuestionario->array_cuestionario[12]]);
+            $sheet->mergeCells("B" . $fila . ":F" . $fila);  //COMBINAR CELDAS
+            $sheet->getStyle('B' . $fila . ':F' . $fila)->applyFromArray($styleTexto4);
+            $fila++;
+
+            // gasto inicial
+            $sheet->setCellValue('A' . $fila, "Ganancia inicial:");
+            $sheet->getStyle('A' . $fila)->applyFromArray($styleTexto3);
+            $sheet->getStyle('A' . $fila)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
+
+            $sheet->setCellValue('B' . $fila, $empresa->primera_finanza->ganancia);
+            $sheet->mergeCells("B" . $fila . ":F" . $fila);  //COMBINAR CELDAS
+            $sheet->getStyle('B' . $fila . ':F' . $fila)->applyFromArray($styleTexto4);
+            $sheet->getStyle('A' . $fila . ':F' . $fila)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THICK);
+            $sheet->getStyle('A' . $fila . ':F' . $fila)->getBorders()->getBottom()->getColor()->setRGB('203764');
+            $fila++;
+            $fila++;
+
+            $sheet->setCellValue('A' . $fila, "VALORACIÓN PREVIA AL DINERO");
+            $sheet->mergeCells("A" . $fila . ":F" . $fila);  //COMBINAR CELDAS
+            $sheet->getStyle('A' . $fila . ':F' . $fila)->getAlignment()->setHorizontal('center');
+            $sheet->getStyle('A' . $fila . ':F' . $fila)->applyFromArray($styleTexto5);
+            $fila++;
+            $sheet->setCellValue('B' . $fila, "Fondos");
+            $sheet->setCellValue('C' . $fila, "Valoración");
+            $sheet->setCellValue('D' . $fila, "Límite bajo");
+            $sheet->setCellValue('E' . $fila, "Límite alto");
+            $sheet->getStyle('B' . $fila . ':E' . $fila)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THICK);
+            $sheet->getStyle('B' . $fila . ':E' . $fila)->getBorders()->getBottom()->getColor()->setRGB('203764');
+            $sheet->getStyle('B' . $fila . ':E' . $fila)->applyFromArray($styleTexto5);
+            $fila++;
+            $sheet->setCellValue('B' . $fila, $empresa->valoracion->fondos);
+            $sheet->setCellValue('C' . $fila, $empresa->valoracion->valoracion_previa);
+            $sheet->setCellValue('D' . $fila, $empresa->valoracion->limite_bajo);
+            $sheet->setCellValue('E' . $fila, $empresa->valoracion->limite_alto);
+            $sheet->getStyle('B' . $fila . ':E' . $fila)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THICK);
+            $sheet->getStyle('B' . $fila . ':E' . $fila)->getBorders()->getBottom()->getColor()->setRGB('203764');
+            $sheet->getStyle('B' . $fila . ':E' . $fila)->applyFromArray($styleTexto6);
+            $fila++;
+            $fila++;
+
+            $sheet->setCellValue('A' . $fila, "DFC(Flujo de Fondos Descontados");
+            $sheet->mergeCells("A" . $fila . ":F" . $fila);  //COMBINAR CELDAS
+            $sheet->getStyle('A' . $fila . ':F' . $fila)->getAlignment()->setHorizontal('center');
+            $sheet->getStyle('A' . $fila . ':F' . $fila)->applyFromArray($styleTexto5);
+            $fila++;
+            $sheet->setCellValue('B' . $fila, "Gestión");
+            $sheet->setCellValue('C' . $fila, "Tasa de supervivencia");
+            $sheet->setCellValue('D' . $fila, "Tasa de fracaso");
+            $sheet->getStyle('B' . $fila . ':D' . $fila)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THICK);
+            $sheet->getStyle('B' . $fila . ':D' . $fila)->getBorders()->getBottom()->getColor()->setRGB('203764');
+            $sheet->getStyle('B' . $fila . ':D' . $fila)->applyFromArray($styleTexto5);
+            $fila++;
+            $valuacion = $empresa->valoracion->valuacion;
+            foreach ($empresa->finanzas()->where('flujo_caja_libre', '>', 0)->where('flujo_caja_libre', '!=', null)->orderBy('id', 'asc')->get() as $f) {
+                $gestion = $f->gestion;
+                $gestion = substr($gestion, 2, 2);
+                $txt_gestion = '01/' . $gestion . ' - 12/' . $gestion;
+                $tasa_sup = 0;
+                if ($valuacion > 0) {
+                    $tasa_sup = number_format(((float) $f->flujo_caja_libre / $valuacion) * 100, 2, '.', '');
+                }
+                $tasa_frac = number_format(100 - $tasa_sup, 2, '.', '');
+                $sheet->setCellValue('B' . $fila, $txt_gestion);
+                $sheet->setCellValue('C' . $fila, $tasa_sup);
+                $sheet->setCellValue('D' . $fila, $tasa_frac);
+                $sheet->getStyle('B' . $fila . ':D' . $fila)->applyFromArray($styleTexto7);
+                $fila++;
+            }
+            $fila++;
+            $sheet->setCellValue('B' . $fila, "Valuación");
+            $sheet->mergeCells("B" . $fila . ":C" . $fila);  //COMBINAR CELDAS
+            $sheet->setCellValue('D' . $fila, "Último EBITDA");
+            $sheet->mergeCells("D" . $fila . ":E" . $fila);  //COMBINAR CELDAS
+            $sheet->getStyle('A' . $fila . ':F' . $fila)->getAlignment()->setHorizontal('center');
+            $sheet->getStyle('A' . $fila . ':F' . $fila)->applyFromArray($styleTexto5);
+            $sheet->getStyle('B' . $fila . ':E' . $fila)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THICK);
+            $sheet->getStyle('B' . $fila . ':E' . $fila)->getBorders()->getBottom()->getColor()->setRGB('203764');
+            $fila++;
+            $sheet->setCellValue('B' . $fila, $empresa->valoracion->valuacion);
+            $sheet->mergeCells("B" . $fila . ":C" . $fila);  //COMBINAR CELDAS
+            $sheet->setCellValue('D' . $fila, $empresa->valoracion->ultimo_ebitda);
+            $sheet->mergeCells("D" . $fila . ":E" . $fila);  //COMBINAR CELDAS
+            $sheet->getStyle('B' . $fila . ':E' . $fila)->applyFromArray($styleTexto7);
+            $sheet->getStyle('B' . $fila . ':E' . $fila)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THICK);
+            $sheet->getStyle('B' . $fila . ':E' . $fila)->getBorders()->getBottom()->getColor()->setRGB('203764');
+        } else {
+            $sheet->setCellValue('A' . $fila, "AÚN NO SE TIENE SUFICIENTE INFORMACIÓN SOBRE ESTA EMPRESA");
+            $sheet->mergeCells("A" . $fila . ":F" . $fila);  //COMBINAR CELDAS
         }
-        $fila++;
-        $sheet->setCellValue('B' . $fila, "Valuación");
-        $sheet->mergeCells("B" . $fila . ":C" . $fila);  //COMBINAR CELDAS
-        $sheet->setCellValue('D' . $fila, "Último EBITDA");
-        $sheet->mergeCells("D" . $fila . ":E" . $fila);  //COMBINAR CELDAS
-        $sheet->getStyle('A' . $fila . ':F' . $fila)->getAlignment()->setHorizontal('center');
-        $sheet->getStyle('A' . $fila . ':F' . $fila)->applyFromArray($styleTexto5);
-        $sheet->getStyle('B' . $fila . ':E' . $fila)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THICK);
-        $sheet->getStyle('B' . $fila . ':E' . $fila)->getBorders()->getBottom()->getColor()->setRGB('203764');
-        $fila++;
-        $sheet->setCellValue('B' . $fila, $empresa->valoracion->valuacion);
-        $sheet->mergeCells("B" . $fila . ":C" . $fila);  //COMBINAR CELDAS
-        $sheet->setCellValue('D' . $fila, $empresa->valoracion->ultimo_ebitda);
-        $sheet->mergeCells("D" . $fila . ":E" . $fila);  //COMBINAR CELDAS
-        $sheet->getStyle('B' . $fila . ':E' . $fila)->applyFromArray($styleTexto7);
-        $sheet->getStyle('B' . $fila . ':E' . $fila)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THICK);
-        $sheet->getStyle('B' . $fila . ':E' . $fila)->getBorders()->getBottom()->getColor()->setRGB('203764');
+
         $sheet->getColumnDimension('A')->setWidth(20);
         $sheet->getColumnDimension('B')->setWidth(20);
         $sheet->getColumnDimension('C')->setWidth(20);
         $sheet->getColumnDimension('D')->setWidth(20);
         $sheet->getColumnDimension('E')->setWidth(20);
         $sheet->getColumnDimension('F')->setWidth(20);
-        $fila++;
 
         foreach (range('A', 'F') as $columnID) {
             $sheet->getStyle($columnID)->getAlignment()->setWrapText(true);

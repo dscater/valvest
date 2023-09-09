@@ -4,9 +4,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-8">
-                        <h1>
-                            Reportes - Gráfico Valoración
-                        </h1>
+                        <h1>Reportes - Gráfico Valoración</h1>
                     </div>
                 </div>
             </div>
@@ -20,125 +18,42 @@
                                 <div class="ml-auto mr-auto col-md-5">
                                     <form>
                                         <div class="row">
-                                            <!-- <div class="form-group col-md-12">
+                                            <div class="form-group col-md-12">
                                                 <label
                                                     :class="{
                                                         'text-danger':
-                                                            errors.filtro,
-                                                    }"
-                                                    >Seleccione*</label
-                                                >
-                                                <el-select
-                                                    v-model="oReporte.filtro"
-                                                    filterable
-                                                    placeholder="Seleccione"
-                                                    class="d-block"
-                                                    :class="{
-                                                        'is-invalid':
-                                                            errors.filtro,
-                                                    }"
-                                                >
-                                                    <el-option
-                                                        v-for="item in listFiltro"
-                                                        :key="item.value"
-                                                        :value="item.value"
-                                                        :label="item.label"
-                                                    >
-                                                    </el-option>
-                                                </el-select>
-                                                <span
-                                                    class="error invalid-feedback"
-                                                    v-if="errors.filtro"
-                                                    v-text="errors.filtro[0]"
-                                                ></span>
-                                            </div>
-                                            <div
-                                                class="form-group col-md-12"
-                                                v-if="
-                                                    oReporte.filtro ==
-                                                    'indumentaria'
-                                                "
-                                            >
-                                                <label
-                                                    :class="{
-                                                        'text-danger':
-                                                            errors.indumentaria,
+                                                            errors.empresa_id,
                                                     }"
                                                     >Seleccione*</label
                                                 >
                                                 <el-select
                                                     v-model="
-                                                        oReporte.indumentaria
+                                                        oReporte.empresa_id
                                                     "
                                                     filterable
                                                     placeholder="Seleccione"
                                                     class="d-block"
                                                     :class="{
                                                         'is-invalid':
-                                                            errors.indumentaria,
+                                                            errors.empresa_id,
                                                     }"
                                                 >
                                                     <el-option
-                                                        v-for="item in listFiltros"
-                                                        :key="item"
-                                                        :label="item"
-                                                        :value="item"
+                                                        v-for="item in listEmpresas"
+                                                        :key="item.id"
+                                                        :value="item.id"
+                                                        :label="item.nombre"
                                                     >
                                                     </el-option>
                                                 </el-select>
                                                 <span
                                                     class="error invalid-feedback"
-                                                    v-if="errors.indumentaria"
+                                                    v-if="errors.empresa_id"
                                                     v-text="
-                                                        errors.indumentaria[0]
+                                                        errors.empresa_id[0]
                                                     "
                                                 ></span>
                                             </div>
-                                            <div
-                                                class="form-group col-md-12"
-                                                v-if="
-                                                    oReporte.filtro == 'fecha'
-                                                "
-                                            >
-                                                <label
-                                                    :class="{
-                                                        'text-danger':
-                                                            errors.fecha_ini,
-                                                        'text-danger':
-                                                            errors.fecha_fin,
-                                                    }"
-                                                    >Indice un rango de
-                                                    fechas*</label
-                                                >
-                                                <el-date-picker
-                                                    class="w-full d-block"
-                                                    :class="{
-                                                        'is-invalid':
-                                                            errors.fecha_ini,
-                                                        'is-invalid':
-                                                            errors.fecha_fin,
-                                                    }"
-                                                    v-model="aFechas"
-                                                    type="daterange"
-                                                    range-separator="a"
-                                                    start-placeholder="Fecha Inicial"
-                                                    end-placeholder="Fecha Final"
-                                                    format="dd/MM/yyyy"
-                                                    value-format="yyyy-MM-dd"
-                                                    @change="obtieneFechas()"
-                                                >
-                                                </el-date-picker>
-                                                <span
-                                                    class="error invalid-feedback"
-                                                    v-if="errors.fecha_ini"
-                                                    v-text="errors.fecha_ini[0]"
-                                                ></span>
-                                                <span
-                                                    class="error invalid-feedback"
-                                                    v-if="errors.fecha_fin"
-                                                    v-text="errors.fecha_fin[0]"
-                                                ></span>
-                                            </div> -->
                                         </div>
                                     </form>
                                     <div class="row">
@@ -164,11 +79,135 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12" v-show="oEmpresa.valoracion">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-12" id="container"></div>
+                                    <h4
+                                        class="col-md-12 text-primary text-center"
+                                    >
+                                        Valoración previa al dinero
+                                    </h4>
+                                    <div
+                                        class="col-md-12 text-center principal_1"
+                                    >
+                                        <div
+                                            class="contenedor_fondos contenedor_1"
+                                        >
+                                            <div>Fondos:</div>
+                                            <div
+                                                class="font-weight-bold text-lg"
+                                            >
+                                                Bs.
+                                                <span>{{
+                                                    oEmpresa.valor_fondo_k
+                                                }}</span>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="contenedor_montos contenedor_1"
+                                        >
+                                            <div>
+                                                <span
+                                                    class="font-weight-bold text-lg"
+                                                    >Bs.
+                                                    {{
+                                                        oEmpresa.valoracion
+                                                            ? oEmpresa
+                                                                  .valoracion
+                                                                  .valoracion_previa
+                                                            : 0
+                                                    }}</span
+                                                >
+                                            </div>
+                                            <div>
+                                                <img
+                                                    src="/imgs/inferior.png"
+                                                    alt="inferior"
+                                                    height="40px"
+                                                /><br />
+                                                <span class="font-weight-bold"
+                                                    >Límite bajo</span
+                                                ><br />
+                                                Bs.
+                                                <span>{{
+                                                    oEmpresa.valoracion
+                                                        ? oEmpresa.valoracion
+                                                              .limite_bajo
+                                                        : 0
+                                                }}</span>
+                                            </div>
+                                            <div>
+                                                <img
+                                                    src="/imgs/superior.png"
+                                                    alt="inferior"
+                                                    height="40px"
+                                                /><br />
+                                                <span class="font-weight-bold"
+                                                    >Límite alto</span
+                                                ><br />
+                                                Bs.
+                                                <span>{{
+                                                    oEmpresa.valoracion
+                                                        ? oEmpresa.valoracion
+                                                              .limite_alto
+                                                        : 0
+                                                }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" v-show="oEmpresa.valoracion">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <h4
+                                        class="col-md-12 text-primary text-center"
+                                    >
+                                        DCF
+                                    </h4>
+                                    <div
+                                        class="col-md-8"
+                                        id="container"
+                                        style="height: 400px"
+                                    ></div>
+                                    <div class="col-md-4 text-lg">
+                                        <div
+                                            class="valuacion w-100 text-center bg-primary p-3"
+                                        >
+                                            <strong>Valuación:</strong>
+                                            <p class="mb-0">
+                                                <strong
+                                                    v-text="
+                                                        'Bs. ' +
+                                                        parseFloat(
+                                                            oEmpresa.valoracion
+                                                                ?.valuacion
+                                                        ).toFixed(2)
+                                                    "
+                                                ></strong>
+                                            </p>
+                                        </div>
+                                        <div
+                                            class="ebitda w-100 text-center bg-cyan text-white p-3"
+                                        >
+                                            <p class="text-white mb-0">
+                                                Último EBITDA:
+                                                <strong
+                                                    v-text="
+                                                        'Bs. ' +
+                                                        parseFloat(
+                                                            oEmpresa.valoracion
+                                                                ?.ultimo_ebitda
+                                                        ).toFixed(2)
+                                                    "
+                                                ></strong>
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -188,136 +227,142 @@ export default {
             }),
             errors: [],
             oReporte: {
-                filtro: "todos",
-                indumentaria: "",
-                fecha_ini: "",
-                fecha_fin: "",
+                empresa_id: "",
             },
             aFechas: [],
             enviando: false,
             textoBtn: "Generar Reporte",
-            listFiltro: [
-                { value: "todos", label: "Todos" },
-                { value: "fecha", label: "Rango de fechas" },
-            ],
-            listFiltros: [],
+            listEmpresas: [],
+            oEmpresa: {
+                id: 0,
+                nombre: "",
+                descripcion_actividad: "",
+                web: "",
+                correo: "",
+                dir: "",
+                accionistas: [],
+                competidores: [],
+                cuestionario: null,
+                valoracion: null,
+            },
             errors: [],
         };
     },
     mounted() {
         this.loadingWindow.close();
+        this.getEmpresas();
     },
     methods: {
         limpiarFormulario() {
             this.oReporte.filtro = "Todos";
         },
+        getEmpresas() {
+            axios.get("/admin/empresas").then((response) => {
+                this.listEmpresas = response.data.empresas;
+            });
+        },
         generaReporte() {
             this.enviando = true;
-            // axios
-            //     .post("/admin/reportes/g_proteccion_personal", this.oReporte)
-            //     .then((response) => {
-            //         console.log(response);
-            //         this.errors = [];
-            //         Highcharts.chart("container", {
-            //             chart: {
-            //                 type: "column",
-            //             },
-            //             title: {
-            //                 text: "VALORACIÓN",
-            //             },
-            //             subtitle: {
-            //                 text: "",
-            //             },
-            //             xAxis: {
-            //                 type: "category",
-            //                 // crosshair: true,
-            //                 labels: {
-            //                     rotation: -45,
-            //                     style: {
-            //                         fontSize: "13px",
-            //                         fontFamily: "Verdana, sans-serif",
-            //                     },
-            //                 },
-            //             },
-            //             yAxis: {
-            //                 // min: 0,
-            //                 title: {
-            //                     text: "TOTAL",
-            //                 },
-            //             },
-            //             legend: {
-            //                 enabled: false,
-            //             },
-            //             plotOptions: {
-            //                 series: {
-            //                     borderWidth: 0,
-            //                     dataLabels: {
-            //                         enabled: true,
-            //                         format: "{point.y:.0f}",
-            //                     },
-            //                 },
-            //             },
-            //             tooltip: {
-            //                 headerFormat:
-            //                     '<span style="font-size:10px"><b>{point.key}</b></span><table>',
-            //                 pointFormat:
-            //                     '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            //                     '<td style="padding:0"><b>{point.y:.0f}</b></td></tr>',
-            //                 footerFormat: "</table>",
-            //                 shared: true,
-            //                 useHTML: true,
-            //             },
+            axios
+                .post(
+                    "/admin/valoracions/empresa/" + this.oReporte.empresa_id,
+                    {
+                        fondos: this.oEmpresa.valor_fondo,
+                    }
+                )
+                .then((response) => {
+                    this.errors = [];
+                    this.enviando = false;
+                    this.oEmpresa = response.data.empresa;
+                    this.oEmpresa.valoracion = response.data.valoracion;
+                    this.setValoracionUser();
 
-            //             series: [
-            //                 {
-            //                     name: "Notificaciones",
-            //                     colorByPoint: true,
-            //                     data: response.data.datos,
-            //                     dataLabels: {
-            //                         rotation: 0,
-            //                         color: "#000000",
-            //                         format: "{point.y:.0f}", // one decimal
-            //                         y: 0, // 10 pixels down from the top
-            //                         style: {
-            //                             fontSize: "13px",
-            //                             fontFamily: "Verdana, sans-serif",
-            //                         },
-            //                     },
-            //                 },
-            //             ],
-            //         });
-
-            //         this.enviando = false;
-            //     })
-            //     .catch(async (error) => {
-            //         console.log(error);
-            //         this.enviando = false;
-            //         if (error.response) {
-            //             if (error.response.status === 422) {
-            //                 this.errors = error.response.data.errors;
-            //             }
-            //             if (
-            //                 error.response.status === 420 ||
-            //                 error.response.status === 419 ||
-            //                 error.response.status === 401
-            //             ) {
-            //                 window.location = "/";
-            //             }
-            //             if (error.response.status === 500) {
-            //                 Swal.fire({
-            //                     icon: "error",
-            //                     title: "Error",
-            //                     html: error.response.data.message,
-            //                     showConfirmButton: false,
-            //                     timer: 2000,
-            //                 });
-            //             }
-            //         }
-            //     });
+                    Highcharts.chart("container", {
+                        chart: {
+                            type: "column",
+                        },
+                        title: {
+                            text: "DCF",
+                        },
+                        subtitle: {
+                            text: "(Flujo de Fondos Descontados)",
+                        },
+                        xAxis: {
+                            categories: response.data.categories,
+                        },
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: "%",
+                            },
+                        },
+                        tooltip: {
+                            pointFormat:
+                                '<span style="color:{series.color}">{series.name}</span>: <b>{point.y:.2f}%</b><br/>',
+                            shared: true,
+                        },
+                        plotOptions: {
+                            column: {
+                                stacking: "percent",
+                                dataLabels: {
+                                    enabled: true,
+                                    format: "{y:.2f}%",
+                                },
+                            },
+                        },
+                        series: response.data.data,
+                    });
+                })
+                .catch((error) => {
+                    this.oEmpresa = {
+                        id: 0,
+                        nombre: "",
+                        descripcion_actividad: "",
+                        web: "",
+                        correo: "",
+                        dir: "",
+                        accionistas: [],
+                        competidores: [],
+                        cuestionario: null,
+                        valoracion: null,
+                    };
+                    this.enviando = false;
+                    if (this.accion == "edit") {
+                        this.textoBtn = "Actualizar";
+                    } else {
+                        this.textoBtn = "Registrar";
+                    }
+                    if (error.response) {
+                        if (error.response.status === 422) {
+                            this.errors = error.response.data.errors;
+                        }
+                        if (
+                            error.response.status === 420 ||
+                            error.response.status === 419 ||
+                            error.response.status === 401
+                        ) {
+                            window.location = "/";
+                        }
+                        if (error.response.status === 500) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error",
+                                html: error.response.data.message,
+                                showConfirmButton: false,
+                                timer: 4000,
+                            });
+                        }
+                    }
+                });
         },
         obtieneFechas() {
             this.oReporte.fecha_ini = this.aFechas[0];
             this.oReporte.fecha_fin = this.aFechas[1];
+        },
+        setValoracionUser() {
+            axios.post(
+                "/admin/valoracions/valoracion_user/" + this.oEmpresa.id
+            );
         },
     },
 };

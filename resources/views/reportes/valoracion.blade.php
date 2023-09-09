@@ -152,7 +152,7 @@
             font-weight: bold;
         }
 
-        .text_right{
+        .text_right {
             text-align: right;
         }
     </style>
@@ -177,110 +177,113 @@
             <tr class="b_bottom2">
                 <td class="bold text-lg text-primary" colspan="2">{{ $empresa->nombre }}</td>
             </tr>
-            <tr>
-                <td class="text_right" width="17%">Comenzó en Industria:</td>
-                <td class="bold">{{ $empresa->cuestionario->array_cuestionario[33] }}</td>
-            </tr>
-            <tr>
-                <td class="text_right">Industria:</td>
-                <td class="bold">
-                    {{ $info_cuestionario[19][1][$empresa->cuestionario->array_cuestionario[19][0]][
-                        $empresa->cuestionario->array_cuestionario[19][1]
-                    ] }}
-                </td>
-            </tr>
-            <tr>
-                <td class="text_right">Actividad de Negocios:</td>
-                <td class="bold">{{ $empresa->descripcion_actividad }}</td>
-            </tr>
-            <tr>
-                <td class="text_right">Empleados:</td>
-                <td class="bold">{{ $empresa->cuestionario->array_cuestionario[5] }}</td>
-            </tr>
-            <tr>
-                <td class="text_right">Etapa:</td>
-                <td class="bold">{{ $info_cuestionario[12][$empresa->cuestionario->array_cuestionario[12]] }}</td>
-            </tr>
-            <tr class="b_bottom2">
-                <td class="text_right">Ganancia inicial:</td>
-                <td class="bold">{{ $empresa->primera_finanza->ganancia }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <table>
-        <thead>
-            <tr>
-                <th colspan="4" class="text-primary">VALORACIÓN PREVIA AL DINERO</th>
-            </tr>
-            <tr class="b_bottom2">
-                <th class="text-primary">Fondos</th>
-                <th class="text-primary">Valoración</th>
-                <th class="text-primary">Limite bajo</th>
-                <th class="text-primary">Limite alto</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="b_bottom2">
-                <td class="centreado">{{ $empresa->valoracion->fondos }}</td>
-                <td class="centreado">{{ $empresa->valoracion->valoracion_previa }}</td>
-                <td class="centreado">{{ $empresa->valoracion->limite_bajo }}</td>
-                <td class="centreado">{{ $empresa->valoracion->limite_alto }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <table>
-        <thead>
-            <tr>
-                <th colspan="3" class="text-primary">DFC(Flujo de Fondos Descontados)</th>
-            </tr>
-            <tr class="b_bottom2">
-                <th class="text-primary">Gestión</th>
-                <th class="text-primary">Tasa de supervivencia</th>
-                <th class="text-primary">Tasa de fracaso</th>
-            </tr>
-        </thead>
-        <tbody>
-            @php
-                $valuacion = $empresa->valoracion->valuacion;
-            @endphp
-            @foreach ($empresa->finanzas()->where('flujo_caja_libre', '>', 0)->where('flujo_caja_libre', '!=', null)->orderBy('id', 'asc')->get() as $f)
-                @php
-                    $gestion = $f->gestion;
-                    $gestion = substr($gestion, 2, 2);
-                    $txt_gestion = '01/' . $gestion . ' - 12/' . $gestion;
-                    $tasa_sup = 0;
-                    if ($valuacion > 0) {
-                        $tasa_sup = number_format(((float) $f->flujo_caja_libre / $valuacion) * 100, 2, '.', '');
-                    }
-                    $tasa_frac = number_format(100 - $tasa_sup, 2, '.', '');
-                @endphp
-                <tr class="b_bottom">
-                    <td class="centreado">{{ $txt_gestion }}</td>
-                    <td class="centreado">{{ $tasa_sup }}</td>
-                    <td class="centreado">{{ $tasa_frac }}</td>
+            @if ($empresa->cuestionario && $empresa->valoracion)
+                <tr>
+                    <td class="text_right" width="17%">Comenzó en Industria:</td>
+                    <td class="bold">{{ $empresa->cuestionario->array_cuestionario[33] }}</td>
                 </tr>
-            @endforeach
+                <tr>
+                    <td class="text_right">Industria:</td>
+                    <td class="bold">
+                        {{ $info_cuestionario[19][1][$empresa->cuestionario->array_cuestionario[19][0]][
+                            $empresa->cuestionario->array_cuestionario[19][1]
+                        ] }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text_right">Actividad de Negocios:</td>
+                    <td class="bold">{{ $empresa->descripcion_actividad }}</td>
+                </tr>
+                <tr>
+                    <td class="text_right">Empleados:</td>
+                    <td class="bold">{{ $empresa->cuestionario->array_cuestionario[5] }}</td>
+                </tr>
+                <tr>
+                    <td class="text_right">Etapa:</td>
+                    <td class="bold">{{ $info_cuestionario[12][$empresa->cuestionario->array_cuestionario[12]] }}</td>
+                </tr>
+                <tr class="b_bottom2">
+                    <td class="text_right">Ganancia inicial:</td>
+                    <td class="bold">{{ $empresa->primera_finanza->ganancia }}</td>
+                </tr>
+            @endif
         </tbody>
     </table>
+    @if ($empresa->cuestionario && $empresa->valoracion)
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="4" class="text-primary">VALORACIÓN PREVIA AL DINERO</th>
+                </tr>
+                <tr class="b_bottom2">
+                    <th class="text-primary">Fondos</th>
+                    <th class="text-primary">Valoración</th>
+                    <th class="text-primary">Limite bajo</th>
+                    <th class="text-primary">Limite alto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="b_bottom2">
+                    <td class="centreado">{{ $empresa->valoracion->fondos }}</td>
+                    <td class="centreado">{{ $empresa->valoracion->valoracion_previa }}</td>
+                    <td class="centreado">{{ $empresa->valoracion->limite_bajo }}</td>
+                    <td class="centreado">{{ $empresa->valoracion->limite_alto }}</td>
+                </tr>
+            </tbody>
+        </table>
 
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="3" class="text-primary">DFC(Flujo de Fondos Descontados)</th>
+                </tr>
+                <tr class="b_bottom2">
+                    <th class="text-primary">Gestión</th>
+                    <th class="text-primary">Tasa de supervivencia</th>
+                    <th class="text-primary">Tasa de fracaso</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php
+                    $valuacion = $empresa->valoracion->valuacion;
+                @endphp
+                @foreach ($empresa->finanzas()->where('flujo_caja_libre', '>', 0)->where('flujo_caja_libre', '!=', null)->orderBy('id', 'asc')->get() as $f)
+                    @php
+                        $gestion = $f->gestion;
+                        $gestion = substr($gestion, 2, 2);
+                        $txt_gestion = '01/' . $gestion . ' - 12/' . $gestion;
+                        $tasa_sup = 0;
+                        if ($valuacion > 0) {
+                            $tasa_sup = number_format(((float) $f->flujo_caja_libre / $valuacion) * 100, 2, '.', '');
+                        }
+                        $tasa_frac = number_format(100 - $tasa_sup, 2, '.', '');
+                    @endphp
+                    <tr class="b_bottom">
+                        <td class="centreado">{{ $txt_gestion }}</td>
+                        <td class="centreado">{{ $tasa_sup }}</td>
+                        <td class="centreado">{{ $tasa_frac }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
 
-
-    <table>
-        <thead>
-            <tr class="b_bottom2">
-                <th class="text-primary">Valuación</th>
-                <th class="text-primary">Último EBITDA</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr class="b_bottom2">
-                <td class="centreado">{{ $empresa->valoracion->valuacion }}</td>
-                <td class="centreado">{{ $empresa->valoracion->ultimo_ebitda }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <table>
+            <thead>
+                <tr class="b_bottom2">
+                    <th class="text-primary">Valuación</th>
+                    <th class="text-primary">Último EBITDA</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="b_bottom2">
+                    <td class="centreado">{{ $empresa->valoracion->valuacion }}</td>
+                    <td class="centreado">{{ $empresa->valoracion->ultimo_ebitda }}</td>
+                </tr>
+            </tbody>
+        </table>
+    @else
+        <h4 class="text-center">AÚN NO SE TIENE SUFICIENTE INFORMACIÓN SOBRE ESTA EMPRESA</h4>
+    @endif
 </body>
 
 </html>
