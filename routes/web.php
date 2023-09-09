@@ -72,8 +72,9 @@ Route::middleware(['auth'])->group(function () {
 
         // REPORTES
         Route::post('reportes/usuarios', [ReporteController::class, 'usuarios']);
-        Route::post('reportes/proteccion_personal', [ReporteController::class, 'proteccion_personal']);
-        Route::post('reportes/g_proteccion_personal', [ReporteController::class, 'g_proteccion_personal']);
+        Route::post('reportes/valoracion', [ReporteController::class, 'valoracion']);
+        Route::post('reportes/valoracion_users', [ReporteController::class, 'valoracion_users']);
+        Route::post('reportes/g_valoracion', [ReporteController::class, 'g_valoracion']);
     });
 });
 

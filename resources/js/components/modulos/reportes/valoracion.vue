@@ -17,124 +17,44 @@
                             <div class="card-body">
                                 <div class="ml-auto mr-auto col-md-5">
                                     <form>
-                                        <!-- <div class="row">
+                                        <div class="row">
                                             <div class="form-group col-md-12">
                                                 <label
                                                     :class="{
                                                         'text-danger':
-                                                            errors.filtro,
+                                                            errors.empresa_id,
                                                     }"
                                                     >Seleccione*</label
                                                 >
                                                 <el-select
-                                                    v-model="oReporte.filtro"
+                                                    v-model="
+                                                        oReporte.empresa_id
+                                                    "
                                                     filterable
                                                     placeholder="Seleccione"
                                                     class="d-block"
                                                     :class="{
                                                         'is-invalid':
-                                                            errors.filtro,
+                                                            errors.empresa_id,
                                                     }"
                                                 >
                                                     <el-option
-                                                        v-for="item in listFiltro"
-                                                        :key="item"
-                                                        :label="item"
-                                                        :value="item"
+                                                        v-for="item in listEmpresas"
+                                                        :key="item.id"
+                                                        :value="item.id"
+                                                        :label="item.nombre"
                                                     >
                                                     </el-option>
                                                 </el-select>
                                                 <span
                                                     class="error invalid-feedback"
-                                                    v-if="errors.filtro"
-                                                    v-text="errors.filtro[0]"
+                                                    v-if="errors.empresa_id"
+                                                    v-text="
+                                                        errors.empresa_id[0]
+                                                    "
                                                 ></span>
                                             </div>
-                                            <div
-                                                class="form-group col-md-12"
-                                                v-if="
-                                                    oReporte.filtro ==
-                                                    'Tipo de usuario'
-                                                "
-                                            >
-                                                <label
-                                                    :class="{
-                                                        'text-danger':
-                                                            errors.tipo,
-                                                    }"
-                                                    >Seleccione*</label
-                                                >
-                                                <el-select
-                                                    v-model="oReporte.tipo"
-                                                    filterable
-                                                    placeholder="Seleccione"
-                                                    class="d-block"
-                                                    :class="{
-                                                        'is-invalid':
-                                                            errors.tipo,
-                                                    }"
-                                                >
-                                                    <el-option
-                                                        v-for="item in listTipos"
-                                                        :key="item"
-                                                        :label="item"
-                                                        :value="item"
-                                                    >
-                                                    </el-option>
-                                                </el-select>
-                                                <span
-                                                    class="error invalid-feedback"
-                                                    v-if="errors.tipo"
-                                                    v-text="errors.tipo[0]"
-                                                ></span>
-                                            </div>
-                                            <div
-                                                class="form-group col-md-12"
-                                                v-if="
-                                                    oReporte.filtro ==
-                                                    'Rango de fechas'
-                                                "
-                                            >
-                                                <label
-                                                    :class="{
-                                                        'text-danger':
-                                                            errors.fecha_ini,
-                                                        'text-danger':
-                                                            errors.fecha_fin,
-                                                    }"
-                                                    >Indice un rango de
-                                                    fechas*</label
-                                                >
-                                                <el-date-picker
-                                                    class="w-full d-block"
-                                                    :class="{
-                                                        'is-invalid':
-                                                            errors.fecha_ini,
-                                                        'is-invalid':
-                                                            errors.fecha_fin,
-                                                    }"
-                                                    v-model="aFechas"
-                                                    type="daterange"
-                                                    range-separator="a"
-                                                    start-placeholder="Fecha Inicial"
-                                                    end-placeholder="Fecha Final"
-                                                    format="dd/MM/yyyy"
-                                                    value-format="yyyy-MM-dd"
-                                                    @change="obtieneFechas()"
-                                                >
-                                                </el-date-picker>
-                                                <span
-                                                    class="error invalid-feedback"
-                                                    v-if="errors.fecha_ini"
-                                                    v-text="errors.fecha_ini[0]"
-                                                ></span>
-                                                <span
-                                                    class="error invalid-feedback"
-                                                    v-if="errors.fecha_fin"
-                                                    v-text="errors.fecha_fin[0]"
-                                                ></span>
-                                            </div>
-                                        </div> -->
+                                        </div>
                                     </form>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -142,8 +62,17 @@
                                                 type="primary"
                                                 class="bg-primary w-full"
                                                 :loading="enviando"
-                                                @click="generaReporte()"
+                                                @click="generaReporte('pdf')"
                                                 >{{ textoBtn }}</el-button
+                                            >
+                                        </div>
+                                        <div class="col-md-12 mt-1">
+                                            <el-button
+                                                type="success"
+                                                class="bg-success w-full"
+                                                :loading="enviando"
+                                                @click="generaReporte('excel')"
+                                                >{{ textoBtn2 }}</el-button
                                             >
                                         </div>
                                         <div class="col-md-12">
@@ -174,71 +103,85 @@ export default {
             }),
             errors: [],
             oReporte: {
-                filtro: "Todos",
-                tipo: "",
-                fecha_ini: "",
-                fecha_fin: "",
+                empresa_id: "",
             },
             aFechas: [],
             enviando: false,
-            textoBtn: "Generar Reporte",
-            listFiltro: [
-                "Todos",
-                "Tipo de usuario",
-                // "Rango de fechas",
-            ],
-            listTipos: ["ADMINISTRADOR", "AUXILIAR"],
+            textoBtn: "Generar Reporte PDF",
+            textoBtn2: "Generar Reporte EXCEL",
+            listEmpresas: [],
             errors: [],
         };
     },
     mounted() {
         this.loadingWindow.close();
+        this.getEmpresas();
     },
     methods: {
         limpiarFormulario() {
             this.oReporte.filtro = "Todos";
         },
-        generaReporte() {
+        getEmpresas() {
+            axios.get("/admin/empresas").then((response) => {
+                this.listEmpresas = response.data.empresas;
+            });
+        },
+
+        generaReporte(tipo) {
             this.enviando = true;
             let config = {
                 responseType: "blob",
             };
-            // axios
-            //     .post("/admin/reportes/usuarios", this.oReporte, config)
-            //     .then((res) => {
-            //         this.errors = [];
-            //         this.enviando = false;
-            //         let pdfBlob = new Blob([res.data], {
-            //             type: "application/pdf",
-            //         });
-            //         let urlReporte = URL.createObjectURL(pdfBlob);
-            //         window.open(urlReporte);
-            //     })
-            //     .catch(async (error) => {
-            //         let responseObj = await error.response.data.text();
-            //         responseObj = JSON.parse(responseObj);
-            //         console.log(error);
-            //         this.enviando = false;
-            //         if (error.response) {
-            //             if (error.response.status === 422) {
-            //                 this.errors = responseObj.errors;
-            //             }
-            //             if (
-            //                 error.response.status === 420 ||
-            //                 error.response.status === 419 ||
-            //                 error.response.status === 401
-            //             ) {
-            //                 Swal.fire({
-            //                     icon: "error",
-            //                     title: "Error",
-            //                     html: responseObj.message,
-            //                     showConfirmButton: false,
-            //                     timer: 2000,
-            //                 });
-            //                 window.location = "/";
-            //             }
-            //         }
-            //     });
+            this.oReporte["tipo"] = tipo;
+            axios
+                .post("/admin/reportes/valoracion", this.oReporte, config)
+                .then((response) => {
+                    this.errors = [];
+                    this.enviando = false;
+                    if (tipo == "pdf") {
+                        let pdfBlob = new Blob([response.data], {
+                            type: "application/pdf",
+                        });
+                        let urlReporte = URL.createObjectURL(pdfBlob);
+                        window.open(urlReporte);
+                    } else {
+                        // excel
+                        var fileURL = window.URL.createObjectURL(
+                            new Blob([response.data])
+                        );
+                        var fileLink = document.createElement("a");
+                        fileLink.href = fileURL;
+                        fileLink.setAttribute("download", "valoracion.xlsx");
+                        document.body.appendChild(fileLink);
+
+                        fileLink.click();
+                    }
+                })
+                .catch(async (error) => {
+                    let responseObj = await error.response.data.text();
+                    responseObj = JSON.parse(responseObj);
+                    console.log(error);
+                    this.enviando = false;
+                    if (error.response) {
+                        if (error.response.status === 422) {
+                            this.errors = responseObj.errors;
+                        }
+                        if (
+                            error.response.status === 420 ||
+                            error.response.status === 419 ||
+                            error.response.status === 401
+                        ) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error",
+                                html: responseObj.message,
+                                showConfirmButton: false,
+                                timer: 2000,
+                            });
+                            window.location = "/";
+                        }
+                    }
+                });
         },
         obtieneFechas() {
             this.oReporte.fecha_ini = this.aFechas[0];
