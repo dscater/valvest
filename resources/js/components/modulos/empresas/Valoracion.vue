@@ -64,7 +64,9 @@
                                             }}</span>
                                         </p>
                                         <p>
-                                            <span class="font-weight-bold"
+                                            <span
+                                                class="font-weight-bold"
+                                                v-if="oEmpresa.primera_finanza"
                                                 >Bs.
                                                 {{
                                                     oEmpresa.primera_finanza
@@ -73,11 +75,16 @@
                                             >
                                         </p>
                                     </div>
+                                    <div class="col-md-12" v-else>
+                                        <h4 class="text-primary">
+                                            {{ oEmpresa.nombre }}
+                                        </h4>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12" v-if="oEmpresa.valoracion">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
@@ -158,7 +165,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-12" v-if="oEmpresa.valoracion">
                         <div class="card">
                             <div class="card-body">
                                 <div class="row">
@@ -209,6 +216,14 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-12 mt-0 mb-4">
+                        <router-link
+                            :to="{ name: 'empresas.index' }"
+                            class="btn btn-default btn-lg btn-block"
+                            ><i class="fa fa-list"></i> Volver a
+                            empresas</router-link
+                        >
                     </div>
                 </div>
             </div>

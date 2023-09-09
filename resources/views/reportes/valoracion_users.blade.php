@@ -220,12 +220,21 @@
                     <td class="bold text-primary centreado" width="70%">Nombre Empresa</td>
                     <td class="bold text-primary centreado">Cantidad</td>
                 </tr>
-                @foreach ($empresas as $key => $e)
-                    <tr class="{{ $key == count($empresas) - 1 ? 'b_bottom2' : 'b_bottom' }}">
-                        <td class="centreado">{{ $e->nombre }}</td>
-                        <td class="centreado">{{ $valoracion_user[$u->id][$e->id] }}</td>
-                    </tr>
-                @endforeach
+                @if ($u->tipo == 'EMPRESA')
+                    @foreach ($empresas_user[$u->id] as $key => $e)
+                        <tr class="{{ $key == count($empresas) - 1 ? 'b_bottom2' : 'b_bottom' }}">
+                            <td class="centreado">{{ $e->nombre }}</td>
+                            <td class="centreado">{{ $valoracion_user[$u->id][$e->id] }}</td>
+                        </tr>
+                    @endforeach
+                @else
+                    @foreach ($empresas as $key => $e)
+                        <tr class="{{ $key == count($empresas) - 1 ? 'b_bottom2' : 'b_bottom' }}">
+                            <td class="centreado">{{ $e->nombre }}</td>
+                            <td class="centreado">{{ $valoracion_user[$u->id][$e->id] }}</td>
+                        </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
         @php

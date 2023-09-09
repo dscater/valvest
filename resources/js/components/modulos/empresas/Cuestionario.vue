@@ -2907,7 +2907,16 @@ export default {
                                 timer: 2000,
                             });
                             this.errors = [];
-                            this.recargaFormulario();
+                            if (!data["_method"]) {
+                                this.$router.push({
+                                    name: "empresas.fondos",
+                                    params: {
+                                        id: this.oEmpresa.id,
+                                    },
+                                });
+                            } else {
+                                this.recargaFormulario();
+                            }
                         } else {
                             Swal.fire({
                                 icon: "info",

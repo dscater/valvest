@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -52,6 +53,11 @@ class UserController extends Controller
             'empresas.edit',
             'empresas.destroy',
 
+            'empresas.cuestionarios',
+            'empresas.fondos',
+            'empresas.finanzas',
+            'empresas.valoracion',
+
             'configuracion.index',
             'configuracion.edit',
 
@@ -60,8 +66,27 @@ class UserController extends Controller
             'reportes.g_valoracion',
             'reportes.valoracion_users',
         ],
-        "EMPRESA" => [],
-        "INVERSIONISTA" => [],
+        "EMPRESA" => [
+            'empresas.index',
+            'empresas.create',
+            'empresas.edit',
+            'empresas.destroy',
+
+            'empresas.cuestionarios',
+            'empresas.fondos',
+            'empresas.finanzas',
+            'empresas.valoracion',
+
+            'reportes.valoracion',
+            'reportes.g_valoracion',
+        ],
+        "INVERSIONISTA" => [
+            'empresas.index',
+            'empresas.valoracion',
+
+            'reportes.valoracion',
+            'reportes.g_valoracion',
+        ],
     ];
 
 
@@ -299,6 +324,18 @@ class UserController extends Controller
                 \File::delete(public_path() . '/imgs/users/' . $antiguo);
             }
             $datos_original = HistorialAccion::getDetalleRegistro($usuario, "users");
+            foreach ($usuario->empresas as $empresa) {
+                $empresa->accionistas()->delete();
+                $empresa->competidores()->delete();
+                $empresa->cuestionario()->delete();
+                $empresa->fondo()->delete();
+                $empresa->finanzas()->delete();
+                $empresa->valoracion()->delete();
+                $empresa->valoracion_users()->delete();
+                $empresa->delete();
+            }
+
+            $usuario->valoracion_user()->delete();
             $usuario->delete();
 
             HistorialAccion::create([
@@ -344,9 +381,13 @@ class UserController extends Controller
             ];
         }
         if (in_array('empresas.index', $this->permisos[$tipo])) {
+            $total_empresas = count(Empresa::all());
+            if (Auth::user()->tipo == 'EMPRESA') {
+                $total_empresas = count(Empresa::where("user_id", Auth::user()->id)->get());
+            }
             $array_infos[] = [
                 'label' => 'Empresas',
-                'cantidad' => count(Empresa::all()),
+                'cantidad' => $total_empresas,
                 'color' => 'bg-success',
                 'icon' => 'fas fa-list',
             ];

@@ -237,6 +237,11 @@
                                                         class="row justify-content-center flex-column"
                                                     >
                                                         <router-link
+                                                            v-if="
+                                                                permisos.includes(
+                                                                    'empresas.cuestionarios'
+                                                                )
+                                                            "
                                                             exact
                                                             class="btn btn-sm btn-outline-primary btn-flat mb-1 rounded-pill"
                                                             title="Cuestionario"
@@ -253,6 +258,11 @@
                                                             ></i>
                                                         </router-link>
                                                         <router-link
+                                                            v-if="
+                                                                permisos.includes(
+                                                                    'empresas.fondos'
+                                                                )
+                                                            "
                                                             exact
                                                             class="btn btn-sm btn-outline-success btn-flat mb-1 rounded-pill"
                                                             title="Fondos"
@@ -269,6 +279,11 @@
                                                             ></i>
                                                         </router-link>
                                                         <router-link
+                                                            v-if="
+                                                                permisos.includes(
+                                                                    'empresas.finanzas'
+                                                                )
+                                                            "
                                                             exact
                                                             class="btn btn-sm btn-outline-info btn-flat mb-1 rounded-pill"
                                                             title="Finanzas"
@@ -285,6 +300,11 @@
                                                             ></i>
                                                         </router-link>
                                                         <router-link
+                                                            v-if="
+                                                                permisos.includes(
+                                                                    'empresas.valoracion'
+                                                                )
+                                                            "
                                                             exact
                                                             class="btn btn-sm btn-outline-primary btn-flat mb-1 rounded-pill"
                                                             title="Valoración"
@@ -301,6 +321,11 @@
                                                             ></i>
                                                         </router-link>
                                                         <b-button
+                                                            v-if="
+                                                                permisos.includes(
+                                                                    'empresas.edit'
+                                                                )
+                                                            "
                                                             size="sm"
                                                             pill
                                                             variant="outline-warning"
@@ -332,14 +357,14 @@
                                                                 eliminaEmpresa(
                                                                     row.item.id,
                                                                     row.item
-                                                                        .cliente
                                                                         .nombre +
                                                                         ' <br/>Con fecha ' +
                                                                         formatoFecha(
                                                                             row
                                                                                 .item
                                                                                 .fecha_registro
-                                                                        )
+                                                                        ) +
+                                                                        '<br/><h4>Esta acción eliminará todos los registros relacionados a este y después no se podrá deshacer</h4>'
                                                                 )
                                                             "
                                                         >

@@ -711,7 +711,7 @@ export default {
             this.errors = [];
             if (newVal) {
                 this.bModal = true;
-                if (this.empresa.id != 0) {
+                if (this.empresa.id != 0 && this.empresa.finanzas.length > 0) {
                     this.getAnioAnterior();
                     this.getMedias();
                 }

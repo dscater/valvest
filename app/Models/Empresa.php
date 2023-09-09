@@ -91,6 +91,12 @@ class Empresa extends Model
         return $this->hasOne(Valoracion::class, 'empresa_id');
     }
 
+
+    public function valoracion_users()
+    {
+        return $this->hasOne(ValoracionUser::class, 'empresa_id');
+    }
+
     public function user()
     {
         return $this->hasOne(User::class, 'user_id');

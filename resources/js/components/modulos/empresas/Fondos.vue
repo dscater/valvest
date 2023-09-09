@@ -545,7 +545,16 @@ export default {
                                 timer: 2000,
                             });
                             this.errors = [];
-                            this.recargaFormulario();
+                            if (!this.oFondo["_method"]) {
+                                this.$router.push({
+                                    name: "empresas.finanzas",
+                                    params: {
+                                        id: this.oEmpresa.id,
+                                    },
+                                });
+                            } else {
+                                this.recargaFormulario();
+                            }
                         } else {
                             Swal.fire({
                                 icon: "info",

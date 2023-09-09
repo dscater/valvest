@@ -246,7 +246,8 @@
                                                                 eliminaUsuario(
                                                                     row.item.id,
                                                                     row.item
-                                                                        .full_name
+                                                                        .full_name +
+                                                                        '<br/><h4>Esta acción eliminará todos los registros relacionados a este y después no se podrá deshacer</h4>'
                                                                 )
                                                             "
                                                         >

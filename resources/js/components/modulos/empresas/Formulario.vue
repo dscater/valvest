@@ -319,10 +319,7 @@
                         :loading="enviando"
                         @click="enviarFormulario()"
                         v-html="textoBoton"
-                        :disabled="
-                            oEmpresa.accionistas.length <= 0 ||
-                            oEmpresa.competidores.length <= 0
-                        "
+                        :disabled="oEmpresa.accionistas.length <= 0"
                     ></el-button>
                     <router-link
                         :to="{ name: 'empresas.index' }"

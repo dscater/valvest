@@ -9,6 +9,7 @@ use App\Models\HistorialAccion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class EmpresaController extends Controller
 {
@@ -18,17 +19,16 @@ class EmpresaController extends Controller
         "correo" => "required|email",
         "dir" => "required|min:2",
         "accionistas" => "required|array|min:1",
-        "competidores" => "required|array|min:1",
     ];
 
     public $mensajes = [];
 
     public function index(Request $request)
     {
-        if (Auth::user()->tipo == 'ADMINISTRADOR' && Auth::user()->configuracion == 1) {
-            $empresas = Empresa::with(["accionistas", "competidores"])->get();
-        } else {
+        if (Auth::user()->tipo == 'EMPRESA') {
             $empresas = Empresa::with(["accionistas", "competidores"])->where("user_id", Auth::user()->id)->get();
+        } else {
+            $empresas = Empresa::with(["accionistas", "competidores"])->get();
         }
         return response()->JSON(['empresas' => $empresas, 'total' => count($empresas)], 200);
     }
@@ -49,9 +49,10 @@ class EmpresaController extends Controller
             foreach ($accionistas as $a) {
                 $nueva_empresa->accionistas()->create(array_map('mb_strtoupper', $a));
             }
-
-            foreach ($competidores as $c) {
-                $nueva_empresa->competidores()->create(array_map('mb_strtoupper', $c));
+            if (isset($competidores)) {
+                foreach ($competidores as $c) {
+                    $nueva_empresa->competidores()->create(array_map('mb_strtoupper', $c));
+                }
             }
 
             $datos_original = HistorialAccion::getDetalleRegistro($nueva_empresa, "empresas");
@@ -87,7 +88,7 @@ class EmpresaController extends Controller
         DB::beginTransaction();
         try {
             $datos_original = HistorialAccion::getDetalleRegistro($empresa, "empresas");
-            $empresa->update(array_map('mb_strtoupper', $request->except("accionistas", "competidores", "accionistas_eliminados", "competidores_eliminados")));
+            $empresa->update(array_map('mb_strtoupper', $request->except("accionistas", "competidores", "accionistas_eliminados", "competidores_eliminados", "cuestionario", "finanzas", "fondo", "primera_finanza", "valoracion")));
             $accionistas = $request->accionistas;
             $accionistas_eliminados = $request->accionistas_eliminados;
             $competidores = $request->competidores;
@@ -102,12 +103,14 @@ class EmpresaController extends Controller
                 }
             }
 
-            foreach ($competidores as $c) {
-                if ($c["id"] == 0) {
-                    $empresa->competidores()->create(array_map('mb_strtoupper', $c));
-                } else {
-                    $competidor = Competidor::find($c["id"]);
-                    $competidor->update(array_map('mb_strtoupper', $c));
+            if (isset($competidores)) {
+                foreach ($competidores as $c) {
+                    if ($c["id"] == 0) {
+                        $empresa->competidores()->create(array_map('mb_strtoupper', $c));
+                    } else {
+                        $competidor = Competidor::find($c["id"]);
+                        $competidor->update(array_map('mb_strtoupper', $c));
+                    }
                 }
             }
 
@@ -170,6 +173,11 @@ class EmpresaController extends Controller
             $datos_original = HistorialAccion::getDetalleRegistro($empresa, "empresas");
             $empresa->accionistas()->delete();
             $empresa->competidores()->delete();
+            $empresa->cuestionario()->delete();
+            $empresa->fondo()->delete();
+            $empresa->finanzas()->delete();
+            $empresa->valoracion()->delete();
+            $empresa->valoracion_users()->delete();
             $empresa->delete();
             HistorialAccion::create([
                 'user_id' => Auth::user()->id,

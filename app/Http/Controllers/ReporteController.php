@@ -404,7 +404,14 @@ class ReporteController extends Controller
         $usuarios = User::where('id', '!=', 1)->whereIn("tipo", ["EMPRESA", "INVERSIONISTA"])->get();
 
         $valoracion_user = [];
+        $empresas_user = [];
         foreach ($usuarios as $u) {
+            if ($u->tipo == 'EMPRESA') {
+                $empresas_user[$u->id] = Empresa::where("user_id", $u->id)->get();
+                if ($empresa_id != "todos") {
+                    $empresas_user[$u->id] = Empresa::where("user_id", $u->id)->where("id", $empresa_id)->get();
+                }
+            }
             foreach ($empresas as $e) {
                 $valoracion_user[$u->id][$e->id] = 0;
                 $existe_valoracion = ValoracionUser::where("user_id", $u->id)->where("empresa_id", $e->id)->get()->first();
@@ -415,15 +422,15 @@ class ReporteController extends Controller
         }
 
         if ($request->tipo == 'pdf') {
-            return self::valoracion_users_pdf($empresas, $usuarios, $valoracion_user);
+            return self::valoracion_users_pdf($empresas, $usuarios, $valoracion_user, $empresas_user);
         }
-        return self::valoracion_users_excel($empresas, $usuarios, $valoracion_user);
+        return self::valoracion_users_excel($empresas, $usuarios, $valoracion_user, $empresas_user);
     }
 
-    public static function valoracion_users_pdf($empresas, $usuarios, $valoracion_user)
+    public static function valoracion_users_pdf($empresas, $usuarios, $valoracion_user, $empresas_user)
     {
 
-        $pdf = PDF::loadView('reportes.valoracion_users', compact('empresas', 'usuarios', 'valoracion_user'))->setPaper('letter', 'portrait');
+        $pdf = PDF::loadView('reportes.valoracion_users', compact('empresas', 'usuarios', 'valoracion_user', 'empresas_user'))->setPaper('letter', 'portrait');
 
         // ENUMERAR LAS PÁGINAS USANDO CANVAS
         $pdf->output();
@@ -436,10 +443,8 @@ class ReporteController extends Controller
         return $pdf->download('valoracion_usuarios.pdf');
     }
 
-    public static function valoracion_users_excel($empresas, $usuarios, $valoracion_user)
+    public static function valoracion_users_excel($empresas, $usuarios, $valoracion_user, $empresas_user)
     {
-        $info_cuestionario = Cuestionario::infoCuestionario();
-
         $spreadsheet = new Spreadsheet();
         $spreadsheet->getProperties()
             ->setCreator("ADMIN")
@@ -649,18 +654,32 @@ class ReporteController extends Controller
             $sheet->getStyle('A' . $fila . ':F' . $fila)->getBorders()->getBottom()->getColor()->setRGB('203764');
             $sheet->getStyle('A' . $fila . ':F' . $fila)->applyFromArray($styleTexto5);
             $fila++;
-
-            foreach ($empresas as $key => $e) {
-                $sheet->setCellValue('A' . $fila, $e->nombre);
-                $sheet->mergeCells("A" . $fila . ":D" . $fila);  //COMBINAR CELDAS
-                $sheet->setCellValue('E' . $fila, $valoracion_user[$u->id][$e->id]);
-                $sheet->mergeCells("E" . $fila . ":F" . $fila);  //COMBINAR CELDAS
-                $sheet->getStyle('A' . $fila . ':F' . $fila)->applyFromArray($styleTexto7);
-                if ($key == count($empresas) - 1) {
-                    $sheet->getStyle('A' . $fila . ':F' . $fila)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THICK);
-                    $sheet->getStyle('A' . $fila . ':F' . $fila)->getBorders()->getBottom()->getColor()->setRGB('203764');
+            if ($u->tipo == 'EMPRESA') {
+                foreach ($empresas_user[$u->id] as $key => $e) {
+                    $sheet->setCellValue('A' . $fila, $e->nombre);
+                    $sheet->mergeCells("A" . $fila . ":D" . $fila);  //COMBINAR CELDAS
+                    $sheet->setCellValue('E' . $fila, $valoracion_user[$u->id][$e->id]);
+                    $sheet->mergeCells("E" . $fila . ":F" . $fila);  //COMBINAR CELDAS
+                    $sheet->getStyle('A' . $fila . ':F' . $fila)->applyFromArray($styleTexto7);
+                    if ($key == count($empresas) - 1) {
+                        $sheet->getStyle('A' . $fila . ':F' . $fila)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THICK);
+                        $sheet->getStyle('A' . $fila . ':F' . $fila)->getBorders()->getBottom()->getColor()->setRGB('203764');
+                    }
+                    $fila++;
                 }
-                $fila++;
+            } else {
+                foreach ($empresas as $key => $e) {
+                    $sheet->setCellValue('A' . $fila, $e->nombre);
+                    $sheet->mergeCells("A" . $fila . ":D" . $fila);  //COMBINAR CELDAS
+                    $sheet->setCellValue('E' . $fila, $valoracion_user[$u->id][$e->id]);
+                    $sheet->mergeCells("E" . $fila . ":F" . $fila);  //COMBINAR CELDAS
+                    $sheet->getStyle('A' . $fila . ':F' . $fila)->applyFromArray($styleTexto7);
+                    if ($key == count($empresas) - 1) {
+                        $sheet->getStyle('A' . $fila . ':F' . $fila)->getBorders()->getBottom()->setBorderStyle(Border::BORDER_THICK);
+                        $sheet->getStyle('A' . $fila . ':F' . $fila)->getBorders()->getBottom()->getColor()->setRGB('203764');
+                    }
+                    $fila++;
+                }
             }
             $fila = $fila +  5;
         }

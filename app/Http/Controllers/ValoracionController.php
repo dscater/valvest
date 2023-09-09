@@ -7,6 +7,7 @@ use App\Models\Finanza;
 use App\Models\Valoracion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ValoracionController extends Controller
 {
@@ -14,14 +15,16 @@ class ValoracionController extends Controller
     {
         $user = Auth::user();
         if ($user->tipo == 'EMPRESA' || $user->tipo == 'INVERSIONISTA') {
-            if (!$user->valoracion_user) {
+            $existe_valoracion = $user->valoracion_user()->where("empresa_id", $empresa->id)->get()->first();
+            if (!$existe_valoracion) {
                 $user->valoracion_user()->create([
                     "empresa_id" => $empresa->id,
                     "cantidad" => 1,
                 ]);
+            } else {
+                $existe_valoracion->cantidad = (int)$existe_valoracion->cantidad + 1;
+                $existe_valoracion->save();
             }
-            $user->valoracion_user->cantidad = (int)$user->valoracion_user->cantidad + 1;
-            $user->valoracion_user->save();
         }
         return response()->JSON(true);
     }
@@ -57,8 +60,9 @@ class ValoracionController extends Controller
                 $ultimo_ebitda = $ultima_finanza->ebitda;
             }
 
+            $valoracion_empresa = null;
             if (!$empresa->valoracion) {
-                $empresa->valoracion()->create([
+                $valoracion_empresa = $empresa->valoracion()->create([
                     "fondos" => $fondos,
                     "valoracion_previa" => $total_valoracion,
                     "limite_bajo" => $limite_bajo,
@@ -67,7 +71,8 @@ class ValoracionController extends Controller
                     "ultimo_ebitda" => $ultimo_ebitda
                 ]);
             } else {
-                $empresa->valoracion->update([
+                $valoracion_empresa = $empresa->valoracion;
+                $valoracion_empresa->update([
                     "fondos" => $fondos,
                     "valoracion_previa" => $total_valoracion,
                     "limite_bajo" => $limite_bajo,
@@ -85,7 +90,6 @@ class ValoracionController extends Controller
                 ->where("flujo_caja_libre", "!=", null)
                 ->orderBy("id", "asc")
                 ->get();
-
             $tasa_supervivencia = [
                 "name" => "Tasa de supervivencia",
                 "data" => [],
@@ -97,7 +101,7 @@ class ValoracionController extends Controller
                 "color" => "#083A54",
             ];
 
-            $valuacion = $empresa->valoracion->valuacion;
+            $valuacion = $valoracion_empresa->valuacion;
             foreach ($finanzas as $f) {
                 $gestion = $f->gestion;
                 $gestion = substr($gestion, 2, 2);
@@ -115,13 +119,13 @@ class ValoracionController extends Controller
                 $tasa_supervivencia["data"][] = $tasa_sup;
                 $tasa_fracaso["data"][] = $tasa_frac;
             }
-
             $data[] = $tasa_fracaso;
             $data[] = $tasa_supervivencia;
 
+
             return response()->JSON([
                 "empresa" => $empresa,
-                "valoracion" => $empresa->valoracion,
+                "valoracion" => $valoracion_empresa,
                 "data" => $data,
                 "categories" => $categories
             ]);

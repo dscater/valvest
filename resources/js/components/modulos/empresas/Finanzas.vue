@@ -1563,6 +1563,22 @@
                                             empresas</router-link
                                         >
                                     </div>
+                                    <div
+                                        class="col-md-12 mt-2"
+                                        v-if="oEmpresa.finanzas.length > 0"
+                                    >
+                                        <router-link
+                                            :to="{
+                                                name: 'empresas.valoracion',
+                                                params: {
+                                                    id: this.oEmpresa.id,
+                                                },
+                                            }"
+                                            class="btn btn-primary btn-lg btn-block"
+                                            ><i class="fa fa-chart-line"></i> Ir
+                                            a valoración</router-link
+                                        >
+                                    </div>
                                 </div>
                             </div>
                         </div>
