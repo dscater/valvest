@@ -124,7 +124,7 @@ class ValoracionController extends Controller
 
 
             return response()->JSON([
-                "empresa" => $empresa,
+                "empresa" => $empresa->load(["fondo"]),
                 "valoracion" => $valoracion_empresa,
                 "data" => $data,
                 "categories" => $categories

@@ -30,12 +30,12 @@ class ConfiguracionController extends Controller
         $validacion = [
             'nombre_sistema' => 'required|min:4',
             'alias' => 'required|min:1',
-            'razon_social' => 'required|min:4',
+            // 'razon_social' => 'required|min:4',
             'ciudad' => 'required|min:4',
             'dir' => 'required|min:4',
             'fono' => 'required|min:4',
             'correo' => 'nullable|email',
-            'actividad' => 'required|min:4',
+            // 'actividad' => 'required|min:4',
         ];
         $mensajes =  [
             'nombre_sistema.required' => 'Este campo es obligatorio',

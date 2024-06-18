@@ -100,7 +100,10 @@
                                             >
                                                 Bs.
                                                 <span>{{
-                                                    oEmpresa.valor_fondo_k
+                                                    oEmpresa.fondo
+                                                        ? oEmpresa.fondo
+                                                              .total_fondos_txt
+                                                        : "Sin Registro Fondos"
                                                 }}</span>
                                             </div>
                                         </div>

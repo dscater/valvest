@@ -299,7 +299,7 @@ class ReporteController extends Controller
             $sheet->getStyle('B' . $fila . ':E' . $fila)->getBorders()->getBottom()->getColor()->setRGB('203764');
             $sheet->getStyle('B' . $fila . ':E' . $fila)->applyFromArray($styleTexto5);
             $fila++;
-            $sheet->setCellValue('B' . $fila, $empresa->valoracion->fondos);
+            $sheet->setCellValue('B' . $fila, $empresa->fondo->total_fondo);
             $sheet->setCellValue('C' . $fila, $empresa->valoracion->valoracion_previa);
             $sheet->setCellValue('D' . $fila, $empresa->valoracion->limite_bajo);
             $sheet->setCellValue('E' . $fila, $empresa->valoracion->limite_alto);

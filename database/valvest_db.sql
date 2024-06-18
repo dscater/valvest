@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 09-09-2023 a las 18:50:36
+-- Tiempo de generación: 18-06-2024 a las 16:04:35
 -- Versión del servidor: 8.0.30
 -- Versión de PHP: 7.4.19
 
@@ -49,9 +49,7 @@ INSERT INTO `accionistas` (`id`, `empresa_id`, `nombre`, `porcentaje`, `created_
 (9, 7, 'ACCIONISTA 2', 50.00, '2023-08-28 20:35:44', '2023-08-28 20:35:44'),
 (10, 8, 'ACCIONISTA #1', 30.00, '2023-08-29 14:09:56', '2023-08-29 14:09:56'),
 (11, 8, 'ACCIONIOSTA # 2', 30.00, '2023-08-29 14:09:56', '2023-08-29 14:09:56'),
-(12, 8, 'ACCIONISTA#3', 30.00, '2023-08-29 14:09:56', '2023-08-29 14:09:56'),
-(15, 10, 'JORGE CASTRO', 50.00, '2023-09-09 18:03:47', '2023-09-09 18:03:47'),
-(16, 10, 'FERNANDO CONDORI', 50.00, '2023-09-09 18:03:47', '2023-09-09 18:03:47');
+(12, 8, 'ACCIONISTA#3', 30.00, '2023-08-29 14:09:56', '2023-08-29 14:09:56');
 
 -- --------------------------------------------------------
 
@@ -106,7 +104,7 @@ CREATE TABLE `configuracions` (
 --
 
 INSERT INTO `configuracions` (`id`, `nombre_sistema`, `alias`, `ciudad`, `dir`, `fono`, `web`, `correo`, `logo`, `created_at`, `updated_at`) VALUES
-(1, 'VALVEST', 'VALVEST', 'LA PAZ', 'LA PAZ', '222222', '', '', 'logo.png', NULL, '2023-07-29 15:57:47');
+(1, 'VALVESTASDAD', 'VALVEST', 'LA PAZ', 'LA PAZ', '222222', '', '', '1718724892_logo.png', NULL, '2024-06-18 15:34:52');
 
 -- --------------------------------------------------------
 
@@ -128,8 +126,7 @@ CREATE TABLE `cuestionarios` (
 
 INSERT INTO `cuestionarios` (`id`, `empresa_id`, `cuestionario`, `created_at`, `updated_at`) VALUES
 (2, 3, '3|1700000|1|1|1|7|1|2|1|1|1|1|3|1|1|2|1|1|Belarus|9;0|1|1|30000|50|1|1|0|1|1|1|1|1|1|2013|1||0|1|1|1|1|1', '2023-08-28 20:16:24', '2023-09-07 15:51:21'),
-(3, 8, '2|300000|1|2|1|30|1|4|1|1|1|0|5|0|1|6|1|0|Bolivia|9;1|2|2|450000|10000|2|2|0|0|0|0|0|0|0|2010|0|2014|0|0|0|0|0|0', '2023-08-29 14:11:28', '2023-08-29 14:11:28'),
-(6, 10, '2|100000|2|2|1|15|2|2|2|1|0|0|4|0|2||0|2|Bolivia|17;4|2|2|100000|40|0|2|1|1|0|0|0|0|0|21010|1||0|0|0|0|0|0', '2023-09-09 18:05:53', '2023-09-09 18:05:53');
+(3, 8, '2|300000|1|2|1|30|1|4|1|1|1|0|5|0|1|6|1|0|Bolivia|9;1|2|2|450000|10000|2|2|0|0|0|0|0|0|0|2010|0|2014|0|0|0|0|0|0', '2023-08-29 14:11:28', '2023-08-29 14:11:28');
 
 -- --------------------------------------------------------
 
@@ -159,8 +156,7 @@ INSERT INTO `empresas` (`id`, `nombre`, `descripcion_actividad`, `web`, `correo`
 (5, 'EMPRESA #2', 'ACT. EMPRESA #2', 'WEB EMPRESA 2', 'EMPRESA2@GMAIL.COM', 'LOS OLIVOS', '2023-08-26', 1, '2023-08-27 00:09:48', '2023-08-27 00:09:48'),
 (6, 'EMPRESA #3', 'ACTIVIDAD EMP. 3', '', 'EMPRESA3@GMAIL.COM', 'LOS OLIVOS', '2023-08-28', 1, '2023-08-28 20:35:11', '2023-08-28 20:35:11'),
 (7, 'EMPRESA #4', 'DESC. ACT. #4', '', 'EMPRESA4@GMAIL.COM', 'LOS OLIVOS', '2023-08-28', 1, '2023-08-28 20:35:44', '2023-08-28 20:35:44'),
-(8, 'EMPRESA #5', 'ACTIVIDAD EMP. 5', '', 'EMPRESA5@GMAIL.COM', 'LOS OLIVOS', '2023-08-29', 1, '2023-08-29 14:09:56', '2023-08-29 14:09:56'),
-(10, 'CASTRO S.A', 'ACTIVIDAD CASTRO S.A.', '', 'CASTROSA@GMAIL.COM', 'LOS OLIVSO', '2023-09-09', 7, '2023-09-09 18:03:47', '2023-09-09 18:03:47');
+(8, 'EMPRESA #5', 'ACTIVIDAD EMP. 5', '', 'EMPRESA5@GMAIL.COM', 'LOS OLIVOS', '2023-08-29', 1, '2023-08-29 14:09:56', '2023-08-29 14:09:56');
 
 -- --------------------------------------------------------
 
@@ -204,9 +200,7 @@ CREATE TABLE `finanzas` (
 INSERT INTO `finanzas` (`id`, `empresa_id`, `gestion`, `ganancia`, `costo_bienes_vendidos`, `salarios`, `otros_gastos_operativos`, `ebitda`, `da`, `ebit`, `interes`, `impuestos`, `beneficio_neto`, `cuentas_cobrar`, `inventario`, `cuentas_pagar`, `capital_trabajo`, `cambio_capital_trabajo`, `gastos_capital`, `deuda_final_anio`, `cambio_deuda_pendiente`, `flujo_caja_libre_capital`, `recaudacion_fondos_futura`, `flujo_caja_libre`, `created_at`, `updated_at`) VALUES
 (1, 3, 2022, 91710.00, 83485.00, NULL, 7782.00, 443.00, NULL, 443.00, NULL, 109.00, 334.00, 63826.00, 7184.00, 61627.00, 9383.00, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2023-09-04 15:57:43', '2023-09-07 16:50:39'),
 (2, 3, 2023, 6296429.00, 5963773.00, 173138.00, 259203.00, -99685.00, NULL, -99685.00, NULL, NULL, -99685.00, 4381991.00, 7184.00, 4395219.00, -6044.00, -15427.00, 66310.00, NULL, 0.00, -150568.00, 200000.00, 49432.00, '2023-09-04 16:19:44', '2023-09-07 16:42:26'),
-(3, 3, 2024, 20702058.00, 19645603.00, 202866.00, 782060.00, 71529.00, NULL, 71529.00, NULL, NULL, 71529.00, 14407569.00, 7184.00, 14478540.00, -63787.00, -57743.00, 13000.00, NULL, 0.00, 116272.00, NULL, 116272.00, '2023-09-04 17:29:14', '2023-09-07 15:45:12'),
-(7, 10, 2022, 100000.00, 10000.00, 12000.00, 0.00, 78000.00, 0.00, 78000.00, 0.00, 1000.00, 77000.00, 5000.00, 0.00, 0.00, 5000.00, 0.00, 0.00, 0.00, 0.00, 77000.00, 0.00, 77000.00, '2023-09-09 18:08:11', '2023-09-09 18:08:11'),
-(8, 10, 2023, 100000.00, 10000.00, 12000.00, 0.00, 78000.00, 0.00, 78000.00, 0.00, 1000.00, 77000.00, 5000.00, 0.00, 0.00, 5000.00, 0.00, 0.00, 0.00, 0.00, 77000.00, 100000.00, 177000.00, '2023-09-09 18:08:18', '2023-09-09 18:08:41');
+(3, 3, 2024, 20702058.00, 19645603.00, 202866.00, 782060.00, 71529.00, NULL, 71529.00, NULL, NULL, 71529.00, 14407569.00, 7184.00, 14478540.00, -63787.00, -57743.00, 13000.00, NULL, 0.00, 116272.00, NULL, 116272.00, '2023-09-04 17:29:14', '2023-09-07 15:45:12');
 
 -- --------------------------------------------------------
 
@@ -239,7 +233,7 @@ CREATE TABLE `fondos` (
 
 INSERT INTO `fondos` (`id`, `empresa_id`, `producto`, `p_producto`, `venta_marketing`, `p_venta_marketing`, `inventario`, `p_inventario`, `operacion`, `p_operacion`, `gastos`, `p_gastos`, `otros`, `p_otros`, `created_at`, `updated_at`) VALUES
 (2, 3, 10000.00, 40.00, 5000.00, 30.00, 2500.00, 20.00, 0.00, 0.00, 0.00, 0.00, 1500.00, 10.00, '2023-08-30 15:45:39', '2023-08-30 15:47:29'),
-(4, 10, 200000.00, 50.00, 20000.00, 15.00, 20000.00, 15.00, 10000.00, 10.00, 10000.00, 10.00, 0.00, 0.00, '2023-09-09 18:06:24', '2023-09-09 18:06:24');
+(5, 8, 150000.00, 60.00, 50000.00, 40.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, '2024-06-18 15:56:38', '2024-06-18 15:56:38');
 
 -- --------------------------------------------------------
 
@@ -313,7 +307,12 @@ INSERT INTO `historial_accions` (`id`, `user_id`, `accion`, `descripcion`, `dato
 (45, 7, 'CREACIÓN', 'EL USUARIO jorge@gmail.com AGREGÓ UN REGISTRO DE FINANZAS EN LA EMPRESA CASTRO S.A', 'beneficio_neto: 77000.00<br/>cambio_capital_trabajo: 5000.00<br/>cambio_deuda_pendiente: 0.00<br/>capital_trabajo: 5000.00<br/>costo_bienes_vendidos: 10000.00<br/>created_at: 2023-09-09 14:08:18<br/>cuentas_cobrar: 5000.00<br/>cuentas_pagar: 0.00<br/>da: 0.00<br/>deuda_final_anio: 0.00<br/>ebit: 78000.00<br/>ebitda: 78000.00<br/>empresa_id: 10<br/>flujo_caja_libre: 72000.00<br/>flujo_caja_libre_capital: 72000.00<br/>ganancia: 100000.00<br/>gastos_capital: 0.00<br/>gestion: 2023<br/>id: 8<br/>impuestos: 1000.00<br/>interes: 0.00<br/>inventario: 0.00<br/>otros_gastos_operativos: 0.00<br/>recaudacion_fondos_futura: 0.00<br/>salarios: 12000.00<br/>updated_at: 2023-09-09 14:08:18<br/>', NULL, 'FINANZAS', '2023-09-09', '14:08:18', '2023-09-09 18:08:18', '2023-09-09 18:08:18'),
 (46, 7, 'MODIFICACIÓN', 'EL USUARIO jorge@gmail.com MODIFICÓ UNA EMPRESA', 'correo: CASTROSA@GMAIL.COM<br/>created_at: 2023-09-09 14:03:47<br/>descripcion_actividad: ACTIVIDAD CASTRO S.A.<br/>dir: LOS OLIVSO<br/>fecha_registro: 2023-09-09<br/>id: 10<br/>nombre: CASTRO S.A<br/>updated_at: 2023-09-09 14:03:47<br/>user_id: 7<br/>web: <br/>', NULL, 'EMPRESAS', '2023-09-09', '14:13:01', '2023-09-09 18:13:01', '2023-09-09 18:13:01'),
 (47, 7, 'MODIFICACIÓN', 'EL USUARIO jorge@gmail.com MODIFICÓ UNA EMPRESA', 'correo: CASTROSA@GMAIL.COM<br/>created_at: 2023-09-09 14:03:47<br/>descripcion_actividad: ACTIVIDAD CASTRO S.A.<br/>dir: LOS OLIVSO<br/>fecha_registro: 2023-09-09<br/>id: 10<br/>nombre: CASTRO S.A<br/>updated_at: 2023-09-09 14:03:47<br/>user_id: 7<br/>web: <br/>', NULL, 'EMPRESAS', '2023-09-09', '14:13:04', '2023-09-09 18:13:04', '2023-09-09 18:13:04'),
-(48, 7, 'MODIFICACIÓN', 'EL USUARIO jorge@gmail.com MODIFICÓ UNA EMPRESA', 'correo: CASTROSA@GMAIL.COM<br/>created_at: 2023-09-09 14:03:47<br/>descripcion_actividad: ACTIVIDAD CASTRO S.A.<br/>dir: LOS OLIVSO<br/>fecha_registro: 2023-09-09<br/>id: 10<br/>nombre: CASTRO S.A<br/>updated_at: 2023-09-09 14:03:47<br/>user_id: 7<br/>web: <br/>', NULL, 'EMPRESAS', '2023-09-09', '14:13:19', '2023-09-09 18:13:19', '2023-09-09 18:13:19');
+(48, 7, 'MODIFICACIÓN', 'EL USUARIO jorge@gmail.com MODIFICÓ UNA EMPRESA', 'correo: CASTROSA@GMAIL.COM<br/>created_at: 2023-09-09 14:03:47<br/>descripcion_actividad: ACTIVIDAD CASTRO S.A.<br/>dir: LOS OLIVSO<br/>fecha_registro: 2023-09-09<br/>id: 10<br/>nombre: CASTRO S.A<br/>updated_at: 2023-09-09 14:03:47<br/>user_id: 7<br/>web: <br/>', NULL, 'EMPRESAS', '2023-09-09', '14:13:19', '2023-09-09 18:13:19', '2023-09-09 18:13:19'),
+(49, 1, 'ELIMINACIÓN', 'EL USUARIO admin@gmail.com ELIMINÓ UN USUARIO', 'acceso: 1<br/>ci: 121212<br/>ci_exp: LP<br/>configuracion: 0<br/>correo: jorge@gmail.com<br/>created_at: 2023-09-09 13:14:13<br/>dir: LOS OLIVOS<br/>fecha_registro: 2023-09-09<br/>fono: 6666666<br/>foto: default.png<br/>id: 7<br/>materno: MARTINEZ<br/>nombre: JORGE<br/>password: $2y$10$IwU3UnH6aHzSWWfwcFCbSOZdPVmM2o3.oxaM3sHMmMncRXKkIePbC<br/>paterno: CASTRO<br/>tipo: EMPRESA<br/>updated_at: 2023-09-09 13:14:13<br/>usuario: jorge@gmail.com<br/>', NULL, 'USUARIOS', '2023-09-09', '14:56:57', '2023-09-09 18:56:57', '2023-09-09 18:56:57'),
+(50, 1, 'MODIFICACIÓN', 'EL USUARIO admin@gmail.com MODIFICÓ LA CONFIGURACIÓN', 'alias: VALVEST<br/>ciudad: LA PAZ<br/>correo: <br/>created_at: <br/>dir: LA PAZ<br/>fono: 222222<br/>id: 1<br/>logo: logo.png<br/>nombre_sistema: VALVEST<br/>updated_at: 2023-07-29 11:57:47<br/>web: <br/>', 'alias: VALVEST<br/>ciudad: LA PAZ<br/>correo: <br/>created_at: <br/>dir: LA PAZ<br/>fono: 222222<br/>id: 1<br/>logo: logo.png<br/>nombre_sistema: VALVESTASDAD<br/>updated_at: 2024-06-18 11:34:14<br/>web: <br/>', 'CONFIGURACIÓN', '2024-06-18', '11:34:14', '2024-06-18 15:34:14', '2024-06-18 15:34:14'),
+(51, 1, 'MODIFICACIÓN', 'EL USUARIO admin@gmail.com MODIFICÓ LA CONFIGURACIÓN', 'alias: VALVEST<br/>ciudad: LA PAZ<br/>correo: <br/>created_at: <br/>dir: LA PAZ<br/>fono: 222222<br/>id: 1<br/>logo: logo.png<br/>nombre_sistema: VALVESTASDAD<br/>updated_at: 2024-06-18 11:34:14<br/>web: <br/>', 'alias: VALVEST<br/>ciudad: LA PAZ<br/>correo: <br/>created_at: <br/>dir: LA PAZ<br/>fono: 222222<br/>id: 1<br/>logo: 1718724881_logo.png<br/>nombre_sistema: VALVESTASDAD<br/>updated_at: 2024-06-18 11:34:41<br/>web: <br/>', 'CONFIGURACIÓN', '2024-06-18', '11:34:41', '2024-06-18 15:34:41', '2024-06-18 15:34:41'),
+(52, 1, 'MODIFICACIÓN', 'EL USUARIO admin@gmail.com MODIFICÓ LA CONFIGURACIÓN', 'alias: VALVEST<br/>ciudad: LA PAZ<br/>correo: <br/>created_at: <br/>dir: LA PAZ<br/>fono: 222222<br/>id: 1<br/>logo: 1718724881_logo.png<br/>nombre_sistema: VALVESTASDAD<br/>updated_at: 2024-06-18 11:34:41<br/>web: <br/>', 'alias: VALVEST<br/>ciudad: LA PAZ<br/>correo: <br/>created_at: <br/>dir: LA PAZ<br/>fono: 222222<br/>id: 1<br/>logo: 1718724892_logo.png<br/>nombre_sistema: VALVESTASDAD<br/>updated_at: 2024-06-18 11:34:52<br/>web: <br/>', 'CONFIGURACIÓN', '2024-06-18', '11:34:52', '2024-06-18 15:34:52', '2024-06-18 15:34:52'),
+(53, 1, 'CREACIÓN', 'EL USUARIO admin@gmail.com REGISTRO LOS FONDOS DE LA EMPRESA EMPRESA #5', 'created_at: 2024-06-18 11:56:38<br/>empresa_id: 8<br/>gastos: 0<br/>id: 5<br/>inventario: 0<br/>operacion: 0<br/>otros: 0<br/>p_gastos: 0<br/>p_inventario: 0<br/>p_operacion: 0<br/>p_otros: 0<br/>p_producto: 60<br/>p_venta_marketing: 40<br/>producto: 150000<br/>updated_at: 2024-06-18 11:56:38<br/>venta_marketing: 50000<br/>', NULL, 'FONDOS', '2024-06-18', '11:56:38', '2024-06-18 15:56:38', '2024-06-18 15:56:38');
 
 -- --------------------------------------------------------
 
@@ -401,7 +400,6 @@ INSERT INTO `users` (`id`, `usuario`, `nombre`, `paterno`, `materno`, `ci`, `ci_
 (4, 'maria@gmail.com', 'MARIA', 'MAMANI', 'MAMANI', '3333', 'CB', 'LOS OLIVOS', 'maria@gmail.com', '6666666', 'INVERSIONISTA', '1692991233_maria@gmail.com.jpg', '$2y$10$6TyHSNf8exRQhqwc/1j7/.t0ETWZG/ma6bf5XosY5slxD/NsdEyVW', 1, 0, '2023-08-25', '2023-08-25 19:16:30', '2023-08-25 19:20:33'),
 (5, 'alfredo@gmail.com', 'ALFREDO', 'GONZALES', 'CHOQUE', '4444', 'LP', 'LOS OLIVOS', 'alfredo@gmail.com', '888888', 'EMPRESA', 'default.png', '$2y$10$0w66/mkaxmvMP15qW4ztiuDwpL10Y6JLpZVLMPjENHhc2yl88AIPi', 1, 0, '2023-08-25', '2023-08-25 19:18:24', '2023-08-25 19:18:25'),
 (6, 'martin@gmail.com', 'MARTIN', 'PAREDES', '', '5555', 'LP', 'LOS OLIVOS', 'martin@gmail.com', '666666', 'INVERSIONISTA', 'default.png', '$2y$10$YN1bvf1QwPQEci/wPRV3geEcb0iLmE7yYi3RCyVqOyNJVXAzNuSDK', 1, 0, '2023-08-29', '2023-08-29 14:08:38', '2023-08-29 14:08:38'),
-(7, 'jorge@gmail.com', 'JORGE', 'CASTRO', 'MARTINEZ', '121212', 'LP', 'LOS OLIVOS', 'jorge@gmail.com', '6666666', 'EMPRESA', 'default.png', '$2y$10$IwU3UnH6aHzSWWfwcFCbSOZdPVmM2o3.oxaM3sHMmMncRXKkIePbC', 1, 0, '2023-09-09', '2023-09-09 17:14:13', '2023-09-09 17:14:13'),
 (8, 'gonzalo@gmail.com', 'GONZALO', 'CHOQUE', 'CHOQUE', '232323', 'LP', 'LOS OLIVOS', 'gonzalo@gmail.com', '5555', 'ADMINISTRADOR', 'default.png', '$2y$10$xSu1FbUiPoavQnZHcRO.Vu4UKNKU5fmQObHDpuRoa3z6kEJowLElC', 1, 0, '2023-09-09', '2023-09-09 17:14:57', '2023-09-09 17:14:57'),
 (9, 'alex@gmail.com', 'ALEX', 'CAMPOS', '', '343334', 'SC', 'LOS OLIVOS', 'alex@gmail.com', '777777', 'INVERSIONISTA', 'default.png', '$2y$10$2iPKciQNtm179PkldZzQb.hVducaMCxlmdUcEx5wBdk5nPIHcrTOS', 1, 0, '2023-09-09', '2023-09-09 18:24:24', '2023-09-09 18:24:24');
 
@@ -429,9 +427,8 @@ CREATE TABLE `valoracion` (
 --
 
 INSERT INTO `valoracion` (`id`, `empresa_id`, `fondos`, `valoracion_previa`, `limite_bajo`, `limite_alto`, `valuacion`, `ultimo_ebitda`, `created_at`, `updated_at`) VALUES
-(1, 3, 200000.00, 2500000.00, 1875000.00, 3125000.00, 165704.00, 71529.00, '2023-09-06 23:29:30', '2023-09-09 18:30:39'),
-(3, 10, 100000.00, 500000.00, 375000.00, 625000.00, 254000.00, 78000.00, '2023-09-09 18:08:25', '2023-09-09 18:13:54'),
-(4, 8, 0.00, 300000.00, 225000.00, 375000.00, 0.00, 0.00, '2023-09-09 18:24:36', '2023-09-09 18:29:32');
+(1, 3, 200000.00, 2500000.00, 1875000.00, 3125000.00, 165704.00, 71529.00, '2023-09-06 23:29:30', '2024-06-18 16:04:16'),
+(4, 8, 0.00, 300000.00, 225000.00, 375000.00, 0.00, 0.00, '2023-09-09 18:24:36', '2024-06-18 16:04:22');
 
 -- --------------------------------------------------------
 
@@ -453,7 +450,6 @@ CREATE TABLE `valoracion_users` (
 --
 
 INSERT INTO `valoracion_users` (`id`, `user_id`, `empresa_id`, `cantidad`, `created_at`, `updated_at`) VALUES
-(2, 7, 10, 3, '2023-09-09 18:08:25', '2023-09-09 18:13:54'),
 (3, 9, 8, 10, '2023-09-09 18:24:36', '2023-09-09 18:29:33'),
 (4, 9, 3, 2, '2023-09-09 18:25:04', '2023-09-09 18:30:40');
 
@@ -595,13 +591,13 @@ ALTER TABLE `finanzas`
 -- AUTO_INCREMENT de la tabla `fondos`
 --
 ALTER TABLE `fondos`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_accions`
 --
 ALTER TABLE `historial_accions`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`

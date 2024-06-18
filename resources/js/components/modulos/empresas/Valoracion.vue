@@ -105,7 +105,10 @@
                                             >
                                                 Bs.
                                                 <span>{{
-                                                    oEmpresa.valor_fondo_k
+                                                    oEmpresa.fondo
+                                                        ? oEmpresa.fondo
+                                                              .total_fondos_txt
+                                                        : "Sin Registro Fondos"
                                                 }}</span>
                                             </div>
                                         </div>
@@ -120,7 +123,7 @@
                                                         oEmpresa.valoracion
                                                             ? oEmpresa
                                                                   .valoracion
-                                                                  .valoracion_previa
+                                                                  .valoracion_previa_txt
                                                             : 0
                                                     }}</span
                                                 >
@@ -138,7 +141,7 @@
                                                 <span>{{
                                                     oEmpresa.valoracion
                                                         ? oEmpresa.valoracion
-                                                              .limite_bajo
+                                                              .limite_bajo_txt
                                                         : 0
                                                 }}</span>
                                             </div>
@@ -155,7 +158,7 @@
                                                 <span>{{
                                                     oEmpresa.valoracion
                                                         ? oEmpresa.valoracion
-                                                              .limite_alto
+                                                              .limite_alto_txt
                                                         : 0
                                                 }}</span>
                                             </div>
@@ -188,10 +191,13 @@
                                                 <strong
                                                     v-text="
                                                         'Bs. ' +
-                                                        parseFloat(
-                                                            oEmpresa.valoracion
-                                                                ?.valuacion
-                                                        ).toFixed(2)
+                                                        (oEmpresa.valoracion &&
+                                                        oEmpresa.valoracion
+                                                            .valuacion > 0
+                                                            ? oEmpresa
+                                                                  .valoracion
+                                                                  .valuacion_txt
+                                                            : '0.00')
                                                     "
                                                 ></strong>
                                             </p>
@@ -204,10 +210,13 @@
                                                 <strong
                                                     v-text="
                                                         'Bs. ' +
-                                                        parseFloat(
-                                                            oEmpresa.valoracion
-                                                                ?.ultimo_ebitda
-                                                        ).toFixed(2)
+                                                        (oEmpresa.valoracion &&
+                                                        oEmpresa.valoracion
+                                                            .ultimo_ebitda > 0
+                                                            ? oEmpresa
+                                                                  .valoracion
+                                                                  .ultimo_ebitda_txt
+                                                            : '0.00')
                                                     "
                                                 ></strong>
                                             </p>

@@ -21,6 +21,33 @@ class Valoracion extends Model
         "ultimo_ebitda"
     ];
 
+    protected $appends = ["valoracion_previa_txt", "limite_bajo_txt", "limite_alto_txt", "valuacion_txt", "ultimo_ebitda_txt"];
+
+    public function getValoracionPreviaTxtAttribute()
+    {
+        return number_format($this->valoracion_previa, 2, ".", ",");
+    }
+
+    public function getLimiteBajoTxtAttribute()
+    {
+        return number_format($this->limite_bajo, 2, ".", ",");
+    }
+
+    public function getLimiteAltoTxtAttribute()
+    {
+        return number_format($this->limite_alto, 2, ".", ",");
+    }
+
+    public function getValuacionTxtAttribute()
+    {
+        return number_format($this->valuacion, 2, ".", ",");
+    }
+
+    public function getUltimoEbitdaTxtAttribute()
+    {
+        return number_format($this->ultimo_ebitda, 2, ".", ",");
+    }
+
     public function empresa()
     {
         return $this->belongsTo(Empresa::class, 'empresa_id');

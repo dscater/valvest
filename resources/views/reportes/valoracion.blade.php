@@ -224,7 +224,7 @@
             </thead>
             <tbody>
                 <tr class="b_bottom2">
-                    <td class="centreado">{{ $empresa->valoracion->fondos }}</td>
+                    <td class="centreado">{{ $empresa->fondo->total_fondo }}</td>
                     <td class="centreado">{{ $empresa->valoracion->valoracion_previa }}</td>
                     <td class="centreado">{{ $empresa->valoracion->limite_bajo }}</td>
                     <td class="centreado">{{ $empresa->valoracion->limite_alto }}</td>
